@@ -231,11 +231,10 @@ class AdminController extends AbstractController
         $msg = 'Attention chaque suppression est definitive !!';
 
         $adresse = "../public/uploads/";
-        $dossier = opendir($adresse);
+        $handle = opendir($adresse);
         $i = 0;
 
-        while ($Fichier = readdir($dossier))
-            {
+        while (false !== ($Fichier = readdir($handle))) {
             if ($Fichier != "." && $Fichier != "..") {
                 foreach ($prods as $resul) {
                     $em = $resul ->getprodPicture();
@@ -259,7 +258,7 @@ class AdminController extends AbstractController
                 $i++;
             }
         }
-        closedir($dossier);
+        closedir($handle);
 
         return $this->render('admin/galerie.html.twig', [
             'files' => $files,
@@ -273,10 +272,10 @@ class AdminController extends AbstractController
     public function delimage($id)
     {
         $adresse = "../public/uploads/";
-        $dossier = opendir($adresse);
+        $handle = opendir($adresse);
         $em = $adresse . $id;
         unlink($em);
-        closedir($dossier);
+        closedir($handle);
 
         return $this->redirectToRoute('galerie');
     }
