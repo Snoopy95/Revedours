@@ -1,0 +1,89 @@
+{% extends 'indexhome.html.twig' %}
+
+{% block titlebar %}
+	<section class="site-pusher">
+		<div class="site-content">
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<a href="{{path('index')}}">Home</a>
+					</li>
+					<li class="breadcrumb-item">
+						<a href="/products/{{prod.categories.id}}" >{{prod.categories.cateName}}</a>
+					</li>
+					<li class="breadcrumb-item active" aria-current="page">{{prod.prodName}}</li>
+				</ol>
+			</nav>
+			<div class="container">
+				<div class="card">
+					<h5 class="card-header">{{prod.prodName}}
+					</h5>
+					<div class="card-body">
+						<h5 class="card-title">Description</h5>
+						<p class="card-text">{{prod.prodDescrip}}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="site-cache" id="site-cache"></div>
+	</section>
+	</div> <!-- Ne pas Supprimer Div du menu burger -->
+{% endblock %}
+
+
+{% block content %}	
+<!-- DEBUT DU CONTAINT CATALOGUE -->
+<section class="container">
+	<div class="container-sm" id='la'>
+		<div class="row mb-2">
+			<div class="col-12 text-center pt-3">
+				<h1 class="tailfonth1">{{prod.prodName}}</h1>
+			</div>
+		</div>
+	</div>
+	<div class="container-sm">
+		<div class="row mb-2 justify-content-center">
+			<div class="col-sm-5">
+				<img class="card-img" src="{{asset('/uploads/') ~ prod.prodPicture}}">
+			</div>
+			<div class="col-md-3">
+				<div class="card">
+					<div class="card-header">
+						<h3 class="h3 text-center color-log">{{prod.prodName}}</h3>
+					</div>
+					<div class="card-body text-center">
+						<div class='card-title'>
+							<h6>Ajouter au panier</h6>
+							<a href="#la" class='product-panier' onclick="addPanier('{{prod.id}}')">
+								<i class="panierlogo fa fa-shopping-cart fa-2x"></i>
+							</a>
+						</div>
+						<div class="card-text h4">
+							Prix TTC</div>
+						<div class="price">
+							{{prod.prodPrice}}€
+						</div>
+						<div>
+							Hors frais de livraison</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container-sm">
+		<div class="row justify-content-center">
+			<div class="col-sm-10">
+				<div class='card'>
+					<div class='card-header'>
+						<h4 class="h4">
+							Complements d'information</h4>
+					</div>
+					<div class='card-body'>
+						{{prod.prodInfo}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}

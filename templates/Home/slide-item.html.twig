@@ -1,0 +1,33 @@
+{% set slidelink = '#' %}
+
+<div class="card border-0 rounded-0 text-light overflow zoom">
+  <div class="position-relative">
+    {# <!--thumbnail img--> #}
+    <div class="ratio_left-cover-1 image-wrapper">
+      <a href="{{slidelink}}">
+        <img class="img-fluid w-100" src="{{asset('images/' ~ image)}}" alt="{{title}}" />
+      </a>
+    </div>
+    <div class="position-absolute p-2 p-lg-3 b-0 w-100 bg-shadow">
+      {# <!--title--> #}
+      <a href="{{slidelink}}">
+        <h2 class="h3 post-title text-white my-1">
+          {{title}}
+        </h2>
+      </a>
+      {# <!-- meta title --> #}
+      {% if meta %}
+        <div class="news-meta">
+          <span class="news-author">Par
+            <a class="text-white font-weight-bold" href="{{slidelink}}">
+              {{nom}}
+            </a>
+          </span>
+          <span class="news-date">
+            {{date}}
+          </span>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>

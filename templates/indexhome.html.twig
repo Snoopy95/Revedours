@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <title>Rêve d'ours</title>
+    {# <!-- Favicon --> #}
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('images/favicon.ico')}}" />
+    {# <!-- Bootstrap CSS --> #}
+    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+    {# <!-- Feuille de style --> #}
+    <link rel="stylesheet" href="{{asset('css/stylehome.css')}}" />
+    {# <!-- Icon kit fontawesome--> #}
+    <script src="https://kit.fontawesome.com/cd7d28f6c6.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="site-container">
+        <!-- ********** HEADER NAVBAR ********  -->
+        <header class="header">
+            <div class="bar-search">
+                <form class="form-inline">
+                    <button class="btn btn-outline-dark btn-sm searchxs" type="submit">
+                        Recherche
+                    </button>
+                    <input class="form-control-sm searchxs" type="search" placeholder="Recherche" />
+                </form>
+                <button class="btn btn-link color-log" data-toggle="modal" data-target="#modal-login">
+                    <i class="fas fa-user-circle fa-1x"></i>
+                    <span class="log-txt">S'incrire / Se connecter </span>
+                </button>
+                <button class="btn btn-link color-log" data-toggle="modal" data-target="#modal-panier" onClick="">
+                    <i class="fas fa-shopping-bag fa-1x color-log"></i>
+                    <span id="badge"></span>
+                </button>
+            </div>
+            <div class="header-title">
+                <a href="#" class="header__icon" id="header__icon"></a>
+                <a href="{{path('index')}}" class="header-logo h2 text-wrap a-title">Rêve d'Ours</a>
+                <nav class="menu">
+                    <a class="menu-item" href="/">Nouveautes</a>
+                    {% for cate in cates %}
+                        <a href="/products/{{cate.id}}"
+                    {% if cate.id == selectcate %}
+                        class="menu-item actif"
+                    {% else %}
+                        class="menu-item"
+                    {% endif %}>
+                        {{cate.cateName}}
+                        </a>
+                    {% endfor %}
+                    <a class="menu-item" href="{{path('dashboard')}}">Admin</a>
+                </nav>
+            </div>
+        </header>
+        <!-- ************ FIN DU HEADER ********** -->
+
+        {% block titlebar %}{% endblock %}
+        {% block content %}{% endblock %}
+        {% block comments %}{% endblock %}
+
+        {#  ******  FOOTER **************  #}
+    <footer class='container'>
+        <div class='row justify-content-around'>
+            <div class="col-4 col-lg-3">
+                <div class="card text-white bg-secondary mb-3 align-items-center">
+                    <i class="fas fa-paw fa-3x mt-2"></i>
+                    <div class="card-body">
+                        <p class="card-title text-center">Reve d'ours</p>
+                        <p class="card-text text-center">
+                            Bonjours passionné de peinture, je vous propose ici un
+                            ensemble de mes toiles à vendre
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4 col-lg-3">
+                <div class="card text-white bg-secondary mb-3 align-items-center">
+                    <i class="fas fa-truck fa-3x mt-2"></i>
+                    <div class="card-body">
+                        <p class="card-title text-center">Expédition</p>
+                        <p class="card-text text-center">
+                            Le moyen d'expédition est choisi en fonction de la toile pour
+                            garantir une livraison sans risque
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4 col-lg-3">
+                <div class="card text-white bg-secondary mb-3 align-items-center">
+                    <i class="fas fa-unlock-alt fa-3x mt-2"></i>
+                    <div class="card-body">
+                        <p class="card-title text-center">Paiement sécurisé</p>
+                        <p class="card-text text-center">
+                            Paiement 100% sécurisé via PayPal
+                            par Carte Bancaire ou BIC sans avoir besoin
+                            de compte Paypal.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col">
+                <i class="fab fa-facebook-square fa-2x"></i>
+                <i class="fab fa-twitter-square fa-2x"></i>
+                <i class="fab fa-pinterest-square fa-2x"></i>
+                <i class="fab fa-instagram fa-2x"></i>
+            </div>
+        </div>
+    </footer>
+
+
+        {# Optional JavaScript #}
+        {% block javascripts %}
+        <script src="{{asset('js/home.js')}}"></script>
+        <script src="{{asset('js/jquery.slim.min.js')}}"></script>
+        <script src="{{asset('js/popper.min.js')}}"></script>
+        <script src="{{asset('js/bootstrap.min.js')}}"></script>
+        {% endblock %}
+    </body>
+</html>

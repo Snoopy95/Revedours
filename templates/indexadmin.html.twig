@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Rêve d'ours - Admin</title>
+        {# <!-- Favicon --> #}
+        <link rel="shortcut icon" type="image/x-icon" href="{{asset('images/favicon.ico')}}" />
+        {# <!-- Bootstrap CSS --> #}
+        <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+        {# <!-- Feuille de style --> #}
+        <link rel="stylesheet" href="{{asset('css/styleadmin.css')}}" />
+        {#  --- DropZone ---- #}
+        <link rel="stylesheet" href="{{asset('css/dropzone.css')}}" />
+        <script src="{{asset('js/dropzone.js')}}"></script>
+        {# <!-- Icon kit fontawesome--> #}
+        <script src="https://kit.fontawesome.com/cd7d28f6c6.js" crossorigin="anonymous"></script>
+        <script src="{{asset('js/admin.js')}}"></script>
+    </head>
+
+    <body class='content'>
+        <header class='row header'>
+            <div class='col-2'>
+                <a class="btn btn-success btn-sm" href='{{path('index')}}' role="button">Retour !!</a>
+            </div>
+            <div class='col-4'>
+                <h3 class='titre'>{% block titre %} {% endblock %}</h3>
+            </div>
+            <div class='col-4'>
+                <p class:'msg'>{% block message %}{% endblock %}</p>
+            </div>
+            <div class='col-2'>
+                <p class='log'>Bienvenu !!!</p>
+            </div>
+        </header>
+            <div class='row'>
+                <div class='col-2 sidenav'>
+                    {% set ok = 'nav-link active' %} {% set nok = 'nav-link' %}
+                    <ul class="nav flex-column ">
+                        <li class='nav-item nav-pills'>
+                            <a {% if navb == 1 %}
+                            class='{{ok}}'
+                            {% else %}
+                            class='{{nok}}'
+                            {% endif %} 
+                            href="{{path('dashboard')}}">Tableau de bord</a>
+                        </li>
+                        <li class='nav-item nav-pills'>
+                            <a {% if navb == 2 %}
+                            class='{{ok}}'
+                            {% else %}
+                            class='{{nok}}'
+                            {% endif %} 
+                            href="{{path('listprods')}}">Liste produits</a>
+                        </li>
+                        <li class='nav-item nav-pills'>
+                            <a {% if navb == 3 %}
+                            class='{{ok}}'
+                            {% else %}
+                            class='{{nok}}'
+                            {% endif %} 
+                            href="{{path('addprod')}}">Ajouter produit</a>
+                        </li>
+                        <li class='nav-item nav-pills'>
+                            <a {% if navb == 4 %}
+                            class='{{ok}}'
+                            {% else %}
+                            class='{{nok}}'
+                            {% endif %} 
+                            href="{{path('listecates')}}">Liste Categories</a>
+                        </li>
+                        <li class='nav-item nav-pills'>
+                            <a {% if navb == 5 %}
+                            class='{{ok}}'
+                            {% else %}
+                            class='{{nok}}'
+                            {% endif %} 
+                            href="{{path('galerie')}}">Galerie Upload</a>
+                        </li>
+                        <li class='nav-item nav-pills'>
+                            <a {% if navb == 6 %}
+                            class='{{ok}}'
+                            {% else %}
+                            class='{{nok}}'
+                            {% endif %} 
+                            href="#">Liste clients</a>
+                        </li>
+                        <li class='nav-item nav-pills'>
+                            <a {% if navb == 7 %}
+                            class='{{ok}}'
+                            {% else %}
+                            class='{{nok}}'
+                            {% endif %} 
+                            href="#">Liste commandes</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class='col-10'>
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+        <footer class='row footer'>
+            <div class='col-2 retour'>
+                <div>
+                    <p>Version II / 2020 Par Snoopy</p>
+                </div>
+            </div>
+            <div class='col-10'>
+                {% block footer %}{% endblock %}
+            </div>
+        </footer>
+        {# Scritp Javascript #}
+        <script src="{{asset('js/jquery.slim.min.js')}}"></script>
+        <script src="{{asset('js/popper.min.js')}}"></script>
+        <script src="{{asset('js/bootstrap.min.js')}}"></script>
+    </body>
+</html>

@@ -1,0 +1,69 @@
+{% extends "indexadmin.html.twig" %}
+{% set navb = 2 %}
+
+{% block titre %}
+<div> Liste des Produits </div>
+{% endblock %}
+
+{% block message %}
+<p>{{msg}}</p>
+{% endblock %}
+
+{% block content %} 
+<table class="table table-striped table">
+    <thead class="thead-dark">
+        <tr>
+            <td width="30">#ID</td>
+            <td width="30">Categorie</td>
+            <td width="200">Nom</td>
+            <td width="60">Prix TTC</td>
+            <td width="30">Dispo</td>
+            <td width="50">img</td>
+            <td width="70">Date</td>
+            <td width="100">Action</td>
+        </tr>
+    </thead>
+    {% for prod in allprods %}
+        <tr>
+            <td>#{{prod.id}}</td>
+            <td>{{prod.categories.cateName}} </td>
+            <td>{{prod.prodName}}</td>
+            <td>{{prod.prodPrice}} € TTC</td>
+            <td>{{prod.prodStock}} </td>
+            <td> <img src='{{asset('/uploads/' ~ prod.prodPicture) }}' width="50" height="50"></td>
+            <td> {{prod.prodDatecreat|date('d/m/Y')}} </td>
+            <td>
+                <a href="/admin/updateprod/{{prod.id}}" class="link">
+                    <img alt='Edit' title='Edit' src='{{asset('/images/edit.png')}}' class="action-icon" />
+                </a>
+                <span>
+                    <a href="#" class="link" data-toggle="modal" data-target="#del{{prod.id}}">
+                        <img alt='Delete' title='Delete' src='{{asset('images/delete.png')}}' class="action-icon" />
+                    </a>
+                </span>
+            </td>
+        </tr>
+        <!-- Modal Validation de suppression !!!!!!!! -->
+        <div class="modal fade" id="del{{prod.id}}" tabindex="-1" role="dialog" aria-labelledby="del" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h6 class='modal-title'>🔑 #{{prod.id}}</h6>
+                        <h6 class='modal-body'>Etes-vous sûr de vouloir supprimer {{prod.prodName}} ❓</h6>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success btn-sm" data-dismiss="modal"> ❌ Annuler</button>
+                        <a href="/admin/delprod/{{prod.id}}" type="button" class="btn btn-danger btn-sm"> ✔ Supprimer !!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</table>
+{% endblock %}
+
+{% block footer %} 
+<div> Page 1 </div>
+{% endblock %}
+
+

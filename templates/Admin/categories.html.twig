@@ -1,0 +1,61 @@
+{% extends "indexadmin.html.twig" %}
+{% set navb = 4 %}
+
+{% block titre %}Liste des categories{% endblock %}
+
+{% block message %}
+<p>{{msg}}</p>
+{% endblock %}
+
+{% block content %}
+<section>
+	<div class="container">
+		<table class="table table-striped">
+			<thead class="thead-dark">
+				<tr>
+					<td width="20">#ID</td>
+					<td width="120">Nom</td>
+					<td width="260">Description</td>
+					<td width="50">img</td>
+				</tr>
+			</thead>
+			{% for cate in cates %}
+				<tr>
+					<td>#{{cate.id}}</td>
+					<td>{{cate.cateName}}</td>
+					<td>{{cate.cateDescrip}}</td>
+					<td><img src="{{asset('/images/' ~ cate.catePicture) }}" width="120" height="40">
+						{{cate.catePicture}}
+					</td>
+				</tr>
+				<tr>
+               <form action="/updatecate/{{cate.id}}" method="POST" enctype="multipart/form-data">
+					<td>
+						<button class="btn btn-success" type="submit">Modifier</button>
+					</td>
+					<td><input class="form-control" type="text" name='name' placeholder="{{cate.cateName}}"></td>
+					<td><input class="form-control" type="text" name="descrip" placeholder="{{cate.cateDescrip}}"></td>
+					<td>
+						<div class="input-group mb-3">
+							<div class="custom-file">
+								<input class="custom-file-input"
+									name="file"
+									type="file"
+									accept="image/*"
+									onchange="nameFileChange(this.files, 'file'+{{cate.id}})">
+								<label class="custom-file-label" id="file{{cate.id}}" for="file">Choisir une image</label>
+							</div>
+						</div>
+					</td>
+               </form>
+				</tr>
+			{% endfor %}
+		</table>
+	</div>
+</section>
+
+{% endblock %}
+
+{% block footer %} 
+<div> Page 1 </div>
+{% endblock %}

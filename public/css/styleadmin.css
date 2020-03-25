@@ -1,0 +1,42 @@
+body{
+    background-color: #dbdbdb;
+    font-size: 14px;
+    line-height: 1.2;
+    font-family: roboto;
+}
+.content{
+    display: block;
+    width: 95%;
+    margin: auto;
+}
+.header{
+    background-color: cornflowerblue;
+    height: 60px;
+    margin-bottom: 10px;
+    text-align: center;
+    vertical-align: middle;
+    align-items: center;
+    border-radius: 10px;
+}
+.sidenav{
+    border-radius: 10px;
+    align-items: center;
+    background-color: lightyellow;
+}
+.footer {
+    background-color: grey;
+    margin-top: 5px;
+    padding: 5px;
+    height:50px;
+    align-items: center;
+    border-radius: 10px;
+    text-align: center;
+}
+.galerie {
+    width: 12rem;
+    max-height: 20rem;
+}
+.taille {
+    max-width: 200px;
+    height: 150px;
+}

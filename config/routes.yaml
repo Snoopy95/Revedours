@@ -1,0 +1,11 @@
+# default_index:
+#     path: /
+#     controller: App\Controller\HomeController::index
+
+# default_getplateform:
+#     path: /catalogue
+#     controller: App\Controller\HomeController::catalogue
+
+# admin_index:
+#     path: /adminindex
+#     controller: App\Controller\AdminController::adminindex
