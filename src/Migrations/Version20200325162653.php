@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200305194252 extends AbstractMigration
+final class Version20200325162653 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -23,9 +23,9 @@ final class Version20200305194252 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('CREATE TABLE categories (id INT AUTO_INCREMENT NOT NULL, cate_name VARCHAR(80) NOT NULL, cate_descrip VARCHAR(255) NOT NULL, cate_picture VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('ALTER TABLE products ADD categories_id INT NOT NULL, CHANGE prod_info prod_info VARCHAR(255) DEFAULT NULL');
+        $this->addSql('CREATE TABLE products (id INT AUTO_INCREMENT NOT NULL, categories_id INT NOT NULL, prod_name VARCHAR(80) NOT NULL, prod_price SMALLINT NOT NULL, prod_descrip VARCHAR(255) NOT NULL, prod_info VARCHAR(255) DEFAULT NULL, prod_stock TINYINT(1) NOT NULL, prod_picture VARCHAR(255) NOT NULL, prod_datecreat DATETIME NOT NULL, INDEX IDX_B3BA5A5AA21214B7 (categories_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, nom VARCHAR(255) NOT NULL, prenom VARCHAR(255) NOT NULL, numtele VARCHAR(25) DEFAULT NULL, datecreat DATETIME NOT NULL, UNIQUE INDEX UNIQ_8D93D649E7927C74 (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE products ADD CONSTRAINT FK_B3BA5A5AA21214B7 FOREIGN KEY (categories_id) REFERENCES categories (id)');
-        $this->addSql('CREATE INDEX IDX_B3BA5A5AA21214B7 ON products (categories_id)');
     }
 
     public function down(Schema $schema) : void
@@ -35,7 +35,7 @@ final class Version20200305194252 extends AbstractMigration
 
         $this->addSql('ALTER TABLE products DROP FOREIGN KEY FK_B3BA5A5AA21214B7');
         $this->addSql('DROP TABLE categories');
-        $this->addSql('DROP INDEX IDX_B3BA5A5AA21214B7 ON products');
-        $this->addSql('ALTER TABLE products DROP categories_id, CHANGE prod_info prod_info VARCHAR(255) CHARACTER SET utf8mb4 DEFAULT \'NULL\' COLLATE `utf8mb4_unicode_ci`');
+        $this->addSql('DROP TABLE products');
+        $this->addSql('DROP TABLE user');
     }
 }
