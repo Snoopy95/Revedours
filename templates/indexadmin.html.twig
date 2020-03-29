@@ -28,7 +28,12 @@
                 <h3 class='titre'>{% block titre %} {% endblock %}</h3>
             </div>
             <div class='col-4'>
-                <p class:'msg'>{% block message %}{% endblock %}</p>
+                <p class:'msg'>
+                {% block message %}
+                    {% for message in app.flashes('info') %}
+                        {{ message }}
+                    {% endfor %}
+                {% endblock %}</p>
             </div>
             <div class='col-2'>
                 <p class='log'>Bienvenu !!!</p>

@@ -30,10 +30,8 @@ class AdminController extends AbstractController
     {
         $allprod = $this->getDoctrine();
         $listprods = $allprod->getRepository(Products::class)->findAll();
-        $msg = 'hello';
         return $this->render('Admin/listprods.html.twig', [
         'allprods' => $listprods,
-        'msg' => $msg
         ]);
     }
 
@@ -46,6 +44,7 @@ class AdminController extends AbstractController
 
         $entityManager->remove($delprod);
         $entityManager->flush();
+        $this->addFlash('info', 'Article bien supprimer');
 
         return $this->redirectToRoute('listprods');
     }
@@ -64,7 +63,7 @@ class AdminController extends AbstractController
 
         $form = $this->createForm(UpdateProdType::class, $udprod);
         $form->handleRequest($request);
-        $msg ='Update';
+        $this->addFlash('info', 'Update en cours');
 
         if ($form ->isSubmitted() && $form->isValid()) {
             if (isset($_SESSION['image'])) {
@@ -75,14 +74,13 @@ class AdminController extends AbstractController
             }
             $udprod -> setProdPicture($image);
             $entityManager->flush();
-            $msg='Mise à jour reussi';
+            $this->addFlash('info', 'Mise à jour reussi');
 
             return $this->redirectToRoute('listprods');
         }
         return $this->render('Admin/updateprod.html.twig', [
             'form'=>$form->createView(),
             'cates'=> $cates,
-            'msg' => $msg,
             'prod' => $udprod]);
     }
 
@@ -98,7 +96,7 @@ class AdminController extends AbstractController
 
         $form = $this->createForm(AddProdType::class, $addprod);
         $form->handleRequest($request);
-        $msg ='Ajout produit';
+        $this->addFlash('info', 'Ajout d\'un produit');
 
         if ($form ->isSubmitted() && $form->isValid()) {
             if (isset($_SESSION['image'])) {
@@ -111,14 +109,14 @@ class AdminController extends AbstractController
             $addprod -> setProdPicture($image);
             $entityManager->persist($addprod);
             $entityManager->flush();
-            $msg='Ajout reussi';
+            $this->addFlash('info', 'Produit bien enregistrée');
 
             return $this->redirectToRoute('listprods');
         }
         return $this->render('Admin/addprod.html.twig', [
             'form'=>$form->createView(),
             'cates'=> $cates,
-            'msg' => $msg]);
+        ]);
     }
 
     /**
@@ -166,11 +164,10 @@ class AdminController extends AbstractController
     {
         $listcate = $this->getDoctrine();
         $cates = $listcate->getRepository(Categories::class)->findAll();
-        $msg = 'Format d\'image 1200x400 !!';
+        $this->addFlash('info', 'Format d\'image 1200x400 !!');
 
         return $this->render('admin/categories.html.twig', [
             'cates'=> $cates,
-            'msg' => $msg
             ]);
     }
 
@@ -181,14 +178,14 @@ class AdminController extends AbstractController
     {
         $listcate = $this->getDoctrine();
         $cates = $listcate->getRepository(Categories::class)->findAll();
-        $msg = 'Vous n\'avez rien modifier';
+        $this->addFlash('info', 'Vous n\'avez rien modifier');
 
         $em = $this->getDoctrine();
         $cate = $em->getRepository(Categories::class)->find($id);
 
         if (isset($_POST['name']) && (!empty($_POST['name']))) {
             $name = $_POST['name'];
-            $msg = 'Modification bien effectuer';
+            $this->addFlash('info', 'Modification bien effectuer');
         } else {
             $name = $cate -> getCateName();
         }
@@ -196,7 +193,7 @@ class AdminController extends AbstractController
 
         if (isset($_POST['descrip']) && (!empty($_POST['descrip']))) {
             $descrip = $_POST['descrip'];
-            $msg = 'Modification bien effectuer';
+            $this->addFlash('info', 'Modification bien effectuer');
         } else {
             $descrip = $cate -> getCateDescrip();
         }
@@ -228,8 +225,8 @@ class AdminController extends AbstractController
     {
         $listprods = $this->getDoctrine();
         $prods = $listprods->getRepository(Products::class)->findAll();
-        $msg = 'Attention chaque suppression est definitive !!';
-
+        $this->addFlash('info', 'Attention chaque suppression est definitive !!');
+    
         $adresse = "../public/uploads/";
         $handle = opendir($adresse);
         $i = 0;
@@ -262,8 +259,7 @@ class AdminController extends AbstractController
 
         return $this->render('admin/galerie.html.twig', [
             'files' => $files,
-            'msg' => $msg,
-            ]);
+        ]);
     }
 
     /**
@@ -276,6 +272,8 @@ class AdminController extends AbstractController
         $em = $adresse . $id;
         unlink($em);
         closedir($handle);
+        $this->addFlash('info', 'Image supprimer');
+
 
         return $this->redirectToRoute('galerie');
     }
