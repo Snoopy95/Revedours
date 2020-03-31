@@ -15,7 +15,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class SecurityController extends AbstractController
 {
     /**
-     * @Route("/newuser", name=",newuser")
+     * @Route("/newuser", name="newuser")
      */
     public function newuser(Request $request, EntityManagerInterface $entity, UserPasswordEncoderInterface $encoder)
     {
@@ -46,5 +46,20 @@ class SecurityController extends AbstractController
             'cates' => $cates,
             'selectcate'=> 0
         ]);
+    }
+     /**
+     * @Route("/login", name="login")
+     */
+    public function login()
+    {
+        return $this->redirectToRoute('index');
+    }
+
+    /**
+     * @Route("/logout", name="logout")
+     */
+    public function logout()
+    {
+        #code...
     }
 }
