@@ -1,0 +1,50 @@
+{% extends "indexhome.html.twig" %}
+
+{% block titlebar %}
+<section class="site-pusher">
+  <div class="site-content">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{path('index')}}">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Inscription</li>
+      </ol>
+    </nav>
+    <div class="card">
+      <img src="{{asset('images/inscription.jpg')}}" class="card-img img-fluid taille rounded" alt="theme" />
+      <div class="card-img-overlay text-center styltext">
+        <h1 class="card-title tailfonth1">
+          Bienvenu !
+        </h1>
+      </div>
+    </div>
+  </div>
+  <div class="site-cache" id="site-cache"></div>
+</section>
+<!-- DIV du slide bouton burger -->
+</div>
+<!-- DEBUT DU CONTAINT CATALOGUE -->
+<div class="container">
+  <div class="row mb-2">
+    <div class="col-12 text-center pt-3">
+      <h1 class="tailfonth1">Inscription</h1>
+      <p class="tailfontp"></p>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+
+	{{form_start(form)}}
+	{{form_row(form.email, {'attr': {'placeholder':'Adresse Email '}})}}
+	{{form_row(form.username, {'attr': {'placeholder':'Nom ou Pseudo'}})}}
+	{{form_row(form.password, {'attr': {'placeholder':'Votre mot de passe'}})}}
+	{{form_row(form.confirm_password, {'attr': {'placeholder':'Confirmez votre mot de passe'}})}}
+
+	<button type="submit" class="btn btn-success">Valider</button>
+	
+	{{form_end(form)}}
+
+</div>
+{% endblock %}
