@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Products;
 use App\Form\AddProdType;
 use App\Entity\Categories;
+use App\Entity\User;
+use App\Form\CategoriesType;
 use App\Form\UpdateProdType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -176,8 +178,6 @@ class AdminController extends AbstractController
      */
     public function updatecate(EntityManagerInterface $entityManager, $id)
     {
-        $listcate = $this->getDoctrine();
-        $cates = $listcate->getRepository(Categories::class)->findAll();
         $this->addFlash('info', 'Vous n\'avez rien modifier');
 
         $em = $this->getDoctrine();
@@ -276,5 +276,17 @@ class AdminController extends AbstractController
 
 
         return $this->redirectToRoute('galerie');
+    }
+
+    /**
+     * @Route("/listusers", name="listusers")
+     */
+    public function listusers()
+    {
+        $listusers = $this->getDoctrine()->getRepository(User::class)->findAll();
+
+        return $this->render('admin/testdump.html.twig', [
+            'listusers' => $listusers,
+        ]);
     }
 }

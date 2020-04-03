@@ -14,55 +14,50 @@
     {# <!-- Feuille de style --> #}
     <link rel="stylesheet" href="{{asset('css/stylehome.css')}}" />
     {# <!-- Icon kit fontawesome--> #}
-    <script src="https://kit.fontawesome.com/cd7d28f6c6.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{asset('css/all.css')}}" />
+    <script src="{{asset('js/all.js')}}"></script>
 </head>
 
 <body>
     <div class="site-container">
         <!-- ********** HEADER NAVBAR ********  -->
         <header class="header">
-            <div class="bar-search">
-                <form class="form-inline">
-                    <button class="btn btn-outline-dark btn-sm searchxs" type="submit">
-                        Recherche
-                    </button>
-                    <input class="form-control-sm searchxs" type="search" placeholder="Recherche" />
-                </form>
-                {% if not app.user %}
-                <a class="color-log" data-toggle="modal" data-target="#modal-login" href="#">
-                    <i class="fas fa-user-circle fa-1x"></i>
-                    <span class="log-txt">S'incrire / Se connecter </span>
-                </a>
-                {% else %}
-                <a class="color-log" href="{{path('logout')}}">
-                    <i class="fas fa-user-circle fa-1x"></i>
-                    <span class="log-txt">Bienvenu {% if app.user.username %}{{app.user.username}}{% endif %} /Se Deconnecter</span>
-                {% endif %}
-                <button class="btn btn-link color-log" data-toggle="modal" data-target="#modal-panier" onClick="">
-                    <i class="fas fa-shopping-bag fa-1x color-log"></i>
-                    <span id="badge"></span>
-                </button>
-            </div>
             <div class="header-title">
                 <a href="#" class="header__icon" id="header__icon"></a>
                 <a href="{{path('index')}}" class="header-logo h2 text-wrap a-title">Rêve d'Ours</a>
-                <nav class="menu">
-                    <a class="menu-item" href="/">Nouveautes</a>
-                    {% for cate in cates %}
-                        <a href="/products/{{cate.id}}"
-                    {% if cate.id == selectcate %}
-                        class="menu-item actif"
-                    {% else %}
-                        class="menu-item"
-                    {% endif %}>
-                        {{cate.cateName}}
-                        </a>
-                    {% endfor %}
-                    <a class="menu-item" href="#">Expo</a>
-                    {% if app.user %}
-                        <a class="menu-item" href="{{path('dashboard')}}">Admin</a>
-                    {% endif %}
-                </nav>
+            </div>
+            <nav class="menu">
+                <a class="menu-item" href="/">Nouveautes</a>
+                {% for cate in cates %}
+                    <a href="/products/{{cate.id}}"
+                {% if cate.id == selectcate %}
+                    class="menu-item actif"
+                {% else %}
+                    class="menu-item"
+                {% endif %}>
+                    {{cate.cateName}}
+                    </a>
+                {% endfor %}
+                <a class="menu-item" href="#">Expo</a>
+            </nav>
+            <div class="login">
+                {% if app.user %}
+                    {% set modal, name = '#modal-logout', app.user.username %}
+                {% else %}
+                    {% set modal, name = '#modal-login', 'Mon Compte' %}             
+                {% endif %}
+                <a class="color-log" data-toggle="modal" data-target="{{modal}}" href="#">
+                    <img class='icons25'
+                        src='{{asset('/images/icons-user-f.png')}}'
+                        alt='compte' />
+                    <span class="log-txt">{{name}}</span>
+                </a>
+                <a class="color-log" data-toggle="modal" data-target="#modal-panier" href="#">
+                    <img class='icons25'
+                        src='{{asset('images/icons-shopping-bag-f.png')}}'
+                        alt='panier' />
+                    <span id="badge"></span>
+                </a>
             </div>
         </header>
         <!-- ************ FIN DU HEADER ********** -->
@@ -71,12 +66,12 @@
         {% block content %}{% endblock %}
         {% block comments %}{% endblock %}
 
-        {#  ******  FOOTER **************  #}
+{# ---  FOOTER ---  #}
     <footer class='container'>
         <div class='row justify-content-around'>
-            <div class="col-4 col-lg-3">
+            <div class="col-md-4 col-lg-3">
                 <div class="card text-white bg-secondary mb-3 align-items-center">
-                    <i class="fas fa-paw fa-3x mt-2"></i>
+                    <img clas='img-fluid' src="{{asset('/images/icons-cat-footprint.png')}}" alt="ours" />
                     <div class="card-body">
                         <p class="card-title text-center">Reve d'ours</p>
                         <p class="card-text text-center">
@@ -86,9 +81,9 @@
                     </div>
                 </div>
             </div>
-            <div class="col-4 col-lg-3">
+            <div class="col-md-4 col-lg-3">
                 <div class="card text-white bg-secondary mb-3 align-items-center">
-                    <i class="fas fa-truck fa-3x mt-2"></i>
+                    <img clas='img-fluid' src="{{asset('/images/truck.png')}}" alt="truck" />
                     <div class="card-body">
                         <p class="card-title text-center">Expédition</p>
                         <p class="card-text text-center">
@@ -98,9 +93,9 @@
                     </div>
                 </div>
             </div>
-            <div class="col-4 col-lg-3">
+            <div class="col-md-4 col-lg-3">
                 <div class="card text-white bg-secondary mb-3 align-items-center">
-                    <i class="fas fa-unlock-alt fa-3x mt-2"></i>
+                    <img clas='img-fluid' src="{{asset('/images/password.png')}}" alt="lock" />
                     <div class="card-body">
                         <p class="card-title text-center">Paiement sécurisé</p>
                         <p class="card-text text-center">
@@ -121,7 +116,7 @@
             </div>
         </div>
     </footer>
-{# MODAL Login #}
+{# -- MODAL LOGIN --#}
     <div class="modal fade" id="modal-login" tabindex="-1" role="dialog" aria-labelledby="loginTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -131,48 +126,86 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-            <div class="modal-body">
-                <form action="{{path('login')}}" method="POST">
-                <div class="form-group">
-                    <input type="email" placeholder="Votre Email ..." class="form-control" id="loginEmail" required name="_username" aria-describedby="emailHelp" />
-                    <small id="emailHelp" class="form-text text-muted"></small>
+                <div class="modal-body">
+                    <form action="{{path('login')}}" method="POST">
+                        <div class="form-group">
+                            <input type="email" placeholder="Votre Email ..." class="form-control" id="loginEmail" required name="_username" aria-describedby="emailHelp" />
+                            <small id="emailHelp" class="form-text text-muted"></small>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" placeholder="Votre Password ..."class="form-control" id="loginPassword" name="_password"/>
+                        </div>
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" id="remember_me" name="Check_me" />
+                            <label class="form-check-label" for="remember_me">Se souvenir de moi</label>
+                        </div>
+                        <div class="row justify-content-center">                
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
+                            <button type="submit" class="btn btn-primary color-btnews">
+                                Se connecter
+                            </button>
+                        </div>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <input type="password" placeholder="Votre Password ..."class="form-control" id="loginPassword" name="_password"/>
-                </div>
-                <div class="form-group form-check">
-                    <input type="checkbox" class="form-check-input" id="Check" />
-                    <label class="form-check-label" for="Check">Se souvenir de moi</label>
-                </div>
-                <button type="submit" class="btn btn-primary color-btnews">
-                    Se connecter
-                </button>
-                </form>
-            </div>
-            <div class="modal-footer">
-                    <button type="button" class="btn btn-link">
-                        Mot de passe oublier !
-                    </button>
-                    <a href="/newuser" type="button" class="btn btn-primary color-btnews">
-                        S'inscrire
-                    </a>
+                <div class="modal-footer justify-content-around">
+                    <div class="row">
+                        <div class='col-auto'>
+                            <button type="button" class="btn btn-link">
+                                Mot de passe oublier !
+                            </button>
+                        </div>
+                        <div class='col-auto'>
+                            <a href="/newuser" type="button" class="btn btn-primary color-btnews">
+                                Créez un compte !
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-<!-- MODAL PANIER -->
-        <div class="modal fade" id="modal-panier" tabindex="-1" role="dialog" aria-labelledby="panierLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
+{# -- MODAL LOGOUT -- #}
+    <div class="modal fade" id="modal-logout" tabindex="-1" role="dialog" aria-labelledby="loginTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginTitle">{% if app.user %}{{app.user.username}}{% endif %}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h2> Mes Affaires ici</h2>
+                {% if app.user %}
+                    <a class="btn btn-primary color-btnews" type="button" href="{{path('dashboard')}}">Admin</a>
+                {% endif %}
+                </div>
+                <div class="modal-footer justify-content-around">
+                    <div class="row">
+                        <div class='col-auto'>
+                            <a type="button" class="btn btn-primary color-btnews" href="{{path('logout')}}">
+                                Se Deconnecter !!
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{# -- MODAL PANIER -- #}
+    <div class="modal fade" id="modal-panier" tabindex="-1" role="dialog" aria-labelledby="panierLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
                         <h5 class="modal-title" id="panierLabel">Mon panier</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                    </div>
-                    
-                    <div class="modal-footer">
+                </div>
+                <div class="modal-body">
+                        <h2>HELLO de lu le panier </h2>
+                </div>
+                <div class="modal-footer">
                         <div class="container">
                             <button type="button" class="btn btn-danger btn-sm" onClick="supprimePanier()">
                                 Annuler le panier
@@ -184,17 +217,17 @@
                                 Passer commande
                             </button>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        {# Optional JavaScript #}
-        {% block javascripts %}
-        <script src="{{asset('js/home.js')}}"></script>
-        <script src="{{asset('js/jquery.slim.min.js')}}"></script>
-        <script src="{{asset('js/popper.min.js')}}"></script>
-        <script src="{{asset('js/bootstrap.min.js')}}"></script>
-        {% endblock %}
+{# -- JavaScript -- #}
+    {% block javascripts %}
+    <script src="{{asset('js/home.js')}}"></script>
+    <script src="{{asset('js/jquery.slim.min.js')}}"></script>
+    <script src="{{asset('js/popper.min.js')}}"></script>
+    <script src="{{asset('js/bootstrap.min.js')}}"></script>
+    {% endblock %}
     </body>
 </html>

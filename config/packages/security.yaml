@@ -20,10 +20,16 @@ security:
             form_login:
                 login_path: login
                 check_path: login
+                csrf_token_generator: security.csrf.token_manager
 
             logout:
                 path: logout
                 target: index
+
+            remember_me:
+                secret:   '%kernel.secret%'
+                lifetime: 15768000
+                remember_me_parameter: Check_me
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

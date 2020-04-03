@@ -40,3 +40,8 @@ body{
     max-width: 200px;
     height: 150px;
 }
+.icons{
+    margin: auto;
+    height: 160px;
+    width: 160px;
+}
