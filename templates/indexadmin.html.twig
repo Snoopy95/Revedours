@@ -90,7 +90,7 @@
                             {% else %}
                             class='{{nok}}'
                             {% endif %} 
-                            href="#">Liste clients</a>
+                            href="{{path('listusers')}}">Liste clients</a>
                         </li>
                         <li class='nav-item nav-pills'>
                             <a {% if navb == 7 %}
@@ -98,7 +98,15 @@
                             {% else %}
                             class='{{nok}}'
                             {% endif %} 
-                            href="#">Liste commandes</a>
+                            href="#">Gestion commandes</a>
+                        </li>
+                            <li class='nav-item nav-pills'>
+                            <a {% if navb == 7 %}
+                            class='{{ok}}'
+                            {% else %}
+                            class='{{nok}}'
+                            {% endif %} 
+                            href="#">Gestion commantaires</a>
                         </li>
                         <img src='{{asset('/images/icons-teddy-bear.png')}}' class='icons' alt='nounours' />
                     </ul>
