@@ -12,7 +12,7 @@
 					<td width="20">#ID</td>
 					<td width="120">Nom</td>
 					<td width="260">Description</td>
-					<td width="50">img</td>
+					<td width="50">Image</td>
 				</tr>
 			</thead>
 			{% for cate in cates %}
@@ -25,7 +25,7 @@
 					</td>
 				</tr>
 				<tr>
-               <form action="/updatecate/{{cate.id}}" method="POST" enctype="multipart/form-data">
+               <form action="/admin/updatecate/{{cate.id}}" method="POST" enctype="multipart/form-data">
 					<td>
 						<button class="btn btn-success" type="submit">Modifier</button>
 					</td>

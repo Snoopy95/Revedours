@@ -20,21 +20,22 @@
         </tr>
     </thead>
     {% for prod in allprods %}
-        <tr>
+        <tr class='table'>
             <td>#{{prod.id}}</td>
             <td>{{prod.categories.cateName}} </td>
             <td>{{prod.prodName}}</td>
             <td>{{prod.prodPrice}} € TTC</td>
-            <td>{{prod.prodStock}} </td>
+            <td>{% if(prod.prodStock)%}👍{% else %} ✋ {% endif %}</td>
             <td> <img src='{{asset('/uploads/' ~ prod.prodPicture) }}' width="50" height="50"></td>
             <td> {{prod.prodDatecreat|date('d/m/Y')}} </td>
             <td>
                 <a href="/admin/updateprod/{{prod.id}}" class="link">
-                    <img alt='Edit' title='Edit' src='{{asset('/images/edit.png')}}' class="action-icon" />
+                    <img alt='Edit' title='Edit' src='{{asset('/images/icons-edit.png')}}' class="action-icon" />
                 </a>
+                <span>/</span>
                 <span>
                     <a href="#" class="link" data-toggle="modal" data-target="#del{{prod.id}}">
-                        <img alt='Delete' title='Delete' src='{{asset('images/delete.png')}}' class="action-icon" />
+                        <img alt='Delete' title='Delete' src='{{asset('images/icons-trash.png')}}' class="action-icon" />
                     </a>
                 </span>
             </td>

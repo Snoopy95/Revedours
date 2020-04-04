@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Roles;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -51,10 +52,10 @@ class User implements UserInterface
     private $datecreat;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Role", inversedBy="users")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Roles", inversedBy="users")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $role;
+    private $roles;
 
     public function getId(): ?int
     {
@@ -109,14 +110,16 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getRole(): ?string
+    public function getRoles()
     {
-        return $this->role;
+        $roles[] = $this->roles->getRole();
+        
+        return $roles;
     }
 
-    public function setRole(?Role $role): self
+    public function setRoles(?Roles $roles): self
     {
-        $this->role = $role;
+        $this->roles = $roles;
 
         return $this;
     }
@@ -128,9 +131,5 @@ class User implements UserInterface
     public function getSalt()
     {
         # code...
-    }
-    public function getRoles()
-    {
-        return ['ROLE_USER'];
     }
 }

@@ -2,10 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Role;
+use App\Entity\Roles;
 use App\Entity\User;
-use App\Form\UserType;
 use App\Entity\Categories;
+use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,8 +32,8 @@ class SecurityController extends AbstractController
 
             $user->setDatecreat(new \DateTime());
             $em= $this->getDoctrine();
-            $role = $em->getRepository(Role::class)->find(1);
-            $user->setRole($role);
+            $role = $em->getRepository(Roles::class)->find(1);
+            $user->setRoles($role);
 
             $entity->persist($user);
             $entity->flush();
@@ -52,6 +52,7 @@ class SecurityController extends AbstractController
      */
     public function login()
     {
+        $this->getDoctrine()->getRepository(Roles::class)->findAll();
         return $this->redirectToRoute('index');
     }
 

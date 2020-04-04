@@ -7,9 +7,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\RoleRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\RolesRepository")
  */
-class Role
+class Roles
 {
     /**
      * @ORM\Id()
@@ -21,15 +21,15 @@ class Role
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $type;
+    private $role;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $descrip;
+    private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="role")
+     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="roles")
      */
     private $users;
 
@@ -43,26 +43,26 @@ class Role
         return $this->id;
     }
 
-    public function getType(): ?string
+    public function getRole(): ?string
     {
-        return $this->type;
+        return $this->role;
     }
 
-    public function setType(string $type): self
+    public function setRole(string $role): self
     {
-        $this->type = $type;
+        $this->role = $role;
 
         return $this;
     }
 
-    public function getDescrip(): ?string
+    public function getName(): ?string
     {
-        return $this->descrip;
+        return $this->name;
     }
 
-    public function setDescrip(?string $descrip): self
+    public function setName(?string $name): self
     {
-        $this->descrip = $descrip;
+        $this->name = $name;
 
         return $this;
     }
@@ -79,7 +79,7 @@ class Role
     {
         if (!$this->users->contains($user)) {
             $this->users[] = $user;
-            $user->setRole($this);
+            $user->setRoles($this);
         }
 
         return $this;
@@ -90,8 +90,8 @@ class Role
         if ($this->users->contains($user)) {
             $this->users->removeElement($user);
             // set the owning side to null (unless already changed)
-            if ($user->getRole() === $this) {
-                $user->setRole(null);
+            if ($user->getRoles() === $this) {
+                $user->setRoles(null);
             }
         }
 

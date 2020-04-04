@@ -2,10 +2,11 @@
 
 namespace App\Controller;
 
-use App\Entity\Products;
-use App\Form\AddProdType;
-use App\Entity\Categories;
 use App\Entity\User;
+use App\Entity\Roles;
+use App\Entity\Products;
+use App\Entity\Categories;
+use App\Form\AddProdType;
 use App\Form\CategoriesType;
 use App\Form\UpdateProdType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -160,7 +161,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/listecates", name="listecates")
+     * @Route("/admin/listecates", name="listecates")
      */
     public function listcates()
     {
@@ -174,7 +175,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/updatecate/{id}", name="updatecate")
+     * @Route("/admin/updatecate/{id}", name="updatecate")
      */
     public function updatecate(EntityManagerInterface $entityManager, $id)
     {
@@ -219,7 +220,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/galerie", name="galerie")
+     * @Route("/admin/galerie", name="galerie")
      */
     public function galerie()
     {
@@ -263,7 +264,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/delimage/{id}", name="delimage")
+     * @Route("/admin/delimage/{id}", name="delimage")
      */
     public function delimage($id)
     {
@@ -279,10 +280,11 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/listusers", name="listusers")
+     * @Route("/admin/listusers", name="listusers")
      */
     public function listusers()
     {
+        $this->getDoctrine()->getRepository(Roles::class)->findAll();
         $listusers = $this->getDoctrine()->getRepository(User::class)->findAll();
 
         return $this->render('admin/testdump.html.twig', [

@@ -45,3 +45,17 @@ body{
     height: 160px;
     width: 160px;
 }
+.action-icon{
+    height: 20px;
+    width: 20px;
+    margin: 0 10px 0 10px;
+}
+.table td{
+    align-items: center;
+    vertical-align: middle;
+}
+thead td {
+    vertical-align: middle;
+    background-color: #737373;
+    font-weight: bolder;
+}
