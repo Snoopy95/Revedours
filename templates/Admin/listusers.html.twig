@@ -1,0 +1,36 @@
+{% extends "indexadmin.html.twig" %}
+{% set navb = 6 %}
+
+{% block titre %}
+<div> Liste des Utilisateurs </div>
+{% endblock %}
+
+{% block content %} 
+<table class="table table-striped table">
+    <thead class="thead-dark">
+        <tr>
+            <td width="30">#ID</td>
+            <td width="30">Username</td>
+            <td width="200">Email</td>
+            <td width="60">Role</td>
+            <td width="100">Date</td>
+        </tr>
+    </thead>
+    {% for listuser in listusers %}
+        <tr class='table'>
+            <td>#{{listuser.id}}</td>
+            <td>{{listuser.username}}</td>
+            <td>{{listuser.email}}</td>
+            <td>{{listuser.roles[0]}}</td>
+            <td>{{listuser.datecreat|date('d/m/Y')}} </td>
+        </tr>
+    {% endfor %}
+</table>
+{# {{dump(listusers)}} #}
+{% endblock %}
+
+{% block footer %} 
+<div> Page 1 </div>
+{% endblock %}
+
+

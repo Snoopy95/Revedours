@@ -7,6 +7,12 @@ Dashboard
 
 {% block content %} 
 <div> voir le panneau de controle </div>
+<div>Il y a actuellement {{nbprods}} produits dans la boutiques</div>
+{% for key in prodsbycates|keys %}
+<div> Dans la categorie {{key}} Il y a actuellement {{prodsbycates[key]}} produit dedans</div>
+{% endfor %}
+
+{{dump(prodsbycates)}}
 {% endblock %}
 
 {% block footer %} 

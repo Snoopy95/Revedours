@@ -23,7 +23,34 @@ class AdminController extends AbstractController
      */
     public function dashboard()
     {
-        return $this->render('Admin/dashboard.html.twig');
+        $listusers = $this->getDoctrine()->getRepository(User::class)->findAll();
+        $listroles = $this->getDoctrine()->getRepository(Roles::class)->findAll();
+        $listprods = $this->getDoctrine()->getRepository(Products::class)->findAll();
+        $listcates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
+
+        $nbprods = count($listprods);
+        $nbcates = count($listcates);
+
+        if ($nbprods>0 && $nbcates>0) {
+            foreach ($listcates as $cate) {
+                $idcat = $cate->getId();
+                $key = $cate->getCateName();
+                $count = 0;
+                foreach ($listprods as $value) {
+                    $val = $value->getCategories();
+                    $val = $val->getId();
+                    if ($val == $idcat) {
+                        $count ++;
+                    }
+                }
+                $prodsbycates[$key]= $count;
+            }
+        }
+
+        return $this->render('Admin/dashboard.html.twig', [
+            'nbprods' => $nbprods,
+            'prodsbycates' => $prodsbycates
+        ]);
     }
 
     /**
@@ -287,8 +314,8 @@ class AdminController extends AbstractController
         $this->getDoctrine()->getRepository(Roles::class)->findAll();
         $listusers = $this->getDoctrine()->getRepository(User::class)->findAll();
 
-        return $this->render('admin/testdump.html.twig', [
-            'listusers' => $listusers,
+        return $this->render('admin/listusers.html.twig', [
+            'listusers' => $listusers
         ]);
     }
 }

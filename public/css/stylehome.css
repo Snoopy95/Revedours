@@ -14,6 +14,16 @@
   --lg-header: 5em;
 }
 
+/* CLASS de DEV pour test etc etc*/
+.dev{
+  background-color: brown;
+}
+
+.form-sign{
+width: 50%;
+margin: auto;
+}
+
 /* custom styling for all icons */
 i.fas,
 i.fab {

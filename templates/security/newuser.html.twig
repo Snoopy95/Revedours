@@ -34,17 +34,40 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
-
-	{{form_start(form)}}
-	{{form_row(form.email, {'attr': {'placeholder':'Adresse Email '}})}}
-	{{form_row(form.username, {'attr': {'placeholder':'Nom ou Pseudo'}})}}
-	{{form_row(form.password, {'attr': {'placeholder':'Votre mot de passe'}})}}
-	{{form_row(form.confirm_password, {'attr': {'placeholder':'Confirmez votre mot de passe'}})}}
-
-	<button type="submit" class="btn btn-success">Valider</button>
-	
-	{{form_end(form)}}
-
+{{form_start(form)}}
+<div class="form-sign">
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text">@ Email</span>
+    </div>
+      {{form_widget(form.email, {'attr': {'placeholder':'Adresse Email '}})}}
+  </div>
+	<div class='input-group mb-3'>
+    <div class='input-group-prepend'>
+      <span class='input-group-text'>Username</span>
+    </div>
+    {{form_widget(form.username, {'attr': {'placeholder':'Nom ou Pseudo'}})}}
+  </div>
+    {{ form_errors(form.password) }}
+	<div class="input-group mb-3">
+		{{form_widget(form.password, {'attr': {'placeholder':'Votre mot de passe', 'class' : 'show-pwd'}})}}
+		<div class="input-group-append show">
+			<span class="btn btn-outline-secondary">
+				<i id='' class="iconshow far fa-eye"></i>
+			</span>
+		</div>
+	</div>
+    {{ form_errors(form.confirm_password) }}
+	<div class="input-group mb-3">
+		{{form_widget(form.confirm_password, {'attr': {'placeholder':'Confirmez votre mot de passe', 'class' : 'showconf-pwd'}})}}
+		<div class="input-group-append showconf">
+			<span class="btn btn-outline-secondary">
+				<i id='' class="iconshowconf far fa-eye"></i>
+			</span>
+		</div>
+	</div>
+    <button type="submit" class="btn btn-success mx-auto d-block">Valider</button>
 </div>
+{{form_end(form)}}
+
 {% endblock %}

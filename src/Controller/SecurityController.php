@@ -47,7 +47,8 @@ class SecurityController extends AbstractController
             'selectcate'=> 0
         ]);
     }
-     /**
+
+    /**
      * @Route("/login", name="login")
      */
     public function login()
