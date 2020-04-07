@@ -5,13 +5,13 @@ namespace App\Form;
 use App\Entity\Products;
 use App\Entity\Categories;
 use Symfony\Component\Form\AbstractType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class AddProdType extends AbstractType
 {
@@ -21,7 +21,9 @@ class AddProdType extends AbstractType
         ->add('prod_name', TextType::class)
         ->add('prod_price', IntegerType::class)
         ->add('prod_descrip', TextType::class)
-        ->add('prod_info', TextareaType::class)
+        ->add('prod_info', CKEditorType::class, [
+            'config' => ['my_config']
+        ])
         ->add('prod_stock', ChoiceType::class, [
             'choices' => [
                 'Dispo' => true,

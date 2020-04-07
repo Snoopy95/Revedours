@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Comments;
 use App\Entity\Categories;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
@@ -15,9 +16,17 @@ class HomeController extends AbstractController
     {
         $listcate = $this->getDoctrine();
         $cates = $listcate->getRepository(Categories::class)->findAll();
+        $posts = $this->getDoctrine()->getRepository(Comments::class)->findBy(
+            [],
+            ['datecreat' => 'DESC'],
+            4,
+            0
+        );
 
         return $this->render('home/home.html.twig', [
             'cates'=> $cates,
-            'selectcate'=> 0 ]);
+            'selectcate'=> 0,
+            'posts' => $posts
+        ]);
     }
 }

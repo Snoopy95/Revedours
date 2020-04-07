@@ -196,22 +196,24 @@
 
 {% block comments %}
 <!-- Commentaires -->
+<!-- {{dump(posts)}} -->
 <section class="container">
+{% for post in posts %}	
     <div class="card justify-content-center">
-        <div class="card-header">
-            Commentaire
-        </div>
+        <h5 class="card-header h5 bg-light">
+            {{post.title}}
+        </h5>
         <div class="card-body">
             <blockquote class="blockquote mb-1">
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-                    posuere erat a ante.
-                </p>
+					{% autoescape false %}
+						{{post.comment}}	
+					{% endautoescape %}
                 <footer class="blockquote-footer">
-                    Someone famous in <cite title="Source Title">Source Title</cite>
+                    De <cite title="Source Title">{{post.user.username}}</cite> le {{post.datecreat|date('d/m/Y')}}
                 </footer>
             </blockquote>
         </div>
-    </div>
+	</div>
+{% endfor %}	
 </section>
 {% endblock %}

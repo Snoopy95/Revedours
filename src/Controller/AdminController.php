@@ -128,7 +128,7 @@ class AdminController extends AbstractController
         $form->handleRequest($request);
         $this->addFlash('info', 'Ajout d\'un produit');
 
-        if ($form ->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             if (isset($_SESSION['image'])) {
                 $image= $_SESSION['image'];
                 unset($_SESSION['image']);

@@ -1,0 +1,10 @@
+fos_ck_editor:
+    configs:
+        my_config:
+            toolbar: full
+            uiColor: '#FDCCCC'
+        my_config2:
+            toolbar: simple
+            uiColor: '#FDCCCC'
+
+

@@ -79,7 +79,9 @@
 							Complements d'information</h4>
 					</div>
 					<div class='card-body'>
-						{{prod.prodInfo}}
+						{% autoescape false %}
+							{{prod.prodInfo}}
+						{% endautoescape %}
 					</div>
 				</div>
 			</div>

@@ -1,0 +1,24 @@
+{% extends 'indexhome.html.twig' %}
+
+{% block titlebar %}
+<section class="site-pusher">
+    <div class="site-content">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{path('index')}}">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Commentaire</li>
+            </ol>
+        </nav>
+    <div class="site-cache" id="site-cache"></div>
+</section>
+<!-- DIV du slide bouton burger -->
+</div>
+{% endblock %}
+
+{% block content %}
+	<div class='container'>
+        {{ form_start(form) }}
+            <button type="submit" class="btn btn-success mx-auto d-block">Valider</button>
+        {{ form_end(form) }}
+	</div>
+{% endblock %}
