@@ -9,7 +9,7 @@
 		<div class="form-group">
 			<div class="form-row">
 				<div class="form-group col-md-8">
-					<div class="dropzone" id="myDropzone" action="{{path('reload')}}">
+					<div class="dropzone" id="myDropzone" action="{{path('upload')}}">
 						<img src="{{asset('/uploads/') ~ prod.prodPicture }}" width="80" height="80">
 						<input type='hidden' name="picture" id="imag" value="{{prod.prodPicture}}" readonly="true" >
 					</div>

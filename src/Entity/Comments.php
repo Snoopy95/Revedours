@@ -37,6 +37,11 @@ class Comments
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="smallint")
+     */
+    private $status;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,6 +91,18 @@ class Comments
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getStatus(): ?int
+    {
+        return $this->status;
+    }
+
+    public function setStatus(int $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

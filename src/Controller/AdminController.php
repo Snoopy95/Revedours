@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Entity\Roles;
 use App\Entity\Products;
 use App\Entity\Categories;
+use App\Entity\Comments;
 use App\Form\AddProdType;
 use App\Form\CategoriesType;
 use App\Form\UpdateProdType;
@@ -27,9 +28,12 @@ class AdminController extends AbstractController
         $listroles = $this->getDoctrine()->getRepository(Roles::class)->findAll();
         $listprods = $this->getDoctrine()->getRepository(Products::class)->findAll();
         $listcates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
+        $listposts = $this->getDoctrine()->getRepository(Comments::class)->findAll();
 
+        $nbusers = count($listusers);
         $nbprods = count($listprods);
         $nbcates = count($listcates);
+        $nbposts = count($listposts);
 
         if ($nbprods>0 && $nbcates>0) {
             foreach ($listcates as $cate) {
@@ -49,7 +53,11 @@ class AdminController extends AbstractController
 
         return $this->render('Admin/dashboard.html.twig', [
             'nbprods' => $nbprods,
-            'prodsbycates' => $prodsbycates
+            'prodsbycates' => $prodsbycates,
+            'listusers' => $listusers,
+            'listprods' => $listprods,
+            'nbusers' => $nbusers,
+            'nbposts' => $nbposts
         ]);
     }
 
@@ -58,8 +66,8 @@ class AdminController extends AbstractController
      */
     public function listprods()
     {
-        $allprod = $this->getDoctrine();
-        $listprods = $allprod->getRepository(Products::class)->findAll();
+        $listprods = $this->getDoctrine()->getRepository(Products::class)->findAll();
+
         return $this->render('Admin/listprods.html.twig', [
         'allprods' => $listprods,
         ]);
@@ -85,11 +93,7 @@ class AdminController extends AbstractController
     public function updateprod(EntityManagerInterface $entityManager, $id, Request $request)
     {
         $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
-        
-        $updateprod = $this->getDoctrine();
-        $udprod= $updateprod->getRepository(Products::class)->find($id);
-
-        $udprod -> setProdDatecreat(new \DateTime());
+        $udprod= $this->getDoctrine()->getRepository(Products::class)->find($id);
 
         $form = $this->createForm(UpdateProdType::class, $udprod);
         $form->handleRequest($request);
@@ -102,14 +106,17 @@ class AdminController extends AbstractController
             } else {
                 $image = $udprod -> getProdPicture();
             }
+
+            $udprod -> setProdDatecreat(new \DateTime());
             $udprod -> setProdPicture($image);
+
             $entityManager->flush();
             $this->addFlash('info', 'Mise à jour reussi');
 
             return $this->redirectToRoute('listprods');
         }
         return $this->render('Admin/updateprod.html.twig', [
-            'form'=>$form->createView(),
+            'form' => $form->createView(),
             'cates'=> $cates,
             'prod' => $udprod]);
     }
@@ -122,7 +129,6 @@ class AdminController extends AbstractController
         $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
 
         $addprod = new Products();
-        $addprod -> setProdDatecreat(new \DateTime());
 
         $form = $this->createForm(AddProdType::class, $addprod);
         $form->handleRequest($request);
@@ -136,7 +142,9 @@ class AdminController extends AbstractController
                 $image = "default.png";
             }
 
+            $addprod -> setProdDatecreat(new \DateTime());
             $addprod -> setProdPicture($image);
+
             $entityManager->persist($addprod);
             $entityManager->flush();
             $this->addFlash('info', 'Produit bien enregistrée');
@@ -144,8 +152,8 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('listprods');
         }
         return $this->render('Admin/addprod.html.twig', [
-            'form'=>$form->createView(),
-            'cates'=> $cates,
+            'form' => $form->createView(),
+            'cates' => $cates,
         ]);
     }
 
@@ -165,26 +173,6 @@ class AdminController extends AbstractController
         } else {
             echo "false";
         }
-        return $this->redirectToRoute('addprod');
-    }
-
-    /**
-     * @Route("/admin/reload", name="reload")
-     */
-    public function reload()
-    {
-        $imagePath = isset($_FILES["file"]["name"]) ? $_FILES["file"]["name"] : "default.png";
-        $_SESSION['image'] = $imagePath;
-        $targetPath = "../public/uploads/";
-        $tempFile = $_FILES['file']['tmp_name'];
-        $targetFile = $targetPath . $_FILES['file']['name'];
-
-        if (move_uploaded_file($tempFile, $targetFile)) {
-            echo "true";
-        } else {
-            echo "false";
-        }
-        return $this->redirectToRoute('updateprod');
     }
 
     /**
@@ -192,8 +180,7 @@ class AdminController extends AbstractController
      */
     public function listcates()
     {
-        $listcate = $this->getDoctrine();
-        $cates = $listcate->getRepository(Categories::class)->findAll();
+        $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
         $this->addFlash('info', 'Format d\'image 1200x400 !!');
 
         return $this->render('admin/categories.html.twig', [
@@ -208,8 +195,7 @@ class AdminController extends AbstractController
     {
         $this->addFlash('info', 'Vous n\'avez rien modifier');
 
-        $em = $this->getDoctrine();
-        $cate = $em->getRepository(Categories::class)->find($id);
+        $cate = $this->getDoctrine()->getRepository(Categories::class)->find($id);
 
         if (isset($_POST['name']) && (!empty($_POST['name']))) {
             $name = $_POST['name'];
@@ -254,7 +240,7 @@ class AdminController extends AbstractController
         $listprods = $this->getDoctrine();
         $prods = $listprods->getRepository(Products::class)->findAll();
         $this->addFlash('info', 'Attention chaque suppression est definitive !!');
-    
+
         $adresse = "../public/uploads/";
         $handle = opendir($adresse);
         $i = 0;
@@ -302,7 +288,6 @@ class AdminController extends AbstractController
         closedir($handle);
         $this->addFlash('info', 'Image supprimer');
 
-
         return $this->redirectToRoute('galerie');
     }
 
@@ -317,5 +302,51 @@ class AdminController extends AbstractController
         return $this->render('admin/listusers.html.twig', [
             'listusers' => $listusers
         ]);
+    }
+
+    /**
+     * @Route("/admin/comments/{type}", name="comments")
+     */
+    public function comments($type)
+    {
+        if ($type == 0) {
+                $critere['by'] =
+                ['status' => 0];
+        } elseif ($type == 1) {
+            $critere['by'] =
+                ['status' => 1];
+        } elseif ($type == 2) {
+            $critere['by'] =
+                ['status' => 2];
+        } else {
+            $this->addFlash(
+                'info',
+                'Il y eu un probleme dans les commentaires'
+            );
+            return $this->redirectToRoute('dashboard');
+        };
+        $critere['ordre'] = ['datecreat' => 'DESC'];
+
+        $listcomments = $this->getDoctrine()->getRepository(Comments::class)->findBy($critere['by'], $critere['ordre']);
+
+        return $this->render('admin/comments.html.twig', [
+            'comments' => $listcomments
+        ]);
+    }
+
+    /**
+     * @Route("/admin/publier/{id}/{status}", name="publier")
+     */
+    public function publier($id, $status, EntityManagerInterface $entityManager)
+    {
+        $post = $this->getDoctrine()->getRepository(Comments::class)->find($id);
+        $post->setStatus($status);
+        $entityManager->flush();
+        $this->addFlash(
+            'info',
+            'Status modifier'
+        );
+
+        return $this->redirectToRoute('comments', ['type' =>0]);
     }
 }

@@ -1,0 +1,52 @@
+{% extends "indexadmin.html.twig" %}
+{% set navb = 8 %}
+
+{% block titre %}
+<div> Gestion des Commentaires </div>
+{% endblock %}
+
+{% block content %}
+<div class='container'>
+    <a href="{{ path('comments', {'type': 0}) }}" type='button' class='btn btn-success ml-5'>Commentaires à modérer</a>
+    <a href="{{ path('comments', {'type': 1}) }}" type='button' class='btn btn-success ml-5'>Commentaires publiés</a>
+    <a href="{{ path('comments', {'type': 2}) }}" type='button' class='btn btn-success ml-5'>Commentaires Refusés</a>
+    
+    {% for comment in comments %}
+        <div class="card text-center mt-3">
+            <div class="card-header">
+                Poster le : {{comment.datecreat|date('d/m/Y')}}
+                par : {{comment.user.username}}
+                -- Son status est :
+                {% if comment.status == 0 %}
+                    En Moderation
+                {% elseif comment.status == 1 %}
+                    Publié
+                {% elseif comment.status == 2 %}
+                    Non publié
+                {% else %}
+                    Il y à un probleme de status sur ce post
+                {% endif %}
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{comment.title}}</h5>
+                <p class="card-text">{% autoescape false %}{{comment.comment}}{% endautoescape %}</p>
+            </div>
+            <div class="card-footer">
+                <a href="{{ path('publier', {'id': comment.id, 'status': 1}) }}" class="link">
+                    <img alt='publier' title='Publier' src='{{asset('/images/icons-checked.png')}}' class="action-icon" />
+                </a>
+                <span>/</span>
+                <a href="{{ path('publier', {'id': comment.id, 'status': 2}) }}" class="link">
+                    <img alt='nepaspublier' title='Ne pas Publier' src='{{asset('images/icons-cancel.png')}}' class="action-icon" />
+                </a>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block footer %} 
+<div> Page 1 </div>
+{% endblock %}
+
+

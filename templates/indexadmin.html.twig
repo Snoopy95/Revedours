@@ -101,12 +101,12 @@
                             href="#">Gestion commandes</a>
                         </li>
                             <li class='nav-item nav-pills'>
-                            <a {% if navb == 7 %}
+                            <a {% if navb == 8 %}
                             class='{{ok}}'
                             {% else %}
                             class='{{nok}}'
                             {% endif %} 
-                            href="#">Gestion commantaires</a>
+                            href="{{ path('comments', {'type': 0}) }}">Gestion commantaires</a>
                         </li>
                         <img src='{{asset('/images/icons-teddy-bear.png')}}' class='icons' alt='nounours' />
                     </ul>

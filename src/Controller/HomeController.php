@@ -17,7 +17,7 @@ class HomeController extends AbstractController
         $listcate = $this->getDoctrine();
         $cates = $listcate->getRepository(Categories::class)->findAll();
         $posts = $this->getDoctrine()->getRepository(Comments::class)->findBy(
-            [],
+            ['status' => 1],
             ['datecreat' => 'DESC'],
             4,
             0

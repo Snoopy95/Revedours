@@ -7,11 +7,14 @@ Dashboard
 
 {% block content %} 
 <div> voir le panneau de controle </div>
+<div> il y a {{nbusers}} inscrit sur le site et {{nbposts}} commentaires </div>
 <div>Il y a actuellement {{nbprods}} produits dans la boutiques</div>
-{% for key in prodsbycates|keys %}
-<div> Dans la categorie {{key}} Il y a actuellement {{prodsbycates[key]}} produit dedans</div>
+{% for key, prodsbycate in prodsbycates %}
+<div> Dans la categorie {{key}} Il y a actuellement {{prodsbycate}} produit </div>
 {% endfor %}
 
+{{dump(listusers)}}
+{{dump(listprods)}}
 {{dump(prodsbycates)}}
 {% endblock %}
 

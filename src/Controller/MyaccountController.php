@@ -38,6 +38,7 @@ class MyaccountController extends AbstractController
             $addcomment->setDatecreat(new \DateTime());
             $user= $this->getDoctrine()->getRepository(User::class)->find($id);
             $addcomment->setUser($user);
+            $addcomment->setStatus('0');
 
             $entityManager->persist($addcomment);
             $entityManager->flush();
