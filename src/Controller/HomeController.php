@@ -29,4 +29,21 @@ class HomeController extends AbstractController
             'posts' => $posts
         ]);
     }
+
+    /**
+     * @Route("/posts", name="posts")
+     */
+    public function posts()
+    {
+        $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
+        $posts = $this->getDoctrine()->getRepository(Comments::class)->findBy(
+            ['status' => 1],
+            ['datecreat' => 'DESC']
+        );
+        return $this->render('home/allcomments.html.twig', [
+            'cates'=> $cates,
+            'selectcate'=> 0,
+            'posts' => $posts
+        ]);
+    }
 }

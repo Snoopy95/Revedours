@@ -19,14 +19,30 @@
   background-color: brown;
 }
 
+/* Slide des commentaires*/
+.noview {
+  display: none;
+}
+.view {
+  display: block;
+  animation: fadeIn ease-out 1s;
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+/* Page de login */
 .form-sign{
 width: 50%;
 margin: auto;
 }
-
 /* custom styling for all icons */
-i.fas,
-i.fab {
+.fa,
+.fab {
   color: var(--color-icon);
 }
 html,
@@ -38,6 +54,7 @@ body {
   max-width: 1280px;
   margin: auto;
 }
+/* Pour la NavBar */
 .actif{
   border: solid 0.5px #4fc3f7;
   border-radius: 10px;
@@ -82,11 +99,11 @@ a:hover{
   z-index: 10;
   max-width: 1920px;
   margin: auto;
-
 }
 .taille{
   max-height: 350px;
 }
+/* Taille des icons a 25PX */
 .icons25{
   height: 25px;
   width: 25px;
@@ -290,8 +307,7 @@ a:hover{
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }
-
-/********************* Shopping **********************/
+/****** Shopping *******/
 .product-grid3 {
   font-family: Roboto, sans-serif;
   text-align: center;

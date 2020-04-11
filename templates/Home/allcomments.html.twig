@@ -1,0 +1,60 @@
+{% extends "indexhome.html.twig" %}
+
+{% block titlebar %}
+<section class="site-pusher">
+	<div class="site-content">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item">
+					<a href="{{path('index')}}">Home</a>
+				</li>
+				<li class="breadcrumb-item active" aria-current="page">Tous les commentaires</li>
+			</ol>
+		</nav>
+		<div class="card">
+			<img src="{{asset('images/vos-commentaires.png')}}" class="card-img img-fluid taille rounded" alt="theme"/>
+		</div>
+	</div>
+	<div class="site-cache" id="site-cache"></div>
+</section>
+
+<!-- DIV du slide bouton burger -->
+</div>
+<!-- DEBUT DU CONTAINT CATALOGUE -->
+<div class="container">
+	<div class="row mb-2">
+		<div class="col-12 text-center pt-3">
+			<h3 class="tailfonth1">Merci à vous</h3>
+			<p class="tailfontp"></p>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+
+{% block content %}
+	<div class='container'>
+		<div class='row'>
+			{% for post in posts %}
+				<div class="card text-center mt-3 col-md-6">
+					<h5 class="card-header">
+						{{post.title}}
+					</h5>
+					<div class="card-body">
+						<blockquote class="blockquote">
+							{% autoescape false %}
+								{{post.comment}}
+							{% endautoescape %}
+							<div class="blockquote-footer">
+								De
+								<cite title="Source Title">{{post.user.username}}</cite>
+								le
+								{{post.datecreat|date('d/m/Y')}}
+							</div>
+						</blockquote>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}

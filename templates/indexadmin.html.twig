@@ -22,13 +22,13 @@
 
     <body class='content'>
         <header class='row header'>
-            <div class='col-2'>
+            <div class='col-md-2'>
                 <a class="btn btn-success btn-sm" href='{{path('index')}}' role="button">Retour !!</a>
             </div>
-            <div class='col-4'>
+            <div class='col-md-4'>
                 <h3 class='titre'>{% block titre %} {% endblock %}</h3>
             </div>
-            <div class='col-4'>
+            <div class='col-md-4'>
                 <p class:'msg'>
                 {% block message %}
                     {% for message in app.flashes('info') %}
@@ -36,12 +36,12 @@
                     {% endfor %}
                 {% endblock %}</p>
             </div>
-            <div class='col-2'>
+            <div class='col-md-2'>
                 <p class='log'>Bienvenu !!!</p>
             </div>
         </header>
             <div class='row'>
-                <div class='col-2 sidenav'>
+                <div class='col-md-2 sidenav'>
                     {% set ok = 'nav-link active' %} {% set nok = 'nav-link' %}
                     <ul class="nav flex-column ">
                         <li class='nav-item nav-pills'>
@@ -111,12 +111,12 @@
                         <img src='{{asset('/images/icons-teddy-bear.png')}}' class='icons' alt='nounours' />
                     </ul>
                 </div>
-                <div class='col-10'>
+                <div class='col-md-10'>
                     {% block content %}{% endblock %}
                 </div>
             </div>
         <footer class='row footer'>
-            <div class='col-2 retour'>
+            <div class='col-md-2 retour'>
                 <div>
                     <p>Version III / 2020 Par Snoopy</p>
                 </div>

@@ -97,8 +97,8 @@
 <!-- DIV du slide du bouton burger --></div><!-- DEBUT DU CONTAINT MAG --><div class="container">
 <div class="row mb-2">
 	<div class="col-12 text-center pt-3">
-		<h1 class="tailfonth1">Bienvenue dans la galerie</h1>
-		<p class="tailfontp">petit texte blabla blabla</p>
+		<h1 class="tailfonth1">Bienvenue dans ma galerie</h1>
+		<p class="tailfontp">Ici que des oeuvres unique</p>
 		<h4 class="tailfonth4">L'ensemble des oeuvres par themes</h4>
 	</div>
 </div></div>
@@ -198,22 +198,27 @@
 <!-- Commentaires -->
 <!-- {{dump(posts)}} -->
 <section class="container">
+{% set view = true %}
 {% for post in posts %}	
-    <div class="card justify-content-center">
-        <h5 class="card-header h5 bg-light">
+<div id='slider' {% if view %}class='view'{% else %}class='noview'{% endif %}>
+	{% set view = false %}
+    <div class="card text-center mt-3">
+        <h5 class="card-header">
             {{post.title}}
         </h5>
         <div class="card-body">
-            <blockquote class="blockquote mb-1">
-					{% autoescape false %}
-						{{post.comment}}	
-					{% endautoescape %}
-                <footer class="blockquote-footer">
+            <blockquote class="blockquote">
+				{% autoescape false %}
+					{{post.comment}}	
+				{% endautoescape %}
+                <div class="blockquote-footer">
                     De <cite title="Source Title">{{post.user.username}}</cite> le {{post.datecreat|date('d/m/Y')}}
-                </footer>
+                </div>
             </blockquote>
         </div>
 	</div>
-{% endfor %}	
+</div>
+{% endfor %}
+<a href='{{path('posts')}}'>Tous les commentaires -></a>
 </section>
 {% endblock %}

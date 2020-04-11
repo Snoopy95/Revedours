@@ -297,10 +297,18 @@ class AdminController extends AbstractController
     public function listusers()
     {
         $this->getDoctrine()->getRepository(Roles::class)->findAll();
-        $listusers = $this->getDoctrine()->getRepository(User::class)->findAll();
+        $listusers = $this->getDoctrine()->getRepository(User::class)->findBy(
+            ['roles' => 1],
+            ['datecreat' => 'ASC']
+        );
+        $listadmins = $this->getDoctrine()->getRepository(User::class)->findBy(
+            ['roles' => 2],
+            ['datecreat' => 'ASC']
+        );
 
         return $this->render('admin/listusers.html.twig', [
-            'listusers' => $listusers
+            'listusers' => $listusers,
+            'listadmins' => $listadmins
         ]);
     }
 
@@ -348,5 +356,25 @@ class AdminController extends AbstractController
         );
 
         return $this->redirectToRoute('comments', ['type' =>0]);
+    }
+
+    /**
+     * @Route("/admin/upuser/{id}/{role}", name="upuser")
+     */
+    public function upuser($id, $role, EntityManagerInterface $entityManager)
+    {
+        if ($role == 0) {
+            $typerole = $this->getDoctrine()->getRepository(Roles::class)->find(1);
+        } elseif ($role == 1) {
+            $typerole = $this->getDoctrine()->getRepository(Roles::class)->find(2);
+        } else {
+            return $this->redirectToRoute('listusers');
+        }
+
+        $user = $this->getDoctrine()->getRepository(User::class)->find($id);
+        $user->setRoles($typerole);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('listusers');
     }
 }
