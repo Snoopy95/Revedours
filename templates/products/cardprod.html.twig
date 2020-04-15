@@ -14,7 +14,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="#ici" onclick="addPanier({{product.id}})">
+					<a href="{{ path('addpanier', {'id': product.id}) }}" class='product-panier'>
 						<i class="fa fa-shopping-cart"></i>
 					</a>
 				</li>

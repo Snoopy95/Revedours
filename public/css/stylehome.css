@@ -41,8 +41,8 @@ width: 50%;
 margin: auto;
 }
 /* custom styling for all icons */
-.fa,
-.fab {
+.fas
+.far {
   color: var(--color-icon);
 }
 html,
@@ -87,6 +87,11 @@ a:hover{
 .vu{
   opacity: 1;
   transition: all 0.3s ease 0s;
+}
+#badge{
+  position: relative;
+  right: 9px;
+  bottom: 8px;
 }
 .header {
   position: fixed;
