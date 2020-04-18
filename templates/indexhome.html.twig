@@ -72,7 +72,7 @@
 								<p class="card-title text-center">Reve d'ours</p>
 								<p class="card-text text-center">
 									Bonjours passionné de peinture, je vous propose ici un
-																																																						                            ensemble de mes toiles à vendre
+																																																																																	                            ensemble de mes toiles à vendre
 								</p>
 							</div>
 						</div>
@@ -84,7 +84,7 @@
 								<p class="card-title text-center">Expédition</p>
 								<p class="card-text text-center">
 									Le moyen d'expédition est choisi en fonction de la toile pour
-																																																						                            garantir une livraison sans risque
+																																																																																	                            garantir une livraison sans risque
 								</p>
 							</div>
 						</div>
@@ -96,8 +96,8 @@
 								<p class="card-title text-center">Paiement sécurisé</p>
 								<p class="card-text text-center">
 									Paiement 100% sécurisé via PayPal
-																																																						                            par Carte Bancaire ou BIC sans avoir besoin
-																																																						                            de compte Paypal.
+																																																																																	                            par Carte Bancaire ou BIC sans avoir besoin
+																																																																																	                            de compte Paypal.
 								</p>
 							</div>
 						</div>
@@ -240,16 +240,17 @@
 								</thead>
 								<tbody id='panierbody'>
 									{% if panier|length == 0 %}
-										<h3 class='text-center'>Votre panier est vide</h3>
+										<h5 id='vide' class='text-center'>Votre panier est vide</h5>
 										{% set total = '--' %}
 									{% else %}
+										<h5 id='vide' class='text-center'></h5>
 										{% for item in panier %}
-											<tr id="prod{{item.product.id}}">
-												<th scope="row">{{item.product.prodName}}</th>
-												<td class='text-right'>{{item.product.prodPrice}}
+											<tr id="prod{{item.id}}">
+												<th scope="row">{{item.name}}</th>
+												<td class='text-right'>{{item.price}}
 													€</td>
 												<td class='text-center'>
-													<a href="{{ path('delprod' , {'id': item.product.id}) }}" class="delprod">
+													<a href="{{ path('delcart' , {'id': item.id}) }}" class="delprod">
 														<i class="fa fa-trash-alt fa-1x"></i>
 													</a>
 												</td>
@@ -269,15 +270,15 @@
 					</div>
 					<div class="modal-footer">
 						<div class="container">
-							<a type="button" class="btn btn-danger btn-sm" href="#">
+							<a type="button" class="btn btn-danger btn-sm removecart" href="{{ path('removecart')}}">
 								Annuler le panier
 							</a>
 							<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">
 								Continuer mes achats
 							</button>
-							<button type="button" class="btn btn-primary btn-sm">
+							<a href='#' type="button" class="btn btn-primary btn-sm">
 								Passer commande
-							</button>
+							</a>
 						</div>
 					</div>
 				</div>

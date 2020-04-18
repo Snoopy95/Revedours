@@ -2,10 +2,11 @@
 
 namespace App\Controller;
 
-use App\Entity\Roles;
 use App\Entity\User;
-use App\Entity\Categories;
+use App\Entity\Roles;
 use App\Form\UserType;
+use App\Entity\Categories;
+use App\Service\Cart\Cart;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,8 +18,12 @@ class SecurityController extends AbstractController
     /**
      * @Route("/newuser", name="newuser")
      */
-    public function newuser(Request $request, EntityManagerInterface $entity, UserPasswordEncoderInterface $encoder)
-    {
+    public function newuser(
+        Request $request,
+        EntityManagerInterface $entity,
+        UserPasswordEncoderInterface $encoder,
+        Cart $cart
+    ) {
         $listcate = $this->getDoctrine();
         $cates = $listcate->getRepository(Categories::class)->findAll();
 
@@ -31,7 +36,7 @@ class SecurityController extends AbstractController
             $user->setPassword($hash);
 
             $user->setDatecreat(new \DateTime());
-            $em= $this->getDoctrine();
+            $em = $this->getDoctrine();
             $role = $em->getRepository(Roles::class)->find(1);
             $user->setRoles($role);
 
@@ -40,11 +45,16 @@ class SecurityController extends AbstractController
 
             return $this->redirectToRoute('index');
         }
-    
+
+        $viewpanier = $cart->getViewCart();
+        $total = $cart->getTotal($viewpanier);
+
         return $this->render('security/newuser.html.twig', [
             'form' => $form->createView(),
             'cates' => $cates,
-            'selectcate'=> 0
+            'selectcate' => 0,
+            'panier' => $viewpanier,
+            'total' => $total
         ]);
     }
 

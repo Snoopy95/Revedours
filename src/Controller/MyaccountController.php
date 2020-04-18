@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Comments;
 use App\Entity\Categories;
+use App\Service\Cart\Cart;
 use App\Form\AddCommentType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,17 +17,22 @@ class MyaccountController extends AbstractController
     /**
      * @Route("/myaccount", name="myaccount")
      */
-    public function index()
+    public function index(Cart $cart)
     {
+        $viewpanier = $cart->getViewCart();
+        $total = $cart->getTotal($viewpanier);
+
         return $this->render('myaccount/index.html.twig', [
             'controller_name' => 'MyaccountController',
+            'panier' => $viewpanier,
+            'total' => $total
         ]);
     }
 
     /**
      * @Route("/myaccount/addcomment/{id}", name="addcomment")
      */
-    public function addcomment($id, Request $request, EntityManagerInterface $entityManager)
+    public function addcomment($id, Request $request, EntityManagerInterface $entityManager, Cart $cart)
     {
         $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
         
@@ -44,15 +50,17 @@ class MyaccountController extends AbstractController
             $entityManager->flush();
 
             return $this->redirectToRoute('index');
-            // return $this->render('myaccount/index.html.twig', [
-            //     'request' => $addcomment
-            // ]);
         }
+
+        $viewpanier = $cart->getViewCart();
+        $total = $cart->getTotal($viewpanier);
 
         return $this->render('myaccount/addcomment.html.twig', [
             'cates' => $cates,
             'form' => $form->createView(),
-            'selectcate'=> 0
+            'selectcate'=> 0,
+            'panier' => $viewpanier,
+            'total' => $total
         ]);
     }
 }

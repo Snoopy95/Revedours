@@ -348,14 +348,21 @@ class AdminController extends AbstractController
     public function publier($id, $status, EntityManagerInterface $entityManager)
     {
         $post = $this->getDoctrine()->getRepository(Comments::class)->find($id);
-        $post->setStatus($status);
-        $entityManager->flush();
-        $this->addFlash(
-            'info',
-            'Status modifier'
-        );
 
-        return $this->redirectToRoute('comments', ['type' =>0]);
+        if ($status == 1 || $status == 2 || $status == 0) {
+            $post->setStatus($status);
+            $entityManager->flush();
+            $this->addFlash(
+                'info',
+                'Status modifier'
+            );
+            $status = 0;
+        } elseif ($status == 3) {
+            $entityManager->remove($post);
+            $entityManager->flush();
+            $status = 2;
+        }
+        return $this->redirectToRoute('comments', ['type' => $status]);
     }
 
     /**

@@ -2,19 +2,18 @@
 
 namespace App\Controller;
 
+use App\Service\Cart\Cart;
 use App\Entity\Comments;
 use App\Entity\Categories;
-use App\Repository\ProductsRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class HomeController extends AbstractController
 {
     /**
      * @Route("/", name="index")
      */
-    public function index(SessionInterface $session, ProductsRepository $productsRepository)
+    public function index(Cart $cart)
     {
         $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
         $posts = $this->getDoctrine()->getRepository(Comments::class)->findBy(
@@ -23,20 +22,9 @@ class HomeController extends AbstractController
             4,
             0
         );
-
-        $panier = $session->get('panier', []);
-        $viewpanier = [];
         
-        foreach ($panier as $id) {
-            $viewpanier[] = [
-                'product' => $productsRepository->find($id)
-            ];
-        };
-
-        $total = 0;
-        foreach ($viewpanier as $item) {
-            $total += $item['product']->getProdPrice();
-        };
+        $viewpanier = $cart->getViewCart();
+        $total = $cart->getTotal($viewpanier);
 
         return $this->render('home/home.html.twig', [
             'cates'=> $cates,
@@ -50,26 +38,15 @@ class HomeController extends AbstractController
     /**
      * @Route("/posts", name="posts")
      */
-    public function posts(SessionInterface $session, ProductsRepository $productsRepository)
+    public function posts(Cart $cart)
     {
         $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
         $posts = $this->getDoctrine()->getRepository(Comments::class)->findBy(
             ['status' => 1],
             ['datecreat' => 'DESC']
         );
-        $panier = $session->get('panier', []);
-        $viewpanier = [];
-
-        foreach ($panier as $id) {
-            $viewpanier[] = [
-                'product' => $productsRepository->find($id)
-            ];
-        };
-
-        $total = 0;
-        foreach ($viewpanier as $item) {
-            $total += $item['product']->getProdPrice();
-        };
+        $viewpanier = $cart->getViewCart();
+        $total = $cart->getTotal($viewpanier);
 
         return $this->render('home/allcomments.html.twig', [
             'cates'=> $cates,

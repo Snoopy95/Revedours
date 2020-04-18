@@ -19,7 +19,7 @@ function creatpanier(prodpanier) {
     icon.className = "fa fa-trash-alt fa-1x";
     ahref = document.createElement("a");
     ahref.className = "delprod";
-    ahref.href = "/panier/delprod/" + item.id;
+    ahref.href = "/cart/delcart/" + item.id;
     action.appendChild(ahref);
     ahref.appendChild(icon);
     ahref.addEventListener("click", addpanier);
@@ -38,17 +38,20 @@ function addpanier(event) {
     .get(url)
     .then(function (response) {
       console.log(response.data);
-      const countpanier = response.data.countpanier;
       const prodpanier = response.data.panier;
       const total = response.data.total;
 
       // ----  AFFICHAGE DU BADGE ---------
       badge = document.querySelector("#badge");
-      badge.textContent = countpanier;
-      if (countpanier >= 1) {
+      badge.textContent = prodpanier.length;
+      if (prodpanier.length >= 1) {
         badge.className = "badge badge-pill badge-danger";
+        document.querySelector("#vide").className = "text-center cacher";
       } else {
         badge.className = "cacher";
+        vider = document.querySelector("#vide");
+        vider.className = "text-center vu";
+        vider.textContent = "Votre panier est vide";
       }
 
       // ---- AFFICHAGE DU PANIER -------
@@ -78,8 +81,5 @@ document.querySelectorAll("a.product-panier").forEach(function (panier) {
 document.querySelectorAll("a.delprod").forEach(function (delprods) {
   delprods.addEventListener("click", addpanier);
 });
-
-// -----  Function en attente ---------
-function delpanier() {
-  console.log("je supprimer le panier");
-}
+// -----  Ecoute du bouton annuler panier ---------
+document.querySelector("a.removecart").addEventListener("click", addpanier);
