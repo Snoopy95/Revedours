@@ -1,78 +1,69 @@
 {% extends "indexadmin.html.twig" %}
 {% set navb = 5 %}
 
-{% block titre %}Liste des images{% endblock %}
+{% block titre %}Liste des images
+{% endblock %}
 
 {% block content %}
-
-{# {{dump(files)}} #}
-
-<section class='container'>
-	<div class='row'>
+	<div class='row align-items-center'>
 		{% for file in files %}
 			<div class='col sm-6 mb-3'>
 				<div class="card text-center galerie">
-                    {% if file.href %}
-					<a href="{{file.href}}" target="_blank">
-                        <img src="{{asset('/uploads/' ~ file.name) }}" class="card-img-top taille" alt="{{file.name}}">
-                    </a>
-                    {% else %}
-                        <img src="{{asset('/uploads/' ~ file.name) }}" class="card-img-top taille" alt="{{file.name}}">
-                    {% endif %}
+					{% if file.href %}
+						<a href="{{file.href}}" target="_blank">
+							<img src="{{asset('/uploads/' ~ file.name) }}" class="card-img-top taille" alt="{{file.name}}">
+						</a>
+					{% else %}
+						<img src="{{asset('/uploads/' ~ file.name) }}" class="card-img-top taille" alt="{{file.name}}">
+					{% endif %}
 					<div class="card-body">
 						{% if file.href %}
-                        <a href="{{file.href}}" target="_blank">
-                            {{file.name}}
-                        </a>
-                        {% else %}
-                            {{file.name}}
-                        {% endif %}
-                    </div>
-                    <div class="card-footer">
-                    {% if file.del %}
-                        <a href="#" class="link" data-toggle="modal" data-target="#del{{file.numb}}">
-                            <img alt='Delete' title='Delete' src='{{asset('images/icons-trash.png')}}' class="action-icon" />
-                        </a>
-                        <!-- Modal Validation de suppression !!!!!!!! -->
-                        <div class="modal fade" id="del{{file.numb}}" tabindex="-1" role="dialog" aria-labelledby="del" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-body">
-                                        <h6 class='modal-title'>{{file.name}}</h6>
-                                        <h6 class='modal-body'>Etes-vous sûr de vouloir la supprimer ❓</h6>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-success btn-sm" data-dismiss="modal"> ❌ Annuler</button>
-                                        <a href="/admin/delimage/{{file.name}}" type="button" class="btn btn-danger btn-sm"> ✔ Supprimer !!</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    {% else %}
-                        <h5 class='bg-success'> Image utiliser </h5>
-                    {% endif %}
+							<a href="{{file.href}}" target="_blank">
+								{{file.name}}
+							</a>
+						{% else %}
+							{{file.name}}
+						{% endif %}
+					</div>
+					<div class="card-footer">
+						{% if file.del %}
+							<a href="#" class="link" data-toggle="modal" data-target="#del{{file.numb}}">
+								<img alt='Delete' title='Delete' src='{{asset('images/icons-trash.png')}}' class="action-icon"/>
+							</a>
+							<!-- Modal Validation de suppression !!!!!!!! -->
+							<div class="modal fade" id="del{{file.numb}}" tabindex="-1" role="dialog" aria-labelledby="del" aria-hidden="true">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-body">
+											<h6 class='modal-title'>{{file.name}}</h6>
+											<h6 class='modal-body'>Etes-vous sûr de vouloir la supprimer ❓</h6>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-success btn-sm" data-dismiss="modal">
+												❌ Annuler</button>
+											<a href="/admin/delimage/{{file.name}}" type="button" class="btn btn-danger btn-sm">
+												✔ Supprimer !!</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						{% else %}
+							<h5 class='bg-success'>
+								Image utiliser
+							</h5>
+						{% endif %}
 					</div>
 				</div>
 			</div>
-        {% endfor %}
-    </div>
-</section>
-
+		{% endfor %}
+	</div>
 {% endblock %}
 
-{% block footer %} 
-<div> Page 1 </div>
+{% block footer %}
+	<div>
+		Page 1
+	</div>
 {% endblock %}
-
-
-
-
-
-
-
-
-
-
 
 
 {# $adresse = "./images/"; //Adresse du dossier.

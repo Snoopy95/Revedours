@@ -1,133 +1,81 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1.0" />
-        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>Rêve d'ours - Admin</title>
-        {# <!-- Favicon --> #}
-        <link rel="shortcut icon" type="image/x-icon" href="{{asset('images/favicon.ico')}}" />
-        {# <!-- Bootstrap CSS --> #}
-        <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
-        {# <!-- Feuille de style --> #}
-        <link rel="stylesheet" href="{{asset('css/styleadmin.css')}}" />
-        {#  --- DropZone ---- #}
-        <link rel="stylesheet" href="{{asset('css/dropzone.css')}}" />
-        <script src="{{asset('js/dropzone.js')}}"></script>
-        {# <!-- Icon kit fontawesome--> #}
-        <link rel="stylesheet" href="{{asset('css/all.css')}}" />
-        <script src="{{asset('js/all.js')}}"></script>
-        <script src="{{asset('js/admin.js')}}"></script>
-    </head>
-
-    <body class='content'>
-        <header class='row header'>
-            <div class='col-md-2'>
-                <a class="btn btn-success btn-sm" href='{{path('index')}}' role="button">Retour !!</a>
-            </div>
-            <div class='col-md-4'>
-                <h3 class='titre'>{% block titre %} {% endblock %}</h3>
-            </div>
-            <div class='col-md-4'>
-                <p class:'msg'>
-                {% block message %}
-                    {% for message in app.flashes('info') %}
-                        {{ message }}
-                    {% endfor %}
-                {% endblock %}</p>
-            </div>
-            <div class='col-md-2'>
-                <p class='log'>Bienvenu !!!</p>
-            </div>
-        </header>
-            <div class='row'>
-                <div class='col-md-2 sidenav'>
-                    {% set ok = 'nav-link active' %} {% set nok = 'nav-link' %}
-                    <ul class="nav flex-column ">
-                        <li class='nav-item nav-pills'>
-                            <a {% if navb == 1 %}
-                            class='{{ok}}'
-                            {% else %}
-                            class='{{nok}}'
-                            {% endif %} 
-                            href="{{path('dashboard')}}">Tableau de bord</a>
-                        </li>
-                        <li class='nav-item nav-pills'>
-                            <a {% if navb == 2 %}
-                            class='{{ok}}'
-                            {% else %}
-                            class='{{nok}}'
-                            {% endif %} 
-                            href="{{path('listprods')}}">Liste produits</a>
-                        </li>
-                        <li class='nav-item nav-pills'>
-                            <a {% if navb == 3 %}
-                            class='{{ok}}'
-                            {% else %}
-                            class='{{nok}}'
-                            {% endif %} 
-                            href="{{path('addprod')}}">Ajouter produit</a>
-                        </li>
-                        <li class='nav-item nav-pills'>
-                            <a {% if navb == 4 %}
-                            class='{{ok}}'
-                            {% else %}
-                            class='{{nok}}'
-                            {% endif %} 
-                            href="{{path('listecates')}}">Liste Categories</a>
-                        </li>
-                        <li class='nav-item nav-pills'>
-                            <a {% if navb == 5 %}
-                            class='{{ok}}'
-                            {% else %}
-                            class='{{nok}}'
-                            {% endif %} 
-                            href="{{path('galerie')}}">Galerie Upload</a>
-                        </li>
-                        <li class='nav-item nav-pills'>
-                            <a {% if navb == 6 %}
-                            class='{{ok}}'
-                            {% else %}
-                            class='{{nok}}'
-                            {% endif %} 
-                            href="{{path('listusers')}}">Liste clients</a>
-                        </li>
-                        <li class='nav-item nav-pills'>
-                            <a {% if navb == 7 %}
-                            class='{{ok}}'
-                            {% else %}
-                            class='{{nok}}'
-                            {% endif %} 
-                            href="#">Gestion commandes</a>
-                        </li>
-                            <li class='nav-item nav-pills'>
-                            <a {% if navb == 8 %}
-                            class='{{ok}}'
-                            {% else %}
-                            class='{{nok}}'
-                            {% endif %} 
-                            href="{{ path('comments', {'type': 0}) }}">Gestion commantaires</a>
-                        </li>
-                        <img src='{{asset('/images/icons-teddy-bear.png')}}' class='icons' alt='nounours' />
-                    </ul>
-                </div>
-                <div class='col-md-10'>
-                    {% block content %}{% endblock %}
-                </div>
-            </div>
-        <footer class='row footer'>
-            <div class='col-md-2 retour'>
-                <div>
-                    <p>Version III / 2020 Par Snoopy</p>
-                </div>
-            </div>
-            <div class='col-10'>
-                {% block footer %}{% endblock %}
-            </div>
-        </footer>
-        {# Scritp Javascript #}
-        <script src="{{asset('js/jquery.slim.min.js')}}"></script>
-        <script src="{{asset('js/popper.min.js')}}"></script>
-        <script src="{{asset('js/bootstrap.min.js')}}"></script>
-    </body>
-</html>
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1.0"/>
+		<meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+		<title>Rêve d'ours - Admin</title>
+		{# <!-- Favicon --> #}
+		<link
+		rel="shortcut icon" type="image/x-icon" href="{{asset('images/favicon.ico')}}"/>
+		{# <!-- Bootstrap CSS --> #}
+		<link
+		rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+		{# <!-- Feuille de style --> #}
+		<link
+		rel="stylesheet" href="{{asset('css/styleadmin.css')}}"/>
+		{#  --- DropZone ---- #}
+		<link rel="stylesheet" href="{{asset('css/dropzone.css')}}"/>
+		<script src="{{asset('js/dropzone.js')}}"></script>
+		{# <!-- Icon kit fontawesome--> #}
+		<link rel="stylesheet" href="{{asset('css/all.css')}}"/>
+		<script src="{{asset('js/all.js')}}"></script>
+		<script src="{{asset('js/admin.js')}}"></script>
+	</head>
+	<body class='content'>
+		<header class='row header'>
+			<div class='col-md-2'>
+				<a class="btn btn-success btn-sm" href='{{path('index')}}' role="button">Retour !!</a>
+			</div>
+			<div class='col-md-4'>
+				<h3 class='titre'> {% block titre %}{% endblock %}
+					</h3>
+				</div>
+				<div class='col-md-4'>
+					<p class='msg'>
+						{% block message %}
+							{% for message in app.flashes('info') %}
+								{{ message }}
+							{% endfor %}
+						{% endblock %}
+					</p>
+				</div>
+				<div class='col-md-2'>
+					<p class='log'>Hello
+						{{app.user.username}}</p>
+				</div>
+			</header>
+			<div class='row'>
+				<aside class='col-md-2 sidenav'>
+					{% set ok = 'nav-link flex-sm-fill text-sm-left active' %}
+					{% set nok = 'nav-link flex-sm-fill text-sm-left' %}
+					<nav class="nav flex-column nav-pills flex-sm-row">
+						<a {% if navb == 1 %} class='{{ok}}' {% else %} class='{{nok}}' {% endif %} href="{{path('dashboard')}}">Tableau de bord</a>
+						<a {% if navb == 2 %} class='{{ok}}' {% else %} class='{{nok}}' {% endif %} href="{{path('listprods')}}">Liste produits</a>
+						<a {% if navb == 3 %} class='{{ok}}' {% else %} class='{{nok}}' {% endif %} href="{{path('addprod')}}">Ajouter produit</a>
+						<a {% if navb == 4 %} class='{{ok}}' {% else %} class='{{nok}}' {% endif %} href="{{path('listecates')}}">Liste Categories</a>
+						<a {% if navb == 5 %} class='{{ok}}' {% else %} class='{{nok}}' {% endif %} href="{{path('galerie')}}">Galerie Upload</a>
+						<a {% if navb == 6 %} class='{{ok}}' {% else %} class='{{nok}}' {% endif %} href="{{path('listusers')}}">Liste clients</a>
+						<a {% if navb == 7 %} class='{{ok}}' {% else %} class='{{nok}}' {% endif %} href="#">Gestion commandes</a>
+						<a {% if navb == 8 %} class='{{ok}}' {% else %} class='{{nok}}' {% endif %} href="{{ path('comments', {'type': 0}) }}">Gestion commantaires</a>
+						<img src='{{asset('/images/icons-teddy-bear.png')}}' class='icons' alt='nounours'/>
+					</nav>
+				</aside>
+				<section class='col-md-10'> {% block content %}{% endblock %}
+					</section>
+				</div>
+				<footer class='row footer'>
+					<div class='col-md-2 retour'>
+						<div>
+							<p>Version III / 2020 Par Snoopy</p>
+						</div>
+					</div>
+					<div class='col-10'> {% block footer %}{% endblock %}
+						</div>
+					</footer>
+					{# Scritp Javascript #}
+					<script src="{{asset('js/jquery.slim.min.js')}}"></script>
+					<script src="{{asset('js/popper.min.js')}}"></script>
+					<script src="{{asset('js/bootstrap.min.js')}}"></script>
+				</body>
+			</html>

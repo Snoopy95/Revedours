@@ -4,9 +4,8 @@
 {% block titre %}Ajout de Produit{% endblock %}
 
 {% block content %}
-<section>
 	{{ form_start(form) }}
-		<div class="form-group">
+		<div class="form-group align-items-center">
 			<div class="form-row">
 				<div class="form-group col-md-8">
 					<div class="dropzone" id="myDropzone" action="{{path('upload')}}">
@@ -62,7 +61,6 @@
 			</div>
 		</div>
 	{{ form_end(form) }}
-</section>
 {% endblock %}
 
 {% block footer %} 

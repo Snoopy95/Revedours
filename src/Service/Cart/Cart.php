@@ -39,7 +39,8 @@ class Cart
             $viewpanier[] = [
                 'id' => $item->getId(),
                 'name' => $item->getProdName(),
-                'price' => $item->getProdPrice()
+                'price' => $item->getProdPrice(),
+                'picture' => $item->getProdPicture()
             ];
         };
         return $viewpanier;

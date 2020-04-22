@@ -2,20 +2,33 @@
 
 namespace App\Controller;
 
+use App\Entity\Categories;
 use App\Service\Cart\Cart;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CartController extends AbstractController
 {
     /**
      * @Route("/cart", name="cart")
      */
-    public function cart()
+    public function cart(Cart $cart)
     {
-        return $this->render('cart/index.html.twig', [
-            'controller_name' => 'CartController',
+        $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
+
+        $viewpanier = $cart->getViewCart();
+        $total = $cart->getTotal($viewpanier);
+        $montant['TTC'] = $total;
+        $montant['HT'] = $montant['TTC']/1.055 ;
+        $montant['TVA'] = $montant['TTC']-$montant['HT'];
+
+        return $this->render('cart/cart.html.twig', [
+            'cates' => $cates,
+            'selectcate'=> 0,
+            'panier' => $viewpanier,
+            'total' => $total,
+            'montant' => $montant
         ]);
     }
 

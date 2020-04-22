@@ -2,99 +2,97 @@
 {% set navb = 6 %}
 
 {% block titre %}
-<div> Liste des Utilisateurs </div>
+	<div>
+		Liste des Utilisateurs
+	</div>
 {% endblock %}
 
-{% block content %} 
-<div class="table-responsive-md">
-<table class="table-striped table">
-    <thead class="thead-dark">
-            <td scope="col">#ID</td>
-            <td scope="col">Username</td>
-            <td scope="col">Email</td>
-            <td scope="col">Role</td>
-            <td scope="col">Action</td>
-            <td scope="col">Date</td>
-        </tr>
-    </thead>
-    <tbody>
-        {% for listadmin in listadmins %}
-            <tr>
-                <th scope='row'>#{{listadmin.id}}</th>
-                <td>{{listadmin.username}}</td>
-                <td>{{listadmin.email}}</td>
-                <td>{{listadmin.roles[0]}}</td>
-                <td>
-                    <a href="#" class="link" data-toggle="modal" data-target="#del{{listadmin.id}}">
-                        <img alt='User' title='User' src='{{asset('images/icons-remove-admin.png')}}' class="icons35" />
-                    </a>
-                </td>
-                <td>{{listadmin.datecreat|date('d/m/Y')}} </td>
-            </tr>
-            <!-- Modal Validation de changement !!!!!!!! -->
-            <div class="modal fade" id="del{{listadmin.id}}" tabindex="-1" role="dialog" aria-labelledby="del" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-body">
-                            <h6 class='modal-title'>{{listadmin.username}}</h6>
-                            <h6 class='modal-body'>Etes-vous sûr de vouloir le mettre User ?</h6>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-success btn-sm" data-dismiss="modal">Non, il reste Admin</button>
-                            <a href="{{ path('upuser', {'id': listadmin.id, 'role': 0}) }}" type="button" class="btn btn-danger btn-sm">Oui Il sera User !!</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-    </tbody>
+{% block content %}
+	<div class="table-responsive-md">
+		<table class="table-striped table">
+			<thead class="thead-dark">
+				<td scope="col">#ID</td>
+				<td scope="col">Username</td>
+				<td scope="col">Email</td>
+				<td scope="col">Role</td>
+				<td scope="col">Action</td>
+				<td scope="col">Date</td>
+			</thead>
+		</tr>
+	</thead>
+	<tbody>
+		{% for listadmin in listadmins %}
+			<tr>
+				<th scope='row'>#{{listadmin.id}}</th>
+				<td>{{listadmin.username}}</td>
+				<td>{{listadmin.email}}</td>
+				<td>{{listadmin.roles[0]}}</td>
+				<td>
+					<a href="#" class="link" data-toggle="modal" data-target="#del{{listadmin.id}}">
+						<img alt='User' title='User' src='{{asset('images/icons-remove-admin.png')}}' class="icons35"/>
+					</a>
+				</td>
+				<td>{{listadmin.datecreat|date('d/m/Y')}}
+				</td>
+			</tr>
+			<!-- Modal Validation de changement !!!!!!!! -->
+			<div class="modal fade" id="del{{listadmin.id}}" tabindex="-1" role="dialog" aria-labelledby="del" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-body">
+							<h6 class='modal-title'>{{listadmin.username}}</h6>
+							<h6 class='modal-body'>Etes-vous sûr de vouloir le mettre User ?</h6>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-success btn-sm" data-dismiss="modal">Non, il reste Admin</button>
+							<a href="{{ path('upuser', {'id': listadmin.id, 'role': 0}) }}" type="button" class="btn btn-danger btn-sm">Oui Il sera User !!</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</tbody>
 </table>
 <table class="table-striped table">
-    <thead class="thead-dark">
-        <tr>
-            <td scope="col">#ID</td>
-            <td scope="col">Username</td>
-            <td scope="col">Email</td>
-            <td scope="col">Role</td>
-            <td scope="col">Action</td>
-            <td scope="col">Date</td>
-        </tr>
-    </thead>
-    {% for listuser in listusers %}
-        <tr>
-            <th scope='row'>#{{listuser.id}}</th>
-            <td>{{listuser.username}}</td>
-            <td>{{listuser.email}}</td>
-            <td>{{listuser.roles[0]}}</td>
-            <td>
-                <a href="#" class="link" data-toggle="modal" data-target="#del{{listuser.id}}">
-                    <img alt='Admin' title='Admin' src='{{asset('images/icons-add-admin.png')}}' class="icons35" />
-                </a>
-            </td>
-            <td>{{listuser.datecreat|date('d/m/Y')}} </td>
-        </tr>
-        <!-- Modal Validation de changement !!!!!!!! -->
-        <div class="modal fade" id="del{{listuser.id}}" tabindex="-1" role="dialog" aria-labelledby="del" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <h6 class='modal-title'>{{listuser.username}}</h6>
-                        <h6 class='modal-body'>Etes-vous sûr de vouloir le mettre Admin ?</h6>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-success btn-sm" data-dismiss="modal">Non, il reste User</button>
-                        <a href="{{ path('upuser', {'id': listuser.id, 'role': 1}) }}" type="button" class="btn btn-danger btn-sm">Oui Il sera Admin !!</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    {% endfor %}
-</table>
-</div>
-{% endblock %}
-
-{% block footer %} 
-<div> Page 1 </div>
-{% endblock %}
-
-
+	<thead class="thead-dark">
+		<tr>
+			<td scope="col">#ID</td>
+			<td scope="col">Username</td>
+			<td scope="col">Email</td>
+			<td scope="col">Role</td>
+			<td scope="col">Action</td>
+			<td scope="col">Date</td>
+		</tr>
+	</thead>
+	{% for listuser in listusers %}
+		<tr>
+			<th scope='row'>#{{listuser.id}}</th>
+			<td>{{listuser.username}}</td>
+			<td>{{listuser.email}}</td>
+			<td>{{listuser.roles[0]}}</td>
+			<td>
+				<a href="#" class="link" data-toggle="modal" data-target="#del{{listuser.id}}">
+					<img alt='Admin' title='Admin' src='{{asset('images/icons-add-admin.png')}}' class="icons35"/>
+				</a>
+			</td>
+			<td>{{listuser.datecreat|date('d/m/Y')}}
+			</td>
+		</tr>
+		<!-- Modal Validation de changement !!!!!!!! -->
+		<div class="modal fade" id="del{{listuser.id}}" tabindex="-1" role="dialog" aria-labelledby="del" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-body">
+						<h6 class='modal-title'>{{listuser.username}}</h6>
+						<h6 class='modal-body'>Etes-vous sûr de vouloir le mettre Admin ?</h6>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-success btn-sm" data-dismiss="modal">Non, il reste User</button>
+						<a href="{{ path('upuser', {'id': listuser.id, 'role': 1}) }}" type="button" class="btn btn-danger btn-sm">Oui Il sera Admin !!</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+</table></div>{% endblock %}{% block footer %}<div>
+Page 1</div>{% endblock %}

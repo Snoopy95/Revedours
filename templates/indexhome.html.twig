@@ -258,33 +258,31 @@
 										{% endfor %}
 									{% endif %}
 								</tbody>
-							</tbody>
-							<tfoot id='panierfoot'>
-								<tr>
-									<td class='text-right'>Total TTC :</td>
-									<td id='paniertotal' class='text-right'>{{total}}
+								<tfoot id='panierfoot'>
+									<tr>
+										<td class='text-right'>Total TTC :</td>
+										<td id='paniertotal' class='text-right'>{{total}}
 										€</td>
-								</tr>
-							</tfoot>
-						</table>
-					</div>
-					<div class="modal-footer">
-						<div class="container">
-							<a type="button" class="btn btn-danger btn-sm removecart" href="{{ path('removecart')}}">
-								Annuler le panier
-							</a>
-							<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">
-								Continuer mes achats
-							</button>
-							<a href='#' type="button" class="btn btn-primary btn-sm">
-								Passer commande
-							</a>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+						<div class="modal-footer">
+							<div class="container">
+								<a type="button" class="btn btn-danger btn-sm removecart" href="{{ path('removecart')}}">
+									Vider le panier
+								</a>
+								<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">
+									Continuer mes achats
+								</button>
+								<a href='{{path('cart')}}' type="button" class="btn btn-primary btn-sm">
+									Passer la commande
+								</a>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-
 		{# -- JavaScript -- #}
 		<script src="{{asset('js/slidecomments.js')}}"></script>
 		<script src="{{asset('js/home.js')}}"></script>
