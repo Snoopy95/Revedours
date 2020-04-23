@@ -1,77 +1,71 @@
 {% extends "indexhome.html.twig" %}
 
 {% block titlebar %}
-<section class="site-pusher">
-  <div class="site-content">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{path('index')}}">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Inscription</li>
-      </ol>
-    </nav>
-    <div class="card">
-      <img src="{{asset('images/inscription.jpg')}}" class="card-img img-fluid taille rounded" alt="theme" />
-      <div class="card-img-overlay text-center styltext">
-        <h1 class="card-title tailfonth1">
-          Bienvenu !
-        </h1>
-      </div>
-    </div>
-  </div>
-  <div class="site-cache" id="site-cache"></div>
-</section>
-<!-- DIV du slide bouton burger -->
+	<section class="site-pusher">
+		<div class="site-content">
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<a href="{{path('index')}}">Home</a>
+					</li>
+					<li class="breadcrumb-item active" aria-current="page">Inscription</li>
+				</ol>
+			</nav>
+			<div class="card">
+				<img src="{{asset('images/inscription.jpg')}}" class="card-img img-fluid taille rounded" alt="theme"/>
+				<div class="card-img-overlay text-center styltext">
+					<h1 class="card-title tailfonth1">
+						Bienvenu !
+					</h1>
+				</div>
+			</div>
+		</div>
+		<div class="site-cache" id="site-cache"></div>
+	</section>
+	<!-- DIV du slide bouton burger -->
 </div>
 <!-- DEBUT DU CONTAINT CATALOGUE -->
 <div class="container">
-  <div class="row mb-2">
-    <div class="col-12 text-center pt-3">
-      <h1 class="tailfonth1">Inscription</h1>
-      <p class="tailfontp"></p>
-    </div>
-  </div>
-</div>
-{% endblock %}
-
-{% block content %}
+	<div class="row mb-2">
+		<div class="col-12 text-center pt-3">
+			<h1 class="tailfonth1">Inscription</h1>
+			<p class="tailfontp"></p>
+		</div>
+	</div>
+</div>{% endblock %}{% block content %}
 {{form_start(form)}}
 <div class="form-sign">
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <span class="input-group-text">@ Email</span>
-    </div>
-      {{form_widget(form.email, {'attr': {'placeholder':'Adresse Email '}})}}
-  </div>
-	<div class='input-group mb-3'>
-    <div class='input-group-prepend'>
-      <span class='input-group-text'>Username</span>
-    </div>
-    {{form_widget(form.username, {'attr': {'placeholder':'Nom ou Pseudo'}})}}
-  </div>
-    {{ form_errors(form.password) }}
 	<div class="input-group mb-3">
-		{{form_widget(form.password, {'attr': {'placeholder':'Votre mot de passe', 'class' : 'show-pwd'}})}}
+		<div class="input-group-prepend">
+			<span class="input-group-text">@ Email</span>
+		</div>
+		{{form_widget(form.email)}}
+	</div>
+	<div class='input-group mb-3'>
+		<div class='input-group-prepend'>
+			<span class='input-group-text'>Username</span>
+		</div>
+		{{form_widget(form.username)}}
+	</div>
+	{{ form_errors(form.password) }}
+	<div class="input-group mb-3">
+		{{form_widget(form.password)}}
 		<div class="input-group-append show">
 			<span class="btn btn-outline-secondary">
-				<i id='' class="iconshow far fa-eye"></i>
+				<i class="iconshow far fa-eye"></i>
 			</span>
 		</div>
 	</div>
-    {{ form_errors(form.confirm_password) }}
+	{{ form_errors(form.confirm_password) }}
 	<div class="input-group mb-3">
-		{{form_widget(form.confirm_password, {'attr': {'placeholder':'Confirmez votre mot de passe', 'class' : 'showconf-pwd'}})}}
+		{{form_widget(form.confirm_password)}}
 		<div class="input-group-append showconf">
 			<span class="btn btn-outline-secondary">
-				<i id='' class="iconshowconf far fa-eye"></i>
+				<i class="iconshowconf far fa-eye"></i>
 			</span>
 		</div>
 	</div>
-    <button type="submit" class="btn btn-success mx-auto d-block">Valider</button>
+	<button type="submit" class="btn btn-success mx-auto d-block">Valider</button>
 </div>
-{{form_end(form)}}
-
-{% endblock %}
-
-    {% block javascripts %}
-      <script src="{{asset('js/password.js')}}"></script>
-    {% endblock %}
+{{form_end(form)}}{% endblock %}{% block javascripts %}
+<script src="{{asset('js/password.js')}}"></script>{% endblock %}

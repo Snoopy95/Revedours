@@ -11,13 +11,13 @@ document.querySelector("#site-cache").addEventListener("click", evt => {
 });
 
 // --------- Show password ---------
-document.querySelector('.show').addEventListener("click", evt => {
+document.querySelector('.mshow').addEventListener("click", evt => {
   evt.preventDefault();
-  showpwd = document.querySelector(".show-pwd")
+  mshowpwd = document.querySelector(".mshow-pwd")
   // console.log('je click', showpwd.type)
-  showpwd.type =='password' ? showpwd.type = 'text' : showpwd.type= 'password';
-  iconshow= document.querySelector('.iconshow')
+  mshowpwd.type =='password' ? mshowpwd.type = 'text' : mshowpwd.type= 'password';
+  miconshow= document.querySelector('.miconshow')
   // console.log(iconshow.classList)
-  iconshow.classList.toggle("fa-eye")
-  iconshow.classList.toggle("fa-eye-slash")
+  miconshow.classList.toggle("fa-eye")
+  miconshow.classList.toggle("fa-eye-slash")
 });

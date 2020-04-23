@@ -2,9 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Addresses;
 use App\Entity\Categories;
 use App\Service\Cart\Cart;
+use App\Form\AddressesType;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -13,22 +18,60 @@ class CartController extends AbstractController
     /**
      * @Route("/cart", name="cart")
      */
-    public function cart(Cart $cart)
+    public function cart(Cart $cart, UserInterface $user, Request $request, EntityManagerInterface $em)
     {
         $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
-
         $viewpanier = $cart->getViewCart();
         $total = $cart->getTotal($viewpanier);
-        $montant['TTC'] = $total;
-        $montant['HT'] = $montant['TTC']/1.055 ;
-        $montant['TVA'] = $montant['TTC']-$montant['HT'];
+        $adress = $this->getDoctrine()->getRepository(Addresses::class)->findBy(
+            ['user' => $user]
+        );
+
+        if (!$adress) {
+            $addresse= new Addresses();
+            $form = $this->createForm(AddressesType::class, $addresse);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $addresse->setUser($user);
+
+                $em->persist($addresse);
+                $em->flush();
+
+                return $this->render('cart/validator.html.twig', [
+                    'cates' => $cates,
+                    'selectcate' => 0,
+                    'panier' => $viewpanier,
+                    'total' => $total
+                ]);
+            }
+
+            return $this->render('cart/cart.html.twig', [
+                'cates' => $cates,
+                'selectcate' => 0,
+                'panier' => $viewpanier,
+                'total' => $total,
+                'user' => $user,
+                'form' => $form->createView(),
+            ]);
+        } else {
+            return $this->render('cart/cart.html.twig', [
+                'cates' => $cates,
+                'selectcate' => 0,
+                'panier' =>$viewpanier,
+                'total' => $total,
+                'user' => $user,
+                'adress' => $adress,
+                'form' => []
+            ]);
+        }
 
         return $this->render('cart/cart.html.twig', [
             'cates' => $cates,
             'selectcate'=> 0,
             'panier' => $viewpanier,
             'total' => $total,
-            'montant' => $montant
+            'user' => $user,
         ]);
     }
 

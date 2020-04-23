@@ -19,6 +19,11 @@
   background-color: brown;
 }
 
+.block{
+  display: block;
+  margin: auto;
+}
+
 /* Slide des commentaires*/
 .noview {
   display: none;

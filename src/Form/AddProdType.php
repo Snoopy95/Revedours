@@ -18,25 +18,42 @@ class AddProdType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('prod_name', TextType::class)
-        ->add('prod_price', IntegerType::class)
-        ->add('prod_descrip', TextType::class)
-        ->add('prod_info', CKEditorType::class, [
-            'config' => ['my_config']
-        ])
-        ->add('prod_stock', ChoiceType::class, [
-            'choices' => [
-                'Dispo' => true,
-                'Non Dispo' => false
-            ],
-            'multiple'=>false,
-            'expanded' => true
-        ])
-        ->add('categories', EntityType::class, [
-            'class' => Categories::class,
-            'choice_label' => 'cate_name',
-        ])
-        ;
+            ->add('prod_name', TextType::class, [
+                'attr' => [
+                    'placeholder' => 'Nom'
+                ]
+            ])
+            ->add('prod_price', IntegerType::class, [
+                'attr' => [
+                    'placeholder' => 'Prix TTC'
+                ]
+            ])
+            ->add('prod_descrip', TextType::class, [
+                'attr' => [
+                    'placeholder' => 'Info'
+                ]
+            ])
+            ->add('prod_info', CKEditorType::class, [
+                'config' => ['my_config'],
+                'attr' => [
+                    'rows' => 5
+                ]
+            ])
+            ->add('prod_stock', ChoiceType::class, [
+                'choices' => [
+                    'Dispo' => true,
+                    'Non Dispo' => false
+                ],
+                'multiple' => false,
+                'expanded' => true,
+                'attr' => [
+                    'class' => 'input-group-text'
+                ]
+            ])
+            ->add('categories', EntityType::class, [
+                'class' => Categories::class,
+                'choice_label' => 'cate_name',
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

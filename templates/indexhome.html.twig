@@ -133,10 +133,10 @@
 									</div>
 								</div>
 								<div class="input-group mb-3">
-									<input type="password" placeholder="Votre Password ..." class="form-control show-pwd" id="loginPassword" name="_password"/>
-									<div class="input-group-append show">
+									<input type="password" placeholder="Votre Password ..." class="form-control mshow-pwd" id="loginPassword" name="_password"/>
+									<div class="input-group-append mshow">
 										<span class="btn btn-outline-secondary">
-											<i class="iconshow far fa-eye"></i>
+											<i class="miconshow far fa-eye"></i>
 										</span>
 									</div>
 								</div>
@@ -202,7 +202,7 @@
 										<a class="btn btn-primary color-btnews" type="button" href="#">Mes commandes</a>
 									</div>
 									<div class='col-4'>
-										<a class="btn btn-primary color-btnews" type="button" href="/myaccount/addcomment/{{app.user.id}}">Mettre un commentaire</a>
+										<a class="btn btn-primary color-btnews" type="button" href="/myaccount/addcomment">Mettre un commentaire</a>
 									</div>
 								</div>
 							</div>
@@ -241,7 +241,6 @@
 								<tbody id='panierbody'>
 									{% if panier|length == 0 %}
 										<h5 id='vide' class='text-center'>Votre panier est vide</h5>
-										{% set total = '--' %}
 									{% else %}
 										<h5 id='vide' class='text-center'></h5>
 										{% for item in panier %}
@@ -261,21 +260,30 @@
 								<tfoot id='panierfoot'>
 									<tr>
 										<td class='text-right'>Total TTC :</td>
-										<td id='paniertotal' class='text-right'>{{total}}
-										€</td>
+										<td id='paniertotal' class='text-right'>
+											{% if total.TTC == 0 %}
+												-- 
+											{% else %}
+												{{total.TTC}}
+											{% endif %}
+											€
+										</td>
 									</tr>
 								</tfoot>
 							</table>
 						</div>
-						<div class="modal-footer">
-							<div class="container">
+						<div class="modal-footer block">
+							{% if app.user == null %}
+							<div class="mb-3">Vous devez être inscrit et connecté pour valider le panier</div>
+							{% endif %}
+							<div>
 								<a type="button" class="btn btn-danger btn-sm removecart" href="{{ path('removecart')}}">
 									Vider le panier
 								</a>
 								<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">
 									Continuer mes achats
 								</button>
-								<a href='{{path('cart')}}' type="button" class="btn btn-primary btn-sm">
+								<a href='{{path('cart')}}' type="button" class="btn btn-primary btn-sm {% if app.user == null %} disabled {% endif %}">
 									Passer la commande
 								</a>
 							</div>

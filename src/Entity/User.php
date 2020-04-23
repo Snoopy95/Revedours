@@ -64,9 +64,20 @@ class User implements UserInterface
      */
     private $comments;
 
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $resetpwd;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Addresses", mappedBy="user")
+     */
+    private $addresses;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->addresses = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -170,6 +181,49 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($comment->getUser() === $this) {
                 $comment->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getResetpwd(): ?string
+    {
+        return $this->resetpwd;
+    }
+
+    public function setResetpwd(?string $resetpwd): self
+    {
+        $this->resetpwd = $resetpwd;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Addresses[]
+     */
+    public function getAddresses(): Collection
+    {
+        return $this->addresses;
+    }
+
+    public function addAddress(Addresses $address): self
+    {
+        if (!$this->addresses->contains($address)) {
+            $this->addresses[] = $address;
+            $address->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAddress(Addresses $address): self
+    {
+        if ($this->addresses->contains($address)) {
+            $this->addresses->removeElement($address);
+            // set the owning side to null (unless already changed)
+            if ($address->getUser() === $this) {
+                $address->setUser(null);
             }
         }
 

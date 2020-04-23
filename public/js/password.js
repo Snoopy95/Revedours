@@ -2,7 +2,7 @@
 document.querySelector('.show').addEventListener("click", evt => {
     evt.preventDefault();
     showpwd = document.querySelector(".show-pwd")
-    // console.log('je click', showpwd.type)
+    console.log('je click', showpwd.type)
     showpwd.type =='password' ? showpwd.type = 'text' : showpwd.type= 'password';
     iconshow= document.querySelector('.iconshow')
     // console.log(iconshow.classList)

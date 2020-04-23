@@ -12,7 +12,7 @@
 				</ol>
 			</nav>
 			<div class="card">
-				<img src="{{asset('images/vos-commentaires.png')}}" class="card-img img-fluid taille rounded" alt="theme"/>
+				<img src="{{asset('images/.png')}}" class="card-img img-fluid taille rounded" alt="theme"/>
 			</div>
 		</div>
 		<div class="site-cache" id="site-cache"></div>
@@ -24,18 +24,101 @@
 <div class="container">
 	<div class="row mb-2">
 		<div class="col-12 text-center pt-3">
-			<h3 class="tailfonth1">Panier</h3>
-			<p class="tailfontp">Detail</p>
+			<h3 class="tailfonth1">Commande</h3>
+			<p class="tailfontp">Adresse</p>
 		</div>
 	</div>
 </div>{% endblock %}
 
 {% block content %}
-
-<pre>
-	{{ dump(panier) }}
-	{{ dump(total) }}
-	{{ dump(montant) }}
-</pre>
-
+<div class='container'>
+	<div class="row justify-content-around">
+		<div class="col-sm-5 table-responsive-sm">
+			<table class="table table-striped" style="width: 450px">
+				<thead>
+					<tr>
+						<th scope="col">Photo</th>
+						<th scope="col">Nom</th>
+						<th class='text-right' scope="col">Prix TTC</th>
+					</tr>
+				</thead>
+				<tbody id='panierbody'>
+					{% if panier|length == 0 %}
+						<h5 id='vide' class='text-center'>Votre panier est vide</h5>
+					{% else %}
+						<h5 id='vide' class='text-center'></h5>
+						{% for item in panier %}
+							<tr>
+								<td><img src="{{ asset('/uploads/') ~ item.picture }}" alt="" width='80'/></td>
+								<th>{{item.name}}</th>
+								<td class='text-right'>{{item.price}}€</td>
+							</tr>
+						{% endfor %}
+					{% endif %}
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan='2' class='text-right'>Total HT :</td>
+						<td id='paniertotal' class='text-right'>{{total.HT}}€</td>
+					</tr>
+					<tr>
+						<td colspan='2' class='text-right'>TVA 5.5% :</td>
+						<td id='paniertotal' class='text-right'>{{total.TVA}}€</td>
+					</tr>
+					<tr>
+						<td colspan='2' class='text-right'>Total TTC :</td>
+						<th class='text-right'>{{total.TTC}}€</th>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+		<div class='col-sm-7'>
+			<p class='text-center'>Username :
+				{{ user.username }}
+				Email :
+				{{user.email}}</p>
+			{% if form == null %}
+			{{dump(adress)}}
+			{% else %}
+			{{form_start(form)}}
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					{{form_widget(form.lastname)}}
+				</div>
+				<div class="form-group col-md-6">
+					{{form_widget(form.firstname)}}
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-md-12">
+					{{form_widget(form.address)}}
+					{{form_widget(form.address1)}}
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-md-4">
+					{{form_widget(form.cp)}}
+				</div>
+				<div class="form-group col-md-8">
+					{{form_widget(form.city)}}
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="input-group col-md-6">
+					<div class="input-group-prepend">
+						<span class="input-group-text">
+							<i class="fas fa-phone-alt"></i>
+						</span>
+					</div>
+					<div>
+						{{form_widget(form.phone)}}
+					</div>
+				</div>
+			</div>
+			<button type="submit">Valider</button>
+			{{form_end(form)}}
+			{% endif %}
+		</div>
+	</div>
+</div>
 {% endblock %}

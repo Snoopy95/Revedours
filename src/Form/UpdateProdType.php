@@ -22,21 +22,26 @@ class UpdateProdType extends AbstractType
             ->add('prod_price', IntegerType::class)
             ->add('prod_descrip', TextType::class)
             ->add('prod_info', CKEditorType::class, [
-                'config' => ['my_config']
+                'config' => ['my_config'],
+                'attr' => [
+                    'row' => 5
+                ]
             ])
             ->add('prod_stock', ChoiceType::class, [
                 'choices' => [
                     'Dispo' => true,
                     'Non Dispo' => false
                 ],
-                'multiple'=>false,
+                'multiple' => false,
                 'expanded' => true,
+                'attr' => [
+                    'class' => 'input-group-text'
+                ]
             ])
             ->add('categories', EntityType::class, [
                 'class' => Categories::class,
-                'choice_label' => 'cate_name'
-            ])
-        ;
+                'choice_label' => 'cate_name',
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

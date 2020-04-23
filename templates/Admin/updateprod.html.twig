@@ -37,7 +37,7 @@
 			<div class="form-row">
 				<div class="form-group col-md-3">
 					<div class="form-check form-check-inline">
-						{{form_widget(form.prod_stock, {'selected': prod.prodStock, 'attr': {'class': 'input-group-text'}})}}
+						{{form_widget(form.prod_stock, {'selected': prod.prodStock} )}}
 					</div>
 				</div>
 				<div class="form-group col-md-5">
@@ -45,13 +45,13 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text">Categorie</span>
 						</div>
-						{{form_widget(form.categories, {'choicevalue': prod.categories.cateName})}}
+						{{form_widget(form.categories, {'choicevalue': prod.categories.cateName} )}}
 					</div>
 				</div>
 			</div>
 			<div class="form-row">
 				<div class="form-group col-md-8">
-					{{form_widget(form.prod_info, {'value': prod.prodInfo, 'attr': {'rows': 5}})}}
+					{{form_widget(form.prod_info, {'value': prod.prodInfo} )}}
 				</div>
 			</div>
 			<div class="form-row">

@@ -39,7 +39,7 @@ function addpanier(event) {
     .then(function (response) {
       console.log(response.data);
       const prodpanier = response.data.panier;
-      const total = response.data.total;
+      const total = response.data.total.TTC;
 
       // ----  AFFICHAGE DU BADGE ---------
       badge = document.querySelector("#badge");

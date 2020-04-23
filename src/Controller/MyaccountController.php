@@ -11,6 +11,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class MyaccountController extends AbstractController
 {
@@ -30,9 +31,9 @@ class MyaccountController extends AbstractController
     }
 
     /**
-     * @Route("/myaccount/addcomment/{id}", name="addcomment")
+     * @Route("/myaccount/addcomment", name="addcomment")
      */
-    public function addcomment($id, Request $request, EntityManagerInterface $entityManager, Cart $cart)
+    public function addcomment(Request $request, EntityManagerInterface $entityManager, Cart $cart, UserInterface $user)
     {
         $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
         
@@ -42,7 +43,6 @@ class MyaccountController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid()) {
             $addcomment->setDatecreat(new \DateTime());
-            $user= $this->getDoctrine()->getRepository(User::class)->find($id);
             $addcomment->setUser($user);
             $addcomment->setStatus('0');
 
