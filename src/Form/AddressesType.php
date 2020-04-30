@@ -32,8 +32,10 @@ class AddressesType extends AbstractType
             ])
             ->add('address1', TextType::class, [
                 'attr' => [
-                    'placeholder' => 'Complément'
-                ]
+                    'placeholder' => 'Adresse',
+                    'class' => 'mt-2',
+                ],
+                'required' => false
             ])
             ->add('cp', IntegerType::class, [
                 'attr' => [
@@ -49,8 +51,9 @@ class AddressesType extends AbstractType
                 'attr' => [
                     'pattern' => '[0-9]{2}.[0-9]{2}.[0-9]{2}.[0-9]{2}.[0-9]{2}',
                     'size' => 15,
-                    'placeholder' => '01.10.20.30.40'
-                ]
+                    'placeholder' => '01.10.20.30.40',
+                ],
+                'required' => false
             ]);
     }
 

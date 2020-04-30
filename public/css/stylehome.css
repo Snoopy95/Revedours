@@ -15,15 +15,14 @@
 }
 
 /* CLASS de DEV pour test etc etc*/
-.dev{
-  background-color: brown;
+.card-adress{
+  line-height: 0.2 ;
 }
 
 .block{
   display: block;
   margin: auto;
 }
-
 /* Slide des commentaires*/
 .noview {
   display: none;

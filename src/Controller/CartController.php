@@ -28,50 +28,36 @@ class CartController extends AbstractController
         );
 
         if (!$adress) {
+            $adress = [];
+        };
             $addresse= new Addresses();
             $form = $this->createForm(AddressesType::class, $addresse);
             $form->handleRequest($request);
 
-            if ($form->isSubmitted() && $form->isValid()) {
-                $addresse->setUser($user);
-
-                $em->persist($addresse);
-                $em->flush();
-
-                return $this->render('cart/validator.html.twig', [
-                    'cates' => $cates,
-                    'selectcate' => 0,
-                    'panier' => $viewpanier,
-                    'total' => $total
-                ]);
-            }
-
-            return $this->render('cart/cart.html.twig', [
-                'cates' => $cates,
-                'selectcate' => 0,
-                'panier' => $viewpanier,
-                'total' => $total,
-                'user' => $user,
-                'form' => $form->createView(),
-            ]);
-        } else {
-            return $this->render('cart/cart.html.twig', [
-                'cates' => $cates,
-                'selectcate' => 0,
-                'panier' =>$viewpanier,
-                'total' => $total,
-                'user' => $user,
-                'adress' => $adress,
-                'form' => []
-            ]);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $addresse->setUser($user);
+            $em->persist($addresse);
+            $em->flush();
+            // Recuperation de l'id de l'adresse qui vient d etre creee
+            $idadress = $this->getDoctrine()->getRepository(Addresses::class)->findBy(
+                ['user' => $user],
+                ['id' => 'DESC'],
+                1,
+                0
+            );
+            $id = $idadress['id'];
+            dd($idadress, $id);
+            return $this->redirectToRoute('validator', ['id' => $id]);
         }
 
         return $this->render('cart/cart.html.twig', [
             'cates' => $cates,
-            'selectcate'=> 0,
+            'selectcate' => 0,
             'panier' => $viewpanier,
             'total' => $total,
             'user' => $user,
+            'form' => $form->createView(),
+            'adress' => $adress
         ]);
     }
 
@@ -129,5 +115,24 @@ class CartController extends AbstractController
             'panier' => [],
             'total' => 0
         ], 200);
+    }
+
+    /**
+     * @Route("/cart/validator/{id}", name="validator")
+     */
+    public function validator($id, Cart $cart)
+    {
+        $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
+        $viewpanier = $cart->getViewCart();
+        $total = $cart->getTotal($viewpanier);
+        $adress = $this->getDoctrine()->getRepository(Addresses::class)->find($id);
+
+        return $this->render('cart/validator.html.twig', [
+            'cates' => $cates,
+            'selectcate' => 0,
+            'panier' => $viewpanier,
+            'total' => $total,
+            'adress' => $adress
+        ]);
     }
 }
