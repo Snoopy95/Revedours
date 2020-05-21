@@ -18,12 +18,8 @@ class SecurityController extends AbstractController
     /**
      * @Route("/newuser", name="newuser")
      */
-    public function newuser(
-        Request $request,
-        EntityManagerInterface $entity,
-        UserPasswordEncoderInterface $encoder,
-        Cart $cart
-    ) {
+    public function newuser(Request $request, EntityManagerInterface $entity, UserPasswordEncoderInterface $encoder, Cart $cart)
+    {
         $listcate = $this->getDoctrine();
         $cates = $listcate->getRepository(Categories::class)->findAll();
 
@@ -73,5 +69,13 @@ class SecurityController extends AbstractController
     public function logout()
     {
         #code...
+    }
+
+    /**
+     * @Route("/forgetpwd", name="mdpoublie")
+     */
+    public function mdpoublie()
+    {
+        return $this->render('security/forgetpwd.html.twig');
     }
 }

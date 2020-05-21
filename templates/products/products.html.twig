@@ -39,7 +39,7 @@
 	<div class='container'>
 		<div class='row'>
 			{% for product in products %}
-				{% include "products/cardprod.html.twig" with [product, detcate.id, detcate.cateName] %}
+				{% include "products/cardprod.html.twig" with [product] %}
 			{% endfor %}
 		</div>
 	</div>

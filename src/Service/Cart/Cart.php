@@ -52,6 +52,7 @@ class Cart
             $total += $item['price'];
         };
         $montant['TTC'] = $total;
+        $montant['EXP'] = $total + 20;
         // TVA a 5.5% (/1.055) pour 20%(/1.2)
         $montant['HT'] = round($montant['TTC'] / 1.055, 2);
         $montant['TVA'] = round($montant['TTC'] - $montant['HT'], 2);

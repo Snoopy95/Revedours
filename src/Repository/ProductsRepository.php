@@ -21,9 +21,8 @@ class ProductsRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Products[] Returns an array of Products objects
+    //  * @return Products[] Returns an array of Products objects by category
     //  */
-
     public function findByCate($value)
     {
         return $this->createQueryBuilder('p')

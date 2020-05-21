@@ -2,7 +2,7 @@ body{
     background-color: #dbdbdb;
     font-size: 14px;
     line-height: 1.2;
-    font-family: roboto;
+    font-family: "roboto", sans-serif ;
 }
 .content{
     display: block;

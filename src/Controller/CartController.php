@@ -45,8 +45,7 @@ class CartController extends AbstractController
                 1,
                 0
             );
-            $id = $idadress['id'];
-            dd($idadress, $id);
+            $id = $idadress[0]->getId();
             return $this->redirectToRoute('validator', ['id' => $id]);
         }
 

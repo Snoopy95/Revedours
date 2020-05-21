@@ -8,17 +8,17 @@
 					<li class="breadcrumb-item">
 						<a href="{{path('index')}}">Home</a>
 					</li>
-					<li class="breadcrumb-item active" aria-current="page">Inscription</li>
+					<li class="breadcrumb-item active" aria-current="page">Mdp perdu</li>
 				</ol>
 			</nav>
-			<div class="card">
+			{# <div class="card">
 				<img src="{{asset('images/inscription.jpg')}}" class="card-img img-fluid taille rounded" alt="theme"/>
 				<div class="card-img-overlay text-center styltext">
 					<h1 class="card-title tailfonth1">
 						Bienvenu !
 					</h1>
 				</div>
-			</div>
+			</div> #}
 		</div>
 		<div class="site-cache" id="site-cache"></div>
 	</section>
@@ -28,51 +28,20 @@
 <div class="container">
 	<div class="row mb-2">
 		<div class="col-12 text-center pt-3">
-			<h1 class="tailfonth1">Inscription</h1>
-			<p class="tailfontp"></p>
+			<h1 class="tailfonth1">Mot de passe Perdu !!!</h1>
+			<p class="tailfontp">Saisir l'adresse Mail de votre compte. Vous allez recevoir un mail sous peu avec la marche à suivre.</p>
 		</div>
 	</div>
 </div>
 {% endblock %}
 
 {% block content %}
-{{form_start(form)}}
 <div class="form-sign">
 	<div class="input-group mb-3">
 		<div class="input-group-prepend">
 			<span class="input-group-text">@ Email</span>
 		</div>
-		{{form_widget(form.email)}}
-	</div>
-	<div class='input-group mb-3'>
-		<div class='input-group-prepend'>
-			<span class='input-group-text'>Username</span>
-		</div>
-		{{form_widget(form.username)}}
-	</div>
-	{{ form_errors(form.password) }}
-	<div class="input-group mb-3">
-		{{form_widget(form.password)}}
-		<div class="input-group-append show">
-			<span class="btn btn-outline-secondary">
-				<i class="iconshow far fa-eye"></i>
-			</span>
-		</div>
-	</div>
-	{{ form_errors(form.confirm_password) }}
-	<div class="input-group mb-3">
-		{{form_widget(form.confirm_password)}}
-		<div class="input-group-append showconf">
-			<span class="btn btn-outline-secondary">
-				<i class="iconshowconf far fa-eye"></i>
-			</span>
-		</div>
 	</div>
 	<button type="submit" class="btn btn-success mx-auto d-block">Valider</button>
 </div>
-{{form_end(form)}}
-{% endblock %}
-
-{% block javascripts %}
-<script src="{{asset('js/password.js')}}"></script>
 {% endblock %}

@@ -33,19 +33,20 @@ class ProductsController extends AbstractController
     }
 
     /**
-     * @Route("/product/{id}/{cateid}", name="product")
+     * @Route("/product/{id}", name="product")
      */
-    public function product($id, $cateid, Cart $cart)
+    public function product($id, Cart $cart)
     {
         $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
         $prod = $this->getDoctrine()->getRepository(Products::class)->find($id);
+        $id = $prod->getCategories()->getId();
 
         $viewpanier = $cart->getViewCart();
         $total = $cart->getTotal($viewpanier);
 
         return $this->render('products/product.html.twig', [
             'prod' => $prod,
-            'selectcate'=> $cateid,
+            'selectcate'=> $id,
             'cates'=> $cates,
             'panier' => $viewpanier,
             'total' => $total

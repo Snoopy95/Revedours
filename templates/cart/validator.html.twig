@@ -8,12 +8,15 @@
 					<li class="breadcrumb-item">
 						<a href="{{path('index')}}">Home</a>
 					</li>
-					<li class="breadcrumb-item active" aria-current="page">Panier</li>
+					<li class="breadcrumb-item">
+						<a href="{{path('cart')}}">Adresse</a>
+					</li>
+					<li class="breadcrumb-item active" aria-current="page">Validation</li>
 				</ol>
 			</nav>
-			<div class="card">
+			{# <div class="card">
 				<img src="{{asset('images/.png')}}" class="card-img img-fluid taille rounded" alt="theme"/>
-			</div>
+			</div> #}
 		</div>
 		<div class="site-cache" id="site-cache"></div>
 	</section>
@@ -24,13 +27,15 @@
 <div class="container">
 	<div class="row mb-2">
 		<div class="col-12 text-center pt-3">
-			<h3 class="tailfonth1">Commande</h3>
-			<p class="tailfontp">Adresse</p>
+			<h3 class="tailfonth1">Resumé de votre Commande</h3>
+			{# <p class="tailfontp">Adresse</p> #}
 		</div>
 	</div>
 </div>{% endblock %}
 
 {% block content %}
-<p>il y a plus qu'a valider et payer la commande</p>
+<p>il y a plus qu'a valider en payant la commande</p>
+{{dump(panier)}}
+{{dump(total)}}
 {{dump(adress)}}
 {% endblock %}

@@ -51,6 +51,7 @@ margin: auto;
 }
 html,
 body {
+  font-family: Roboto, Arial, sans-serif;
   font-size: 1rem;
   line-height: 1.2;
   margin: 0;

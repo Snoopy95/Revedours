@@ -8,7 +8,7 @@
 					<li class="breadcrumb-item">
 						<a href="{{path('index')}}">Home</a>
 					</li>
-					<li class="breadcrumb-item active" aria-current="page">Panier</li>
+					<li class="breadcrumb-item active" aria-current="page">Adresse</li>
 				</ol>
 			</nav>
 			{# <div class="card">
@@ -28,7 +28,10 @@
 			{# <p class="tailfontp">Adresse</p> #}
 		</div>
 	</div>
-</div>{% endblock %}{% block content %}
+</div>
+{% endblock %}
+
+{% block content %}
 <div class='container-sm'>
 	<div class="row justify-content-center">
 		<div class="col-sm-5">
@@ -56,25 +59,23 @@
 				</tbody>
 				<tfoot>
 					<tr>
-						<td colspan='2' class='text-right'>Total HT :</td>
-						<td id='paniertotal' class='text-right'>{{total.HT}}€</td>
+						<td colspan='2' class='text-right'>Total TTC :</td>
+						<td id='paniertotal' class='text-right'>{{total.TTC}}€</td>
 					</tr>
 					<tr>
-						<td colspan='2' class='text-right'>TVA 5.5% :</td>
+						<td colspan='2' class='text-right'>Dont 5.5% de TVA :</td>
 						<td id='paniertotal' class='text-right'>{{total.TVA}}€</td>
 					</tr>
 					<tr>
-						<td colspan='2' class='text-right'>Total TTC :</td>
-						<th class='text-right'>{{total.TTC}}€</th>
+						<td colspan='2' class='text-right'>Frais d'expedition 20€:</td>
+						<th class='text-right'>{{total.EXP}}€</th>
 					</tr>
 				</tfoot>
 			</table>
 		</div>
 		<div class='col-sm-7'>
-			<p class='text-center'>Username :
+			<p class='text-center'>
 				{{ user.username }}
-				Email :
-				{{user.email}}</p>
 			{% if adress == null %}
 				<p class="text-center">
 					Veuillez entre l'adresse pour le livraison
@@ -93,8 +94,10 @@
 								<p>{{adres.address}}</p>
 								<p>{{adres.address1}}</p>
 								<p>{{adres.cp}} {{adres.city}}</p>
-								<p>Tel : {{adres.phone}}</p>
-						</div>
+								{% if adres.phone %}
+								<p><i class="fas fa-phone-alt"></i> {{adres.phone}}</p>
+								{% endif %}
+							</div>
 						<a href="{{ path('validator', {'id': adres.id}) }}" class="btn btn-primary btn-sm">Choisir cette adresse</a>
 					</div>
 				</div>
@@ -141,7 +144,7 @@
 			</div>
 		</div>
 		<button type="submit" class="btn btn-success mt-3">Valider</button>
-
 		{{form_end(form)}}
 	</div>
-</div></div>{% endblock %}
+</div>
+{% endblock %}
