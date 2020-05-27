@@ -22,7 +22,7 @@ class CartController extends AbstractController
     {
         $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
         $viewpanier = $cart->getViewCart();
-        $total = $cart->getTotal($viewpanier);
+        $total = $cart->getTotal();
         $adress = $this->getDoctrine()->getRepository(Addresses::class)->findBy(
             ['user' => $user]
         );
@@ -74,7 +74,7 @@ class CartController extends AbstractController
         } else {
             $cart->add($id);
             $viewpanier = $cart->getViewcart();
-            $total = $cart->getTotal($viewpanier);
+            $total = $cart->getTotal();
             
             return $this->json([
                 'message' => 'tous à bien marché',
@@ -91,7 +91,7 @@ class CartController extends AbstractController
     {
         $cart->del($id);
         $viewpanier = $cart->getViewcart();
-        $total = $cart->getTotal($viewpanier);
+        $total = $cart->getTotal();
 
         return $this->json([
             'message' => 'produit retiré du panier',
@@ -103,16 +103,18 @@ class CartController extends AbstractController
     /**
      * @Route("/cart/removecart", name="removecart")
      */
-    public function removecart(SessionInterface $session)
+    public function removecart(SessionInterface $session, Cart $cart)
     {
         $panier = $session->get('panier, []');
         $panier = [];
         $session->set('panier', $panier);
+        $viewpanier = $cart->getViewcart();
+        $total = $cart->getTotal();
 
         return $this->json([
             'message' => 'Panier annuler',
-            'panier' => [],
-            'total' => 0
+            'panier' => $viewpanier,
+            'total' => $total
         ], 200);
     }
 
@@ -123,7 +125,7 @@ class CartController extends AbstractController
     {
         $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
         $viewpanier = $cart->getViewCart();
-        $total = $cart->getTotal($viewpanier);
+        $total = $cart->getTotal();
         $adress = $this->getDoctrine()->getRepository(Addresses::class)->find($id);
 
         return $this->render('cart/validator.html.twig', [

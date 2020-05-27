@@ -21,7 +21,7 @@ class MyaccountController extends AbstractController
     public function index(Cart $cart)
     {
         $viewpanier = $cart->getViewCart();
-        $total = $cart->getTotal($viewpanier);
+        $total = $cart->getTotal();
 
         return $this->render('myaccount/index.html.twig', [
             'controller_name' => 'MyaccountController',
@@ -53,7 +53,7 @@ class MyaccountController extends AbstractController
         }
 
         $viewpanier = $cart->getViewCart();
-        $total = $cart->getTotal($viewpanier);
+        $total = $cart->getTotal();
 
         return $this->render('myaccount/addcomment.html.twig', [
             'cates' => $cates,

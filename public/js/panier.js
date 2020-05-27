@@ -22,14 +22,12 @@ function creatpanier(prodpanier) {
     ahref.href = "/cart/delcart/" + item.id;
     action.appendChild(ahref);
     ahref.appendChild(icon);
-    ahref.addEventListener("click", addpanier);
+    ahref.addEventListener("click", panier);
   });
 }
 
 // --------- PANIER --------------
-
-// ------ Ajout d'un produit dans le panier ---------
-function addpanier(event) {
+function panier(event) {
   event.preventDefault();
 
   const url = this.href;
@@ -74,12 +72,12 @@ function addpanier(event) {
     });
 }
 // ----- Ecoute du bouton ajoute panier -------
-document.querySelectorAll("a.product-panier").forEach(function (panier) {
-  panier.addEventListener("click", addpanier);
+document.querySelectorAll("a.product-panier").forEach(function (addpanier) {
+  addpanier.addEventListener("click", panier);
 });
 // -------- Ecoute du bouton poubelle -------
 document.querySelectorAll("a.delprod").forEach(function (delprods) {
-  delprods.addEventListener("click", addpanier);
+  delprods.addEventListener("click", panier);
 });
 // -----  Ecoute du bouton annuler panier ---------
-document.querySelector("a.removecart").addEventListener("click", addpanier);
+document.querySelector("a.removecart").addEventListener("click", panier);

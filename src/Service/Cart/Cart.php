@@ -45,9 +45,10 @@ class Cart
         };
         return $viewpanier;
     }
-    public function getTotal($viewpanier)
+    public function getTotal()
     {
         $total = 0;
+        $viewpanier = $this->getViewCart();
         foreach ($viewpanier as $item) {
             $total += $item['price'];
         };

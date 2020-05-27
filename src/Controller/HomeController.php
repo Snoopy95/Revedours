@@ -24,7 +24,7 @@ class HomeController extends AbstractController
         );
         
         $viewpanier = $cart->getViewCart();
-        $total = $cart->getTotal($viewpanier);
+        $total = $cart->getTotal();
 
         return $this->render('home/home.html.twig', [
             'cates'=> $cates,
@@ -46,7 +46,7 @@ class HomeController extends AbstractController
             ['datecreat' => 'DESC']
         );
         $viewpanier = $cart->getViewCart();
-        $total = $cart->getTotal($viewpanier);
+        $total = $cart->getTotal();
 
         return $this->render('home/allcomments.html.twig', [
             'cates'=> $cates,

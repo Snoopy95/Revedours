@@ -20,7 +20,7 @@ class ProductsController extends AbstractController
         $products = $this->getDoctrine()->getRepository(Products::class)->findByCate($id);
 
         $viewpanier = $cart->getViewCart();
-        $total = $cart->getTotal($viewpanier);
+        $total = $cart->getTotal();
 
         return $this->render('products/products.html.twig', [
             'selectcate' => $id,
@@ -42,7 +42,7 @@ class ProductsController extends AbstractController
         $id = $prod->getCategories()->getId();
 
         $viewpanier = $cart->getViewCart();
-        $total = $cart->getTotal($viewpanier);
+        $total = $cart->getTotal();
 
         return $this->render('products/product.html.twig', [
             'prod' => $prod,
