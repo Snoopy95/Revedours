@@ -28,8 +28,8 @@ class HomeController extends AbstractController
 
         return $this->render('home/home.html.twig', [
             'cates'=> $cates,
-            'selectcate'=> 0,
             'posts' => $posts,
+            'selectcate'=> 0,
             'panier' => $viewpanier,
             'total' => $total
         ]);
