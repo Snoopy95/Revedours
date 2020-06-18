@@ -36,12 +36,19 @@
 {% endblock %}
 
 {% block content %}
+{{form_start(form)}}
 <div class="form-sign">
+	<div class="error">{% for message in app.flashes('mailerror') %}
+		{{ message }}
+	{% endfor %}
+	</div>
 	<div class="input-group mb-3">
 		<div class="input-group-prepend">
 			<span class="input-group-text">@ Email</span>
 		</div>
+		{{form_widget(form.email)}}		
 	</div>
 	<button type="submit" class="btn btn-success mx-auto d-block">Valider</button>
 </div>
+{{form_end(form)}}
 {% endblock %}

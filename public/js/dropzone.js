@@ -247,7 +247,7 @@ class Dropzone extends Emitter {
        * How the images should be scaled down in case both, `thumbnailWidth` and `thumbnailHeight` are provided.
        * Can be either `contain` or `crop`.
        */
-      thumbnailMethod: 'crop',
+      thumbnailMethod: "crop",
 
       /**
        * If set, images will be resized to these dimensions before being **uploaded**.
@@ -280,7 +280,7 @@ class Dropzone extends Emitter {
        * How the images should be scaled down in case both, `resizeWidth` and `resizeHeight` are provided.
        * Can be either `contain` or `crop`.
        */
-      resizeMethod: 'contain',
+      resizeMethod: "contain",
 
       /**
        * The base that is used to calculate the filesize. You can change this to
@@ -316,7 +316,6 @@ class Dropzone extends Emitter {
        */
       ignoreHiddenFiles: true,
 
-
       /**
        * The default implementation of `accept` checks the file's mime type or
        * extension against this list. This is a comma separated list of mime
@@ -328,7 +327,7 @@ class Dropzone extends Emitter {
        * [`accept`](https://developer.mozilla.org/en-US/docs/HTML/Element/input#attr-accept)
        * parameter on the hidden file input as well.
        */
-      acceptedFiles: 'image/*',
+      acceptedFiles: "image/*",
 
       /**
        * **Deprecated!**
@@ -411,56 +410,60 @@ class Dropzone extends Emitter {
       /**
        * The text used before any files are dropped.
        */
-      dictDefaultMessage: "Drop files here to upload",
+      dictDefaultMessage: "Déposer l'image ici",
 
       /**
        * The text that replaces the default message text it the browser is not supported.
        */
-      dictFallbackMessage: "Your browser does not support drag'n'drop file uploads.",
+      dictFallbackMessage:
+        "Votre navigateur ne support pas le drag'n'drop de fichier",
 
       /**
        * The text that will be added before the fallback form.
        * If you provide a  fallback element yourself, or if this option is `null` this will
        * be ignored.
        */
-      dictFallbackText: "Please use the fallback form below to upload your files like in the olden days.",
+      dictFallbackText:
+        "Please use the fallback form below to upload your files like in the olden days.",
 
       /**
        * If the filesize is too big.
        * `{{filesize}}` and `{{maxFilesize}}` will be replaced with the respective configuration values.
        */
-      dictFileTooBig: "File is too big ({{filesize}}MiB). Max filesize: {{maxFilesize}}MiB.",
+      dictFileTooBig:
+        "Taille trop grande ({{filesize}}MiB). taille Max: {{maxFilesize}}MiB.",
 
       /**
        * If the file doesn't match the file type.
        */
-      dictInvalidFileType: "You can't upload files of this type.",
+      dictInvalidFileType: "Ce type de fichier n'est pas autorisé.",
 
       /**
        * If the server response was invalid.
        * `{{statusCode}}` will be replaced with the servers status code.
        */
-      dictResponseError: "Server responded with {{statusCode}} code.",
+      dictResponseError: "le serveur ne répond pas, erreur {{statusCode}}.",
 
       /**
        * If `addRemoveLinks` is true, the text to be used for the cancel upload link.
        */
-      dictCancelUpload: "Cancel upload",
+      dictCancelUpload: "Chargement annulé",
 
       /**
        * The text that is displayed if an upload was manually canceled
        */
-      dictUploadCanceled: "Upload canceled.",
+      dictUploadCanceled: "Chargement annulé.",
 
       /**
        * If `addRemoveLinks` is true, the text to be used for confirmation when cancelling upload.
        */
-      dictCancelUploadConfirmation: "Are you sure you want to cancel this upload?",
+      dictCancelUploadConfirmation:
+        "Etes-vous sur de vouloir annuler le chargement ?",
 
       /**
        * If `addRemoveLinks` is true, the text to be used to remove a file.
        */
-      dictRemoveFile: "Remove file",
+      dictRemoveFile: "Fichier effacé",
 
       /**
        * If this is not null, then the user will be prompted before removing a file.
@@ -471,13 +474,13 @@ class Dropzone extends Emitter {
        * Displayed if `maxFiles` is st and exceeded.
        * The string `{{maxFiles}}` will be replaced by the configuration value.
        */
-      dictMaxFilesExceeded: "You can not upload any more files.",
+      dictMaxFilesExceeded: "Vous ne pouvez pas charger d'autre fichier.",
 
       /**
        * Allows you to translate the different units. Starting with `tb` for terabytes and going down to
        * `b` for bytes.
        */
-      dictFileSizeUnits: {tb: "TB", gb: "GB", mb: "MB", kb: "KB", b: "b"},
+      dictFileSizeUnits: { tb: "TB", gb: "GB", mb: "MB", kb: "KB", b: "b" },
       /**
        * Called when dropzone initialized
        * You can add event listeners here
@@ -502,7 +505,7 @@ class Dropzone extends Emitter {
             dztotalfilesize: chunk.file.size,
             dzchunksize: this.options.chunkSize,
             dztotalchunkcount: chunk.file.upload.totalChunkCount,
-            dzchunkbyteoffset: chunk.index * this.options.chunkSize
+            dzchunkbyteoffset: chunk.index * this.options.chunkSize,
           };
         }
       },
@@ -526,7 +529,9 @@ class Dropzone extends Emitter {
        * and the `done` function as second. `done()` needs to be invoked when everything
        * needed to finish the upload process is done.
        */
-      chunksUploaded: function(file, done) { done(); },
+      chunksUploaded: function (file, done) {
+        done();
+      },
 
       /**
        * Gets called when the browser is not supported.
@@ -546,7 +551,9 @@ class Dropzone extends Emitter {
           }
         }
         if (!messageElement) {
-          messageElement = Dropzone.createElement("<div class=\"dz-message\"><span></span></div>");
+          messageElement = Dropzone.createElement(
+            '<div class="dz-message"><span></span></div>'
+          );
           this.element.appendChild(messageElement);
         }
 
@@ -561,7 +568,6 @@ class Dropzone extends Emitter {
 
         return this.element.appendChild(this.getFallbackForm());
       },
-
 
       /**
        * Gets called to calculate the thumbnail dimensions.
@@ -580,18 +586,18 @@ class Dropzone extends Emitter {
           srcX: 0,
           srcY: 0,
           srcWidth: file.width,
-          srcHeight: file.height
+          srcHeight: file.height,
         };
 
         let srcRatio = file.width / file.height;
 
         // Automatically calculate dimensions if not specified
-        if ((width == null) && (height == null)) {
+        if (width == null && height == null) {
           width = info.srcWidth;
           height = info.srcHeight;
-        } else if ((width == null)) {
+        } else if (width == null) {
           width = height * srcRatio;
-        } else if ((height == null)) {
+        } else if (height == null) {
           height = width / srcRatio;
         }
 
@@ -601,9 +607,9 @@ class Dropzone extends Emitter {
 
         let trgRatio = width / height;
 
-        if ((info.srcWidth > width) || (info.srcHeight > height)) {
+        if (info.srcWidth > width || info.srcHeight > height) {
           // Image is bigger and needs rescaling
-          if (resizeMethod === 'crop') {
+          if (resizeMethod === "crop") {
             if (srcRatio > trgRatio) {
               info.srcHeight = file.height;
               info.srcWidth = info.srcHeight * trgRatio;
@@ -611,7 +617,7 @@ class Dropzone extends Emitter {
               info.srcWidth = file.width;
               info.srcHeight = info.srcWidth / trgRatio;
             }
-          } else if (resizeMethod === 'contain') {
+          } else if (resizeMethod === "contain") {
             // Method 'contain'
             if (srcRatio > trgRatio) {
               height = width / srcRatio;
@@ -642,13 +648,21 @@ class Dropzone extends Emitter {
        * to be invoked with the file when the transformation is done.
        */
       transformFile(file, done) {
-        if ((this.options.resizeWidth || this.options.resizeHeight) && file.type.match(/image.*/)) {
-          return this.resizeImage(file, this.options.resizeWidth, this.options.resizeHeight, this.options.resizeMethod, done);
+        if (
+          (this.options.resizeWidth || this.options.resizeHeight) &&
+          file.type.match(/image.*/)
+        ) {
+          return this.resizeImage(
+            file,
+            this.options.resizeWidth,
+            this.options.resizeHeight,
+            this.options.resizeMethod,
+            done
+          );
         } else {
           return done(file);
         }
       },
-
 
       /**
        * A string that contains the template used for each dropped
@@ -699,7 +713,6 @@ class Dropzone extends Emitter {
       // END OPTIONS
       // (Required by the dropzone documentation parser)
 
-
       /*
        Those functions register themselves to the events on init and handle all
        the user interface specific stuff. Overwriting them won't break the upload
@@ -709,15 +722,11 @@ class Dropzone extends Emitter {
        and don't overwrite those options.
        */
 
-
-
-
       // Those are self explanatory and simply concern the DragnDrop.
       drop(e) {
         return this.element.classList.remove("dz-drag-hover");
       },
-      dragstart(e) {
-      },
+      dragstart(e) {},
       dragend(e) {
         return this.element.classList.remove("dz-drag-hover");
       },
@@ -731,8 +740,7 @@ class Dropzone extends Emitter {
         return this.element.classList.remove("dz-drag-hover");
       },
 
-      paste(e) {
-      },
+      paste(e) {},
 
       // Called whenever there are no files left in the dropzone anymore, and the
       // dropzone should be displayed as if in the initial state.
@@ -748,11 +756,15 @@ class Dropzone extends Emitter {
         }
 
         if (this.previewsContainer) {
-          file.previewElement = Dropzone.createElement(this.options.previewTemplate.trim());
+          file.previewElement = Dropzone.createElement(
+            this.options.previewTemplate.trim()
+          );
           file.previewTemplate = file.previewElement; // Backwards compatibility
 
           this.previewsContainer.appendChild(file.previewElement);
-          for (var node of file.previewElement.querySelectorAll("[data-dz-name]")) {
+          for (var node of file.previewElement.querySelectorAll(
+            "[data-dz-name]"
+          )) {
             node.textContent = file.name;
           }
           for (node of file.previewElement.querySelectorAll("[data-dz-size]")) {
@@ -760,34 +772,46 @@ class Dropzone extends Emitter {
           }
 
           if (this.options.addRemoveLinks) {
-            file._removeLink = Dropzone.createElement(`<a class="dz-remove" href="javascript:undefined;" data-dz-remove>${this.options.dictRemoveFile}</a>`);
+            file._removeLink = Dropzone.createElement(
+              `<a class="dz-remove" href="javascript:undefined;" data-dz-remove>${this.options.dictRemoveFile}</a>`
+            );
             file.previewElement.appendChild(file._removeLink);
           }
 
-          let removeFileEvent = e => {
+          let removeFileEvent = (e) => {
             e.preventDefault();
             e.stopPropagation();
             if (file.status === Dropzone.UPLOADING) {
-              return Dropzone.confirm(this.options.dictCancelUploadConfirmation, () => this.removeFile(file));
+              return Dropzone.confirm(
+                this.options.dictCancelUploadConfirmation,
+                () => this.removeFile(file)
+              );
             } else {
               if (this.options.dictRemoveFileConfirmation) {
-                return Dropzone.confirm(this.options.dictRemoveFileConfirmation, () => this.removeFile(file));
+                return Dropzone.confirm(
+                  this.options.dictRemoveFileConfirmation,
+                  () => this.removeFile(file)
+                );
               } else {
                 return this.removeFile(file);
               }
             }
           };
 
-          for (let removeLink of file.previewElement.querySelectorAll("[data-dz-remove]")) {
-             removeLink.addEventListener("click", removeFileEvent);
+          for (let removeLink of file.previewElement.querySelectorAll(
+            "[data-dz-remove]"
+          )) {
+            removeLink.addEventListener("click", removeFileEvent);
           }
         }
       },
 
-
       // Called whenever a file is removed.
       removedfile(file) {
-        if (file.previewElement != null && file.previewElement.parentNode != null) {
+        if (
+          file.previewElement != null &&
+          file.previewElement.parentNode != null
+        ) {
           file.previewElement.parentNode.removeChild(file.previewElement);
         }
         return this._updateMaxFilesReachedClass();
@@ -798,12 +822,17 @@ class Dropzone extends Emitter {
       thumbnail(file, dataUrl) {
         if (file.previewElement) {
           file.previewElement.classList.remove("dz-file-preview");
-          for (let thumbnailElement of file.previewElement.querySelectorAll("[data-dz-thumbnail]")) {
+          for (let thumbnailElement of file.previewElement.querySelectorAll(
+            "[data-dz-thumbnail]"
+          )) {
             thumbnailElement.alt = file.name;
             thumbnailElement.src = dataUrl;
           }
 
-          return setTimeout((() => file.previewElement.classList.add("dz-image-preview")), 1);
+          return setTimeout(
+            () => file.previewElement.classList.add("dz-image-preview"),
+            1
+          );
         }
       },
 
@@ -812,17 +841,18 @@ class Dropzone extends Emitter {
       error(file, message) {
         if (file.previewElement) {
           file.previewElement.classList.add("dz-error");
-          if ((typeof message !== "String") && message.error) {
+          if (typeof message !== "String" && message.error) {
             message = message.error;
           }
-          for (let node of file.previewElement.querySelectorAll("[data-dz-errormessage]")) {
+          for (let node of file.previewElement.querySelectorAll(
+            "[data-dz-errormessage]"
+          )) {
             node.textContent = message;
           }
         }
       },
 
-      errormultiple() {
-      },
+      errormultiple() {},
 
       // Called when a file gets processed. Since there is a cue, not all added
       // files are processed immediately.
@@ -831,38 +861,36 @@ class Dropzone extends Emitter {
         if (file.previewElement) {
           file.previewElement.classList.add("dz-processing");
           if (file._removeLink) {
-            return file._removeLink.innerHTML = this.options.dictCancelUpload;
+            return (file._removeLink.innerHTML = this.options.dictCancelUpload);
           }
         }
       },
 
-      processingmultiple() {
-      },
+      processingmultiple() {},
 
       // Called whenever the upload progress gets updated.
       // Receives `file`, `progress` (percentage 0-100) and `bytesSent`.
       // To get the total number of bytes of the file, use `file.size`
       uploadprogress(file, progress, bytesSent) {
         if (file.previewElement) {
-          for (let node of file.previewElement.querySelectorAll("[data-dz-uploadprogress]")) {
-              node.nodeName === 'PROGRESS' ?
-                  (node.value = progress)
-                  :
-                  (node.style.width = `${progress}%`)
+          for (let node of file.previewElement.querySelectorAll(
+            "[data-dz-uploadprogress]"
+          )) {
+            node.nodeName === "PROGRESS"
+              ? (node.value = progress)
+              : (node.style.width = `${progress}%`);
           }
         }
       },
 
       // Called whenever the total upload progress gets updated.
       // Called with totalUploadProgress (0-100), totalBytes and totalBytesSent
-      totaluploadprogress() {
-      },
+      totaluploadprogress() {},
 
       // Called just before the file is sent. Gets the `xhr` object as second
       // parameter, so you can modify it (for example to add a CSRF token) and a
       // `formData` object to add additional information.
-      sending() {
-      },
+      sending() {},
 
       sendingmultiple() {},
 
@@ -902,7 +930,7 @@ class Dropzone extends Emitter {
 
       queuecomplete() {},
 
-      addedfiles() {}
+      addedfiles() {},
     };
 
 

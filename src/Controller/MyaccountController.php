@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
 use App\Entity\Comments;
 use App\Entity\Categories;
 use App\Service\Cart\Cart;

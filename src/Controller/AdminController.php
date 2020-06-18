@@ -8,14 +8,11 @@ use App\Entity\Products;
 use App\Entity\Categories;
 use App\Entity\Comments;
 use App\Form\AddProdType;
-use App\Form\CategoriesType;
 use App\Form\UpdateProdType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
-// session_start();
 
 class AdminController extends AbstractController
 {
@@ -126,8 +123,6 @@ class AdminController extends AbstractController
      */
     public function addprod(EntityManagerInterface $entityManager, Request $request)
     {
-        $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
-
         $addprod = new Products();
 
         $form = $this->createForm(AddProdType::class, $addprod);
@@ -153,7 +148,6 @@ class AdminController extends AbstractController
         }
         return $this->render('Admin/addprod.html.twig', [
             'form' => $form->createView(),
-            'cates' => $cates,
         ]);
     }
 
@@ -250,10 +244,9 @@ class AdminController extends AbstractController
                 foreach ($prods as $resul) {
                     $em = $resul ->getprodPicture();
                     $refprod = $resul ->getId();
-                    $refcate = $resul ->getCategories();
                     if ($em == $Fichier) {
                         $del = false;
-                        $href= "/product/" . $refprod  . "/" . $refcate -> getId();
+                        $href= "/product/" . $refprod ;
                         break;
                     } else {
                         $del = true;
@@ -277,13 +270,13 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/delimage/{id}", name="delimage")
+     * @Route("/admin/delimage/{namefile}", name="delimage")
      */
-    public function delimage($id)
+    public function delimage($namefile)
     {
         $adresse = "../public/uploads/";
         $handle = opendir($adresse);
-        $em = $adresse . $id;
+        $em = $adresse . $namefile;
         unlink($em);
         closedir($handle);
         $this->addFlash('info', 'Image supprimer');
