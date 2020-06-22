@@ -112,7 +112,7 @@ class SecurityController extends AbstractController
                     <h3>'. $url . '</h3>');
                 $mailer->send($email);
                 
-                $this->addFlash('index', 'Verifier votre boite mail !!!');
+                $this->addFlash('success', 'Mail bien envoyer');
                 return $this->redirectToRoute('index');
             } else {
                 $this->addFlash('mailerror', 'L\'adresse d\'email saisie n\'existe pas !!!');
@@ -143,7 +143,7 @@ class SecurityController extends AbstractController
         );
 
         if (!$user) {
-            $this->addFlash('index', 'Erreur de token');
+            $this->addFlash('danger', 'Cette page n\'existe pas !!!');
             return $this->redirectToRoute('index');
         }
 
@@ -157,7 +157,7 @@ class SecurityController extends AbstractController
             $entity->persist($user);
             $entity->flush();
 
-            $this->addFlash('index', 'Mot de passe changer !!!');
+            $this->addFlash('success', 'Votre mot de passe a bien été changé !!!');
             return $this->redirectToRoute('index');
         }
 

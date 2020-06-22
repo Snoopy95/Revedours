@@ -76,6 +76,18 @@
 <!-- ********* SECTION TITRE DE L INDEX  ******** -->
 <section class="site-pusher">
 	<div class="site-content">
+	<!-- ******** Messages Flash ****** -->
+	{% for message in app.flashes('success') %}
+		<div class="alert alert-success" role="alert">
+			{{ message }}
+		</div>
+	{% endfor %}
+	{% for message in app.flashes('danger') %}
+		<div class="alert alert-danger" role="alert">
+			{{ message }}
+		</div>
+	{% endfor %}
+<!-- ***** Fin Messages **** -->
 		<div class="card">
 			<img src="{{asset('images/tableau-toile.jpg')}}" class="card-img img-fluid taille" alt="theme"/>
 			<div class="card-img-overlay text-center styltext">
