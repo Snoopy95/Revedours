@@ -76,18 +76,18 @@
 		<div class='col-sm-7'>
 			<p class='text-center'>
 				{{ user.username }}
-			{% if adress == null %}
+				{% if adress == null %}
 				<p class="text-center">
-					Veuillez entre l'adresse pour le livraison
-				</P>
-			{% else %}
-				<P class="text-center">
-					Veuillez Choisir une adresse de livraison ou en saisir une nouvelle
-				</p>
-				<div class="row justify-content-center">
+				Veuillez entre l'adresse pour le livraison
+			</P>
+				{% else %}
+			<P class="text-center">
+				Veuillez Choisir une adresse de livraison ou en saisir une nouvelle
+			</p>
+			<div class="row justify-content-center">
 				{% for adres in adress %}
-					<div class="card text-center mr-1 mb-1" style="width: 13rem;">
-						<div class="card-body">
+				<div class="card text-center mr-1 mb-1" style="width: 13rem;">
+					<div class="card-body">
 							<h5 class="card-title">{{adres.lastname}}
 								{{adres.firstname}}</h5>
 							<div class="card-text card-adress">
@@ -98,12 +98,13 @@
 								<p><i class="fas fa-phone-alt"></i> {{adres.phone}}</p>
 								{% endif %}
 							</div>
-						<a href="{{ path('validator', {'id': adres.id}) }}" class="btn btn-primary btn-sm">Choisir cette adresse</a>
+						<a href="{{ path('payment', {'id': adres.id}) }}" class="btn btn-primary btn-sm">Choisir cette adresse</a>
 					</div>
 				</div>
-			{% endfor %}
+				{% endfor %}
 			</div>
-		{% endif %}
+			{% endif %}
+		<div class='border border-success rounded-lg p-2'>
 		{{form_start(form)}}
 		{# ligne nom prenom #}
 		<div class="form-row mt-3">
@@ -143,8 +144,9 @@
 				</div>
 			</div>
 		</div>
-		<button type="submit" class="btn btn-success mt-3">Valider</button>
+		<button type="submit" class="btn btn-success mt-3 btn-block">Valider</button>
 		{{form_end(form)}}
+		</div>
 	</div>
 </div>
 {% endblock %}

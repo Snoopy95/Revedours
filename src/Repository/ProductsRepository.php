@@ -26,7 +26,7 @@ class ProductsRepository extends ServiceEntityRepository
     public function findByCate($value)
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.categories = :val', 'p.prod_stock = 1')
+            ->andWhere('p.categories = :val', 'p.prod_stock = 1', 'p.Orders IS NULL')
             ->setParameter('val', $value)
             ->orderBy('p.prod_datecreat', 'DESC')
             ->getQuery()

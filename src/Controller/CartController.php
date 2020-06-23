@@ -2,8 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Orders;
+use App\Entity\Checkout;
+use App\Entity\Products;
 use App\Entity\Addresses;
 use App\Entity\Categories;
+use App\Form\CheckoutType;
 use App\Service\Cart\Cart;
 use App\Form\AddressesType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -46,7 +50,7 @@ class CartController extends AbstractController
                 0
             );
             $id = $idadress[0]->getId();
-            return $this->redirectToRoute('validator', ['id' => $id]);
+            return $this->redirectToRoute('payment', ['id' => $id]);
         }
 
         return $this->render('cart/cart.html.twig', [
@@ -119,21 +123,76 @@ class CartController extends AbstractController
     }
 
     /**
-     * @Route("/cart/validator/{id}", name="validator")
+     * @Route("/cart/payment/{id}", name="payment")
      */
-    public function validator($id, Cart $cart)
+    public function payment($id, Cart $cart, Request $request, UserInterface $user, EntityManagerInterface $entity, SessionInterface $session)
     {
         $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
         $viewpanier = $cart->getViewCart();
         $total = $cart->getTotal();
-        $adress = $this->getDoctrine()->getRepository(Addresses::class)->find($id);
+        $adres = $this->getDoctrine()->getRepository(Addresses::class)->find($id);
 
-        return $this->render('cart/validator.html.twig', [
+        $checkout= new Checkout();
+        $form = $this->createForm(CheckoutType::class, $checkout);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($checkout->getCvv()<100) {
+                $this->addFlash("danger", "Paiement refusé !!!");
+                $this->redirectToRoute('payment', ['id' => $id]);
+            } else {
+                $order = new Orders();
+                $order->setAddresses($adres);
+                $order->setAmount($total['TTC']);
+                $order->setDatecreat(new \DateTime());
+                $order->setUsers($user);
+                $order->setPay($checkout->getNcb());
+                $order->setStatus('1');
+
+                foreach ($viewpanier as $id) {
+                    $prod = $this->getDoctrine()->getRepository(Products::class)->find($id['id']);
+                    $order->addProduct($prod);
+                };
+
+                $lastorder = $this->getDoctrine()->getRepository(Orders::class)->findOneBy(
+                    [],
+                    ['datecreat' => 'DESC']
+                );
+
+                $datenow = date('ym');
+
+                if ($lastorder == null) {
+                    $numorder = ($datenow * 1000) + 1;
+                } else {
+                    $lastnum = $lastorder->getNumberOrder();
+                    if (substr($lastnum, 0, 4) == $datenow) {
+                        $orderid=intval(substr($lastnum, 4, 3))+1;
+                    } else {
+                        $orderid = 1;
+                    }
+                    $numorder = ($datenow*1000)+$orderid;
+                }
+                $order->setNumberOrder($numorder);
+
+                $entity->persist($order);
+                $entity->flush();
+
+                $panier = $session->get('panier, []');
+                $panier = [];
+                $session->set('panier', $panier);
+
+                $this->addFlash("success", "Merci pour votre commande");
+                return $this->redirectToRoute('index');
+            }
+        }
+
+        return $this->render('cart/payment.html.twig', [
+            'form' => $form->createView(),
             'cates' => $cates,
             'selectcate' => 0,
             'panier' => $viewpanier,
             'total' => $total,
-            'adress' => $adress
+            'adres' => $adres
         ]);
     }
 }

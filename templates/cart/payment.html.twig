@@ -1,0 +1,143 @@
+{% extends "indexhome.html.twig" %}
+
+{% block titlebar %}
+<section class="site-pusher">
+	<div class="site-content">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item">
+					<a href="{{path('index')}}">Home</a>
+				</li>
+				<li class="breadcrumb-item">
+					<a href="{{path('cart')}}">Adresse</a>
+				</li>
+				<li class="breadcrumb-item active" aria-current="page">Paiement</li>
+			</ol>
+		</nav>
+		{% for message in app.flashes('danger') %}
+			<div class="alert alert-danger" role="alert">
+				{{ message }}
+			</div>
+		{% endfor %}
+		{# <div class="card">
+			<img src="{{asset('images/.png')}}" class="card-img img-fluid taille rounded" alt="theme"/>
+		</div> #}
+	</div>
+	<div class="site-cache" id="site-cache"></div>
+</section>
+
+<!-- DIV du slide bouton burger --></div><!-- DEBUT DU CONTAINT CATALOGUE --><div class="container">
+<div class="row mb-2">
+	<div class="col-12 text-center pt-3">
+		<h3 class="tailfonth1">Paiement de votre Commande</h3>
+		{# <p class="tailfontp">Adresse</p> #}
+	</div>
+</div></div>
+{% endblock %}
+
+{% block content %}
+<div class='container'>
+	<div class='row'>
+		<div class='col-sm-6'>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th scope="col">Photo</th>
+						<th scope="col">Nom</th>
+						<th class='text-right' scope="col">Prix TTC</th>
+					</tr>
+				</thead>
+				<tbody id='panierbody'>
+					{% if panier|length == 0 %}
+						<h5 id='vide' class='text-center'>Votre panier est vide</h5>
+					{% else %}
+						<h5 id='vide' class='text-center'></h5>
+						{% for item in panier %}
+							<tr>
+								<td><img src="{{ asset('/uploads/') ~ item.picture }}" alt="" width='80'/></td>
+								<th>{{item.name}}</th>
+								<td class='text-right'>{{item.price}}€</td>
+							</tr>
+						{% endfor %}
+					{% endif %}
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan='2' class='text-right'>Total TTC :</td>
+						<td id='paniertotal' class='text-right'>{{total.TTC}}€</td>
+					</tr>
+					<tr>
+						<td colspan='2' class='text-right'>Dont 5.5% de TVA :</td>
+						<td id='paniertotal' class='text-right'>{{total.TVA}}€</td>
+					</tr>
+					<tr>
+						<td colspan='2' class='text-right'>Frais d'expedition 20€:</td>
+						<th class='text-right'>{{total.EXP}}€</th>
+					</tr>
+				</tfoot>
+			</table>
+			<div class="card text-center">
+				<div class="card-body">
+					<h5 class="card-title">{{adres.lastname}}
+						{{adres.firstname}}</h5>
+					<div class="card-text card-adress">
+						<p>{{adres.address}}</p>
+						<p>{{adres.address1}}</p>
+						<p>{{adres.cp}}
+							{{adres.city}}</p>
+						{% if adres.phone %}
+							<p>
+								<i class="fas fa-phone-alt"></i>
+								{{adres.phone}}</p>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class='col-sm-6'>
+			<div class='p-3 border border-primary rounded-lg'>
+				<h4 class='mt-2 text-center'>Paiement CB</h4>
+				{{ form_start(form) }}
+				<div class="row">
+					<div class="col-sm-6 mb-3">
+						<label for="cc-name">Nom du detenteur</label>
+							{{form_widget(form.name)}}
+						<small class="text-muted">Nom complet inscrit sur la carte</small>
+						<div class="invalid-feedback">
+							Name on card is required
+						</div>
+					</div>
+					<div class="col-sm-6 mb-3">
+						<label for="cc-number">Numero de la carte</label>
+							{{form_widget(form.ncb)}}
+						<div class="invalid-feedback">
+							Numero de CB requis
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-3 mb-3">
+						<label for="cc-expiration">Expiration</label>
+							{{form_widget(form.date)}}
+						<div class="invalid-feedback">
+							Date expiration requise
+						</div>
+					</div>
+					<div class="col-sm-3 mb-3">
+						<label for="cc-cvv">CVV</label>
+							{{form_widget(form.cvv)}}
+						<div class="invalid-feedback">
+							Code de Securite required
+						</div>
+					</div>
+				</div>
+				<button type='submit' class="btn btn-success btn-block">Payer</button>
+				{{ form_end(form) }}
+			</div>
+			<div class='p-3 border border-primary rounded-lg mt-3'>
+				<h4 class="mt-3 text-center">Paiement Paypal</h4>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

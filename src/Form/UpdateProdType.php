@@ -11,7 +11,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 
 class UpdateProdType extends AbstractType
 {
@@ -19,7 +19,9 @@ class UpdateProdType extends AbstractType
     {
         $builder
             ->add('prod_name', TextType::class)
-            ->add('prod_price', IntegerType::class)
+            ->add('prod_price', MoneyType::class, [
+                'currency' => "EUR"
+            ])
             ->add('prod_descrip', TextType::class)
             ->add('prod_info', CKEditorType::class, [
                 'config' => ['my_config'],

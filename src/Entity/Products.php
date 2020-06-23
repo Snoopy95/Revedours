@@ -22,7 +22,7 @@ class Products
     private $prod_name;
 
     /**
-     * @ORM\Column(type="smallint")
+     * @ORM\Column(type="float")
      */
     private $prod_price;
 
@@ -57,6 +57,11 @@ class Products
      */
     private $categories;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Orders::class, inversedBy="products")
+     */
+    private $Orders;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -74,12 +79,12 @@ class Products
         return $this;
     }
 
-    public function getProdPrice(): ?int
+    public function getProdPrice(): ?float
     {
         return $this->prod_price;
     }
 
-    public function setProdPrice(int $prod_price): self
+    public function setProdPrice(float $prod_price): self
     {
         $this->prod_price = $prod_price;
 
@@ -154,6 +159,18 @@ class Products
     public function setCategories(?Categories $categories): self
     {
         $this->categories = $categories;
+
+        return $this;
+    }
+
+    public function getOrders(): ?Orders
+    {
+        return $this->Orders;
+    }
+
+    public function setOrders(?Orders $Orders): self
+    {
+        $this->Orders = $Orders;
 
         return $this;
     }

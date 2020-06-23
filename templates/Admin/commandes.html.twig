@@ -1,0 +1,68 @@
+{% extends "indexadmin.html.twig" %}
+{% set navb = 7 %}
+
+{% block titre %}
+	<div>
+		Liste des Commandes
+	</div>
+{% endblock %}
+
+{% block content %}
+	<div class="table-responsive-md">
+		<table class="table-striped table">
+			<thead class="thead-dark">
+				<td scope="col">Num Cmd</td>
+				<td scope="col">Nom</td>
+				<td scope="col">Date</td>
+				<td scope="col">Etat</td>
+				<td scope="col">Montant</td>
+				<td scope="col">Action</td>
+			</thead>
+		</tr>
+	</thead>
+	<tbody>
+		{% for cmd in cmdpasse %}
+			<tr>
+				<th scope='row'><a href="#" class="link">#{{cmd.numberorder}}</a></th>
+				<td>{{cmd.addresses.firstname}} {{cmd.addresses.lastname}}</td>
+				<td>{{cmd.datecreat|date('d/m/Y')}}</td>
+				<td>{{cmd.status}}</td>
+				<td>{{cmd.amount}}</td>
+				<td>
+					<a href="#" class="link" >
+					<i class="fas fa-dolly fa-2x"></i>
+					</a>
+				</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<table class="table-striped table">
+	<thead class="thead-dark">
+		<tr>
+			<td scope="col">Num Cmd</td>
+			<td scope="col">Nom</td>
+			<td scope="col">date</td>
+			<td scope="col">Etat</td>
+			<td scope="col">Montant</td>
+			<td scope="col">Action</td>
+		</tr>
+	</thead>
+{% for cmd in cmdencours %}
+	<tr>
+		<th scope='row'><a href="#" class="link">#{{cmd.numberorder}}</a></th>
+		<td>{{cmd.addresses.firstname }} {{ cmd.addresses.lastname}}</td>
+		<td>{{cmd.datecreat|date('d/m/Y')}}</td>
+		<td>{{cmd.status}}</td>
+		<td>{{cmd.amount}}</td>
+		<td><i class="fas fa-shipping-fast fa-2x"></i></td>
+
+	</tr>
+{% endfor %}
+</table>
+</div>
+{% endblock %}
+
+{% block footer %}
+<div>Page 1</div>
+{% endblock %}

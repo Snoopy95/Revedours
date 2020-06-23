@@ -4,10 +4,11 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Entity\Roles;
-use App\Entity\Products;
-use App\Entity\Categories;
+use App\Entity\Orders;
 use App\Entity\Comments;
+use App\Entity\Products;
 use App\Form\AddProdType;
+use App\Entity\Categories;
 use App\Form\UpdateProdType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -376,5 +377,25 @@ class AdminController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('listusers');
+    }
+
+    /**
+     * @Route("/admin/commandes", name="commandes")
+     */
+    public function commandes()
+    {
+        $cmdpasse = $this->getDoctrine()->getRepository(Orders::class)->findBy(
+            ['status' => 1],
+            ['datecreat' => 'ASC']
+        );
+        $cmdencours = $this->getDoctrine()->getRepository(Orders::class)->findBy(
+            ['status' => 2],
+            ['datecreat' => 'ASC']
+        );
+
+        return $this->render('admin/commandes.html.twig', [
+            'cmdpasse' => $cmdpasse,
+            'cmdencours' => $cmdencours
+        ]);
     }
 }
