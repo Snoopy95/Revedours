@@ -10,8 +10,10 @@ use App\Entity\Categories;
 use App\Form\CheckoutType;
 use App\Service\Cart\Cart;
 use App\Form\AddressesType;
+use Symfony\Component\Mime\Email;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -19,14 +21,26 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CartController extends AbstractController
 {
+
+    protected $cart;
+    protected $session;
+    protected $em;
+
+    public function __construct(Cart $cart, SessionInterface $session, EntityManagerInterface $em)
+    {
+        $this->cart = $cart;
+        $this->session = $session;
+        $this->em = $em;
+    }
+
     /**
      * @Route("/cart", name="cart")
      */
-    public function cart(Cart $cart, UserInterface $user, Request $request, EntityManagerInterface $em)
+    public function cart(UserInterface $user, Request $request)
     {
         $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
-        $viewpanier = $cart->getViewCart();
-        $total = $cart->getTotal();
+        $viewpanier = $this->cart->getViewCart();
+        $total = $this->cart->getTotal();
         $adress = $this->getDoctrine()->getRepository(Addresses::class)->findBy(
             ['user' => $user]
         );
@@ -40,16 +54,14 @@ class CartController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $addresse->setUser($user);
-            $em->persist($addresse);
-            $em->flush();
+            $this->em->persist($addresse);
+            $this->em->flush();
             // Recuperation de l'id de l'adresse qui vient d etre creee
-            $idadress = $this->getDoctrine()->getRepository(Addresses::class)->findBy(
+            $idadress = $this->getDoctrine()->getRepository(Addresses::class)->findOneBy(
                 ['user' => $user],
-                ['id' => 'DESC'],
-                1,
-                0
+                ['id' => 'DESC']
             );
-            $id = $idadress[0]->getId();
+            $id = $idadress->getId();
             return $this->redirectToRoute('payment', ['id' => $id]);
         }
 
@@ -67,18 +79,18 @@ class CartController extends AbstractController
     /**
      * @Route("/cart/addcart/{id}", name="addcart")
      */
-    public function addcart($id, SessionInterface $session, Cart $cart)
+    public function addcart($id)
     {
-        $panier = $session->get('panier', []);
+        $panier = $this->session->get('panier', []);
         if (!empty($panier[$id])) {
             return $this->json([
                 'message' => 'Produit déjà dans le panier',
                 'countpanier' => count($panier)
             ], 405);
         } else {
-            $cart->add($id);
-            $viewpanier = $cart->getViewcart();
-            $total = $cart->getTotal();
+            $this->cart->add($id);
+            $viewpanier = $this->cart->getViewcart();
+            $total = $this->cart->getTotal();
             
             return $this->json([
                 'message' => 'tous à bien marché',
@@ -91,11 +103,11 @@ class CartController extends AbstractController
     /**
      * @Route("/cart/delcart/{id}", name="delcart")
      */
-    public function delcart($id, Cart $cart)
+    public function delcart($id)
     {
-        $cart->del($id);
-        $viewpanier = $cart->getViewcart();
-        $total = $cart->getTotal();
+        $this->cart->del($id);
+        $viewpanier = $this->cart->getViewcart();
+        $total = $this->cart->getTotal();
 
         return $this->json([
             'message' => 'produit retiré du panier',
@@ -107,13 +119,13 @@ class CartController extends AbstractController
     /**
      * @Route("/cart/removecart", name="removecart")
      */
-    public function removecart(SessionInterface $session, Cart $cart)
+    public function removecart()
     {
-        $panier = $session->get('panier, []');
+        $panier = $this->session->get('panier, []');
         $panier = [];
-        $session->set('panier', $panier);
-        $viewpanier = $cart->getViewcart();
-        $total = $cart->getTotal();
+        $this->session->set('panier', $panier);
+        $viewpanier = $this->cart->getViewcart();
+        $total = $this->cart->getTotal();
 
         return $this->json([
             'message' => 'Panier annuler',
@@ -125,11 +137,11 @@ class CartController extends AbstractController
     /**
      * @Route("/cart/payment/{id}", name="payment")
      */
-    public function payment($id, Cart $cart, Request $request, UserInterface $user, EntityManagerInterface $entity, SessionInterface $session)
+    public function payment($id, Request $request, MailerInterface $mailer, UserInterface $user)
     {
         $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
-        $viewpanier = $cart->getViewCart();
-        $total = $cart->getTotal();
+        $viewpanier = $this->cart->getViewCart();
+        $total = $this->cart->getTotal();
         $adres = $this->getDoctrine()->getRepository(Addresses::class)->find($id);
 
         $checkout= new Checkout();
@@ -143,7 +155,7 @@ class CartController extends AbstractController
             } else {
                 $order = new Orders();
                 $order->setAddresses($adres);
-                $order->setAmount($total['TTC']);
+                $order->setAmount($total['EXP']);
                 $order->setDatecreat(new \DateTime());
                 $order->setUsers($user);
                 $order->setPay($checkout->getNcb());
@@ -174,12 +186,22 @@ class CartController extends AbstractController
                 }
                 $order->setNumberOrder($numorder);
 
-                $entity->persist($order);
-                $entity->flush();
+                $this->em->persist($order);
+                $this->em->flush();
 
-                $panier = $session->get('panier, []');
+                $panier = $this->session->get('panier, []');
                 $panier = [];
-                $session->set('panier', $panier);
+                $this->session->set('panier', $panier);
+
+                $email = (new Email())
+                ->from('Revedours@gmail.com')
+                ->to($user->getEmail())
+                ->subject('Commande valider')
+                ->html('<h3>Merci pour votre commande</h3>
+                        <p> Votre commande a bien ete valider et sera traite dans les plus bref delais.</p>
+                        <p> Vous recevrez un mail lors de l\'envoie de votre commande</p>
+                        <p>Cordialemant l\'equipe Reve D\'Ours</p> ');
+                $mailer->send($email);
 
                 $this->addFlash("success", "Merci pour votre commande");
                 return $this->redirectToRoute('index');

@@ -1,0 +1,47 @@
+{% extends "indexhome.html.twig" %}
+
+{#  *********  Rendu de la page *******  #}
+
+{% block titlebar %}
+<section class="site-pusher">
+  <div class="site-content">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{path('index')}}">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Nouveautes</li>
+      </ol>
+    </nav>
+    <div class="card">
+      <img src="{{asset('images/newsdessin.jpg')}}" class="card-img img-fluid rounded" alt="theme" />
+      <div class="card-img-overlay text-center styltext">
+        <h1 class="card-title tailfonth1">
+          Nouveautes
+        </h1>
+      </div>
+    </div>
+  </div>
+  <div class="site-cache" id="site-cache"></div>
+</section>
+<!-- DIV du slide bouton burger -->
+</div>
+<!-- DEBUT DU CONTAINT CATALOGUE -->
+<div class="container">
+  <div class="row mb-2">
+    <div class="col-12 text-center pt-3">
+      <h1 class="tailfonth1">Attention peinture encore fraiche !!</h1>
+      <p class="tailfontp">Toutes les toiles de ces 30 derniers jours</p>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+	<div class='container'>
+		<div class='row'>
+			{% for product in products %}
+				{% include "products/cardprod.html.twig" with [product] %}
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}
+

@@ -1,0 +1,122 @@
+{% extends "indexadmin.html.twig" %}
+{% set navb = 7 %}
+
+{% block titre %}
+	Commande n° :
+	{{cmd.numberorder}}
+{% endblock %}
+
+{% block content %}
+
+	{% if cmd.status == 1 %}
+		{% set etatV, etatP, etatE = "disabled","","" %}
+		{% set tailleV, tailleP, tailleE = "fa-4x", "fa-3x", "fa-3x" %}
+	{% endif %}
+
+	{% if cmd.status == 2 %}
+		{% set etatV, etatP, etatE = "","disabled","" %}
+		{% set tailleV, tailleP, tailleE = "fa-3x", "fa-4x", "fa-3x" %}
+	{% endif %}
+
+	{% if cmd.status == 3 %}
+		{% set etatV, etatP, etatE = "","","disabled" %}
+		{% set tailleV, tailleP, tailleE = "fa-3x", "fa-3x", "fa-4x" %}
+	{% endif %}
+
+	<div class='row align-items-center'>
+		<div class='col-sm-6 text-center'>
+			<h5>Date de la commande :
+				<strong>{{cmd.datecreat|date('d/m/yy')}}</strong>
+			</h5>
+			<div class='text-center'>
+				<p class='mb-5 mt-3'>
+					Etat de la commande
+				</p>
+				<a href="/admin/cmdstatus/{{cmd.id}}/1" class='btn {{etatV}}'>
+					<i class="fas fa-handshake {{tailleV}}"></i>
+				</a>
+				<a href="/admin/cmdstatus/{{cmd.id}}/2" class='mr-5 ml-5 btn {{etatP}}'>
+					<i class="fas fa-dolly {{tailleP}}"></i>
+				</a>
+				<a href="/admin/cmdstatus/{{cmd.id}}/3" class='btn {{etatE}}'>
+					<i class="fas fa-shipping-fast {{tailleE}}"></i>
+				</a>
+			</div>
+		</div>
+		<div class='col-sm-6 text-left'>
+			<div class="card text-white bg-light text-dark mb-3" style="max-width: 25rem;">
+				<h4 class="card-header text-center">Adresse</h4>
+				<div class="card-body">
+					<h5 class="card-title">{{cmd.addresses.firstname}}
+						{{cmd.addresses.lastname}}</h5>
+					<p class="card-text">{{cmd.addresses.address}}<br/>{{cmd.addresses.address1}}</p>
+					<p class="card-text">{{cmd.addresses.cp}}
+						{{cmd.addresses.city}}</p>
+					<p class="card-text">Tel :
+						{{cmd.addresses.phone}}</p>
+					<p class="card-text">Email :
+						{{cmd.users.email}}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class='row align-items-center'>
+		<div class='col-sm-1'></div>
+		<table class="table table-striped col-sm-10">
+			<thead>
+				<tr>
+					<th scope="col">#ID</th>
+					<th scope="col">Photo</th>
+					<th scope="col">Nom</th>
+					<th scope="col">Prix</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for product in cmd.products %}
+					<tr>
+						<th scope="row">{{product.id}}</th>
+						<td><img src='{{asset('/uploads/' ~ product.prodPicture) }}' width="50" height="50"></td>
+						<td>{{product.prodName}}</td>
+						<td>{{product.prodPrice}}
+							€</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<div class='col-sm-1'></div>
+	</div>
+	<div class='row align-items-center'>
+		<div class='col-sm-2'></div>
+		<div class='col-sm-4'>
+			<p>
+				CB :
+				{{cmd.pay}}</p>
+		</div>
+		<div class='col-sm-2 border border-dark rounded-lg text-right'>
+			<p>Sous-total :</p>
+			<p>Expedition :</p>
+			<p>
+				<strong>Total :</strong>
+			</p>
+			<p>Dont TVA 5.5% :</p>
+		</div>
+		<div class='col-sm-2 border border-dark text-center rounded-lg'>
+			<p>{{cmd.amount -20 }}
+				€</p>
+			<p>20 €</p>
+			<p>
+				<strong>{{cmd.amount}}
+					€</strong>
+			</p>
+			<p>{{ ((cmd.amount*1.055) - cmd.amount)|round(2, 'floor')}}
+				€</p>
+		</div>
+		<div class='col-sm-2'></div>
+	</div>
+{% endblock %}
+
+{% block footer %}
+	<div>
+		Pour faire les pieds
+	</div>
+{% endblock %}

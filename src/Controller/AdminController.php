@@ -10,10 +10,12 @@ use App\Entity\Products;
 use App\Form\AddProdType;
 use App\Entity\Categories;
 use App\Form\UpdateProdType;
+use Symfony\Component\Mime\Email;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Mailer\MailerInterface;
 
 class AdminController extends AbstractController
 {
@@ -392,10 +394,54 @@ class AdminController extends AbstractController
             ['status' => 2],
             ['datecreat' => 'ASC']
         );
+        $cmdexp = $this->getDoctrine()->getRepository(Orders::class)->findBy(
+            ['status' => 3],
+            ['datecreat' => 'ASC']
+        );
 
         return $this->render('admin/commandes.html.twig', [
             'cmdpasse' => $cmdpasse,
-            'cmdencours' => $cmdencours
+            'cmdencours' => $cmdencours,
+            'cmdexp' => $cmdexp
         ]);
+    }
+
+    /**
+     * @Route("/admin/detcmd/{id}", name="detcmd")
+     */
+    public function detcmd($id)
+    {
+        $cmd = $this->getDoctrine()->getRepository(Orders::class)->find($id);
+
+        return $this->render('admin/detcmd.html.twig', [
+            'cmd' => $cmd
+        ]);
+    }
+
+    /**
+     * @Route("/admin/cmdstatus/{id}/{status}", name="cmdstatus")
+     */
+    public function cmdstatus($id, $status, EntityManagerInterface $em, Request $request, MailerInterface $mailer)
+    {
+        // dd($request);
+        $lasturl = $request->headers->get('referer');
+        $url = strstr($lasturl, '/admin');
+
+        $cmd = $this->getDoctrine()->getRepository(Orders::class)->find($id);
+        $cmd->setStatus($status);
+
+        $em->flush();
+
+        // $email = (new Email())
+        //     ->from('Revedours@gmail.com')
+        //     ->to($cmd->getUsers()->getEmail())
+        //     ->subject('Commande expediée')
+        //     ->html('<h3>Votre commande à ete remis au transporteur</h3>
+        //                 <p> Votre commande a bien ete valider et sera traite dans les plus bref delais.</p>
+        //                 <p> Vous recevrez un mail lors de l\'envoie de votre commande</p>
+        //                 <p>Cordialemant l\'equipe Reve D\'Ours</p> ');
+        // $mailer->send($email);
+
+        return $this->redirect($url);
     }
 }

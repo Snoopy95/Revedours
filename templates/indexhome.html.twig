@@ -30,13 +30,13 @@
 					<a href="{{path('index')}}" class="header-logo h2 text-wrap a-title">Rêve d'Ours</a>
 				</div>
 				<nav class="menu">
-					<a class="menu-item" href="/">Nouveautes</a>
+				<a {% if selectcate == 5 %} class="menu-item actif" {% else %} class="menu-item" {% endif %} href="{{path ('news')}}">Nouveautes</a>
 					{% for cate in cates %}
 						<a href="/products/{{cate.id}}" {% if cate.id == selectcate %} class="menu-item actif" {% else %} class="menu-item" {% endif %}>
 							{{cate.cateName}}
 						</a>
 					{% endfor %}
-					<a class="menu-item" href="#">Expo</a>
+				<a {% if selectcate == 6 %} class="menu-item actif" {% else %} class="menu-item" {% endif %} href="#">Galerie</a>
 				</nav>
 				<div class="login">
 					{% if app.user %}

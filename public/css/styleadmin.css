@@ -4,6 +4,9 @@ body{
     line-height: 1.2;
     font-family: "roboto", sans-serif ;
 }
+.toto{
+    background-color: red;
+}
 .content{
     display: block;
     width: 95%;

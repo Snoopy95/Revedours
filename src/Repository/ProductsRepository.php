@@ -12,6 +12,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  * @method Products[]    findAll()
  * @method Products[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  * @method Products[]    findByCate($id)
+ * @method Products[]    findNews($nb day)
  */
 class ProductsRepository extends ServiceEntityRepository
 {
@@ -32,6 +33,19 @@ class ProductsRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
         ;
+    }
+
+    // /**
+    //  * @return Products[] qui on moins d'x jours
+    //  */
+    public function findNews($value)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.prod_datecreat >= :date')
+            ->setParameter('date', new \Datetime('- '.$value.' day'))
+            ->orderBy('p.prod_datecreat', 'DESC')
+            ->getQuery()
+            ->getResult();
     }
 
     // /**

@@ -22,10 +22,20 @@ use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
 class SecurityController extends AbstractController
 {
+
+    protected $cart;
+    protected $em;
+
+    public function __construct(Cart $cart, EntityManagerInterface $em)
+    {
+        $this->cart = $cart;
+        $this->em = $em;
+    }
+
     /**
      * @Route("/newuser", name="newuser")
      */
-    public function newuser(Request $request, EntityManagerInterface $entity, UserPasswordEncoderInterface $encoder, Cart $cart)
+    public function newuser(Request $request, UserPasswordEncoderInterface $encoder)
     {
         $listcate = $this->getDoctrine();
         $cates = $listcate->getRepository(Categories::class)->findAll();
@@ -43,14 +53,14 @@ class SecurityController extends AbstractController
             $role = $em->getRepository(Roles::class)->find(1);
             $user->setRoles($role);
 
-            $entity->persist($user);
-            $entity->flush();
+            $this->em->persist($user);
+            $this->em->flush();
 
             return $this->redirectToRoute('index');
         }
 
-        $viewpanier = $cart->getViewCart();
-        $total = $cart->getTotal($viewpanier);
+        $viewpanier = $this->cart->getViewCart();
+        $total = $this->cart->getTotal($viewpanier);
 
         return $this->render('security/newuser.html.twig', [
             'form' => $form->createView(),
@@ -81,7 +91,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/forgetpwd", name="mdpoublie")
      */
-    public function mdpoublie(Cart $cart, Request $request, TokenGeneratorInterface $tokenGenerator, EntityManagerInterface $entity, MailerInterface $mailer)
+    public function mdpoublie(Request $request, TokenGeneratorInterface $tokenGenerator, MailerInterface $mailer)
     {
         $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
 
@@ -90,7 +100,6 @@ class SecurityController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
             $email = $useremail->getEmail();
             $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(
                 ['email' => $email]
@@ -98,8 +107,8 @@ class SecurityController extends AbstractController
             if ($user) {
                 $token = $tokenGenerator->generateToken();
                 $user->setResetpwd($token);
-                $entity->persist($user);
-                $entity->flush();
+                $this->em->persist($user);
+                $this->em->flush();
                 
                 $url = $this->generateUrl('resetpwd', ['token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
 
@@ -120,8 +129,8 @@ class SecurityController extends AbstractController
             }
         };
 
-        $viewpanier = $cart->getViewCart();
-        $total = $cart->getTotal();
+        $viewpanier = $this->cart->getViewCart();
+        $total = $this->cart->getTotal();
 
         return $this->render('security/forgetpwd.html.twig', [
             'cates'=> $cates,
@@ -134,7 +143,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/resetpwd/{token}", name="resetpwd")
      */
-    public function resetpwd($token, Cart $cart, Request $request, EntityManagerInterface $entity, UserPasswordEncoderInterface $encoder)
+    public function resetpwd($token, Request $request, UserPasswordEncoderInterface $encoder)
     {
         $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
 
@@ -154,15 +163,15 @@ class SecurityController extends AbstractController
             $user->setPassword($hash);
             $user->setResetpwd(null);
 
-            $entity->persist($user);
-            $entity->flush();
+            $this->em->persist($user);
+            $this->em->flush();
 
             $this->addFlash('success', 'Votre mot de passe a bien été changé !!!');
             return $this->redirectToRoute('index');
         }
 
-        $viewpanier = $cart->getViewCart();
-        $total = $cart->getTotal();
+        $viewpanier = $this->cart->getViewCart();
+        $total = $this->cart->getTotal();
         
         return $this->render('security/resetpwd.html.twig', [
             'cates' => $cates,

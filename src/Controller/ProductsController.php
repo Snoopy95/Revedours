@@ -52,4 +52,25 @@ class ProductsController extends AbstractController
             'total' => $total
         ]);
     }
+
+    /**
+     * @Route("/news", name="news")
+     */
+    public function news(Cart $cart)
+    {
+        $id = 5;
+        $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
+        $newsprod = $this->getDoctrine()->getRepository(Products::class)->findNews(30);
+
+        $viewpanier = $cart->getViewCart();
+        $total = $cart->getTotal();
+
+        return $this->render('products/news.html.twig', [
+            'products' => $newsprod,
+            'selectcate' => $id,
+            'cates' => $cates,
+            'panier' => $viewpanier,
+            'total' => $total
+        ]);
+    }
 }
