@@ -47,9 +47,9 @@
 		</header>
 		<div class='row'>
 			<aside class='col-md-2 sidenav'>
-				{% set ok = 'nav-link flex-sm-fill text-sm-left active' %}
-				{% set nok = 'nav-link flex-sm-fill text-sm-left' %}
-				<nav class="nav flex-column nav-pills flex-sm-row">
+				{% set ok = 'nav-link active' %}
+				{% set nok = 'nav-link' %}
+				<nav class="nav flex-column nav-pills text-left">
 					<a {% if navb == 1 %} class='{{ok}}' {% else %} class='{{nok}}' {% endif %} href="{{path('dashboard')}}">Tableau de bord</a>
 					<a {% if navb == 2 %} class='{{ok}}' {% else %} class='{{nok}}' {% endif %} href="{{path('listprods')}}">Liste produits</a>
 					<a {% if navb == 3 %} class='{{ok}}' {% else %} class='{{nok}}' {% endif %} href="{{path('addprod')}}">Ajouter produit</a>

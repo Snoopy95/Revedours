@@ -1,0 +1,66 @@
+{% extends 'indexhome.html.twig' %}
+
+{% block titlebar %}
+	<section class="site-pusher">
+		<div class="site-content">
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<a href="{{path('index')}}">Home</a>
+					</li>
+					<li class="breadcrumb-item active" aria-current="page">Mes commandes</li>
+				</ol>
+			</nav>
+			{# <div class="card">
+				<img src="{{asset('images/vos-commentaires.png')}}" class="card-img img-fluid taille rounded" alt="theme"/>
+			</div> #}
+		</div>
+		<div class="site-cache" id="site-cache"></div>
+	</section><!-- DIV du slide bouton burger --></div><!-- DEBUT DU CONTAINT CATALOGUE --><div class="container">
+	<div class="row mb-2">
+		<div class="col-12 text-center pt-3">
+			<h3 class="tailfonth1">Nos Commandes</h3>
+			<p class="tailfontp">
+				XXXXXXXXX</p>
+
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class='container'>
+<table class="table">
+	<thead class="thead-light">
+		<tr>
+			<th scope="col">N° commande</th>
+			<th scope="col">Date commande</th>
+			<th scope="col">Montant commande</th>
+			<th scope="col">Status commande</th>
+		</tr>
+	</thead>
+	<tbody>
+	{% for myorder in myorders%}
+		<tr>
+			<th scope="row"><a href="{{path('myorder', {'id': myorder.id})}}" class="link">#{{myorder.numberorder}}</a></th>
+			<td>{{myorder.datecreat|date('d/m/Y')}}</td>
+			<td>{{myorder.amount}} €</td>
+			<td>
+				{% if myorder.status == 1  %}
+					Commande valider
+				{% elseif myorder.status == 2 %}
+					Commande en preparation
+				{% elseif myorder.status == 3 %}
+					Commande expediée 
+				{% else %}
+					Erreur sur votre commande
+				{% endif %}			
+			</td>
+		</tr>
+	{% endfor %}
+	</tbody>
+</table>
+
+</div>
+{% endblock %}
+

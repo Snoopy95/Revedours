@@ -51,7 +51,7 @@ class AdminController extends AbstractController
             }
         }
 
-        return $this->render('Admin/dashboard.html.twig', [
+        return $this->render('admin/dashboard.html.twig', [
             'nbprods' => $nbprods,
             'prodsbycates' => $prodsbycates,
             'listusers' => $listusers,
@@ -68,7 +68,7 @@ class AdminController extends AbstractController
     {
         $listprods = $this->getDoctrine()->getRepository(Products::class)->findAll();
 
-        return $this->render('Admin/listprods.html.twig', [
+        return $this->render('admin/listprods.html.twig', [
         'allprods' => $listprods,
         ]);
     }
@@ -149,7 +149,7 @@ class AdminController extends AbstractController
 
             return $this->redirectToRoute('listprods');
         }
-        return $this->render('Admin/addprod.html.twig', [
+        return $this->render('admin/addprod.html.twig', [
             'form' => $form->createView(),
         ]);
     }
