@@ -39,7 +39,8 @@ class AddressesType extends AbstractType
             ])
             ->add('cp', IntegerType::class, [
                 'attr' => [
-                    'placeholder' => '75000'
+                    'placeholder' => '75000',
+                    'pattern' => '[0-9]{5}'
                 ]
             ])
             ->add('city', TextType::class, [
@@ -49,7 +50,7 @@ class AddressesType extends AbstractType
             ])
             ->add('phone', TelType::class, [
                 'attr' => [
-                    'pattern' => '[0-9]{2}.[0-9]{2}.[0-9]{2}.[0-9]{2}.[0-9]{2}',
+                    'pattern' => "^(?:0|\(?\+33\)?\s?|0033\s?)[1-79](?:[\.\-\s]?\d\d){4}$",
                     'size' => 15,
                     'placeholder' => '01.10.20.30.40',
                 ],

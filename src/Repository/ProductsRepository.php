@@ -41,7 +41,7 @@ class ProductsRepository extends ServiceEntityRepository
     public function findNews($value)
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.prod_datecreat >= :date')
+            ->andWhere('p.prod_datecreat >= :date', "p.prod_stock = 1", "p.Orders IS NULL")
             ->setParameter('date', new \Datetime('- '.$value.' day'))
             ->orderBy('p.prod_datecreat', 'DESC')
             ->getQuery()

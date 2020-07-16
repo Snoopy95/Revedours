@@ -101,12 +101,28 @@
 						</div>
 					</div>
 				</div>
-				<div class="row justify-content-center">
-					<div class="col">
-						<i class="fab fa-facebook-square fa-2x"></i>
-						<i class="fab fa-twitter-square fa-2x"></i>
-						<i class="fab fa-pinterest-square fa-2x"></i>
-						<i class="fab fa-instagram fa-2x"></i>
+				<div class="row justify-content-between">
+					<div class='col-4'>
+						{# Facebook #}
+						<a class="a-facebook"
+							href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Frevedours.createurweb.fr&amp;src=sdkpreparse"
+							target="_blank"
+							data-opensharewindow="">
+							<i class="mr-2 fab fa-facebook-square fa-2x"></i>
+						</a>
+						{# Twitter #}
+						<a class="a-twitter mr-2"
+							href="https://twitter.com/intent/tweet?url=https%3A%2F%2Frevedours.createurweb.fr%2F"
+							target='_blank'>
+							<i class="fab fa-twitter-square fa-2x"></i>
+						</a>
+						{# Pinterest #}
+						<i class="mr-2 a-pinterest fab fa-pinterest-square fa-2x"></i>
+						{# Instagram #}
+						<i class="a-instagram fab fa-instagram fa-2x"></i>
+					</div>
+					<div class='col-2'>
+						<a class='a-title' href={{path('contactme')}}><i class="align-middle far fa-envelope fa-2x"></i><small> Nous contacter </small></a>
 					</div>
 				</div>
 			</footer>

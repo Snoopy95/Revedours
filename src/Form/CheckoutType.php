@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class CheckoutType extends AbstractType
@@ -20,21 +21,27 @@ class CheckoutType extends AbstractType
                     'placeholder' => 'Nom du Titulaire'
                 ]
             ])
-            ->add('ncb', IntegerType::class, [
+            ->add('ncb', TextType::class, [
                 'attr' => [
-                    'pattern' => '[0-9]{4} [0-9]{4} [0-9]{4} [0-9]{4}',
+                    'pattern' => "[0-9]{16}",
                     'size' => 16,
-                    'placeholder' => '000 0000 0000 0000 0000'
+                    'placeholder' => '1234123412341234',
                 ]
             ])
-            ->add('date', IntegerType::class, [
+            ->add('date', DateType::class, [
             'attr' => [
-                'pattern' => '[0-12]{1}/[20-99]{1}',
-                'size' => 4,
-                'placeholder' => '00/00'
-                ]
+                'placeholder' => '06/20'
+            ],
+            'widget' => 'single_text',
+            'format' => 'MM/yy'
             ])
-            ->add('cvv', IntegerType::class);
+            ->add('cvv', NumberType::class, [
+                'attr' => [
+                    'pattern' => '[0-9]{3}',
+                    'size' => 3,
+                    'placeholder' => '123'
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

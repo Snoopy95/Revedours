@@ -149,7 +149,7 @@ class CartController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($checkout->getCvv()<100) {
+            if ($checkout->getCvv()<900) {
                 $this->addFlash("danger", "Paiement refusé !!!");
                 $this->redirectToRoute('payment', ['id' => $id]);
             } else {

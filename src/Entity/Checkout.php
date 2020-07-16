@@ -2,12 +2,24 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 class Checkout
 {
     private $name;
 
+    /**
+     * @Assert\Luhn(message="Please check your credit card number.")
+     * @Assert\NotBlank
+     */
     private $ncb;
 
+    /**
+     * @Assert\Range(
+     *  min = "now -1 day",
+     *  max = "+3 years",
+     * )
+     */
     private $date;
     
     private $cvv;

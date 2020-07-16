@@ -17,7 +17,3 @@ function slideritems() {
   }
 }
 setInterval(() => slideritems(), 8000);
-
-setTimeout(() => {
-  $(".alert").alert("close");
-}, 5000);

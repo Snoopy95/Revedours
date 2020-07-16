@@ -1,0 +1,61 @@
+{% extends 'indexhome.html.twig' %}
+
+{% block titlebar %}
+<section class="site-pusher">
+	<div class="site-content">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item">
+					<a href="{{path('index')}}">Home</a>
+				</li>
+				<li class="breadcrumb-item active" aria-current="page">Contact</li>
+			</ol>
+		</nav>
+		{# <div class="card">
+			<img src="{{asset('images/') ~ detcate.catePicture }}" class="card-img img-fluid rounded" alt="theme"/>
+			<div class="card-img-overlay text-center styltext">
+				<h1 class="card-title tailfonth1">
+					{{detcate.cateName}}
+				</h1>
+			</div> #}
+		</div>
+	</div>
+	<div class="site-cache" id="site-cache"></div>
+</section>
+<!-- DIV du slide bouton burger --></div><!-- DEBUT DU CONTAINT CATALOGUE --><div class="container">
+<div class="row mb-2">
+	<div class="col-12 text-center pt-3">
+		<h1 class="tailfonth1">Nous contacter</h1>
+		<p class="tailfontp">On vous repond au plus vite</p>
+	</div>
+</div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class='container'>
+{{ form_start(form) }}
+<div class="form-row mt-3 justify-content-center">
+	<div class="form-group col-md-6">
+		{{form_widget(form.name)}}
+	</div>
+</div>
+<div class="form-row justify-content-center">
+	<div class="form-group col-md-6">
+		{{form_widget(form.mail)}}
+	</div>
+</div>
+<div class="form-row justify-content-center">
+	<div class="form-group col-md-6">
+		{{form_widget(form.objet)}}
+	</div>
+</div>
+<div class="form-row justify-content-center">
+	<div class="form-group col-md-6">
+		{{form_widget(form.message)}}
+	</div>
+</div>
+<button type="submit" class="btn btn-success mx-auto d-block">Valider</button>
+{{ form_end(form)}}
+</div>
+{% endblock %}

@@ -21,3 +21,7 @@ document.querySelector('.mshow').addEventListener("click", evt => {
   miconshow.classList.toggle("fa-eye")
   miconshow.classList.toggle("fa-eye-slash")
 });
+
+setTimeout(() => {
+  $(".alert").alert("close");
+}, 5000);
