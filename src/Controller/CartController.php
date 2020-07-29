@@ -10,8 +10,8 @@ use App\Entity\Categories;
 use App\Form\CheckoutType;
 use App\Service\Cart\Cart;
 use App\Form\AddressesType;
-use Symfony\Component\Mime\Email;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -193,16 +193,19 @@ class CartController extends AbstractController
                 $panier = [];
                 $this->session->set('panier', $panier);
 
-                $email = (new Email())
-                ->from('Revedours@gmail.com')
+                $email = (new TemplatedEmail())
+                ->from('Revedours@createurweb.fr')
                 ->to($user->getEmail())
                 ->subject('Commande valider')
-                ->html('<h3>Merci pour votre commande</h3>
-                        <p> Votre commande a bien ete valider et sera traite dans les plus bref delais.</p>
-                        <p> Vous recevrez un mail lors de l\'envoie de votre commande</p>
-                        <p>Cordialemant l\'equipe Reve D\'Ours</p> ');
+                ->htmlTemplate('emails/commande.html.twig')
+                ->context([
+                    'name' => $user->getUsername(),
+                    'commande' => $order->getNumberOrder(),
+                    'montant' => $order->getAmount($total['EXP']),
+                    'date' => $order->getDatecreat()
+                ]);
                 $mailer->send($email);
-
+                
                 $this->addFlash("success", "Merci pour votre commande");
                 return $this->redirectToRoute('index');
             }

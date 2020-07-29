@@ -30,7 +30,7 @@ class SocialController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $email = (new TemplatedEmail())
-            ->from('Boxalacon@gmail.com')
+            ->from('revedours@createurweb.fr')
             ->to('Boxalacon@gmail.com')
             ->subject('Demande d\'info')
             ->htmlTemplate('emails/contact.html.twig')
@@ -42,6 +42,7 @@ class SocialController extends AbstractController
             ]);
 
             $mailer->send($email);
+            $this->addFlash('success', 'Mail bien envoyer');
 
             return $this->redirectToRoute('index');
         }

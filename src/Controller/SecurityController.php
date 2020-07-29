@@ -113,7 +113,7 @@ class SecurityController extends AbstractController
                 $url = $this->generateUrl('resetpwd', ['token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
 
                 $email = (new Email())
-                ->from('Boxalacon@gmail.com')
+                ->from('revedours@createurweb.fr')
                 ->to($user->getEmail())
                 ->subject('Mot de passe perdu !!')
                 ->html('<h2> Bonjours ' . $user->getUsername() . '</h2>
