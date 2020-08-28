@@ -10,7 +10,6 @@ use App\Entity\Products;
 use App\Form\AddProdType;
 use App\Entity\Categories;
 use App\Form\UpdateProdType;
-use Symfony\Component\Mime\Email;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -90,7 +89,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/updateprod/{id}", name="updateprod")
      */
-    public function updateprod(EntityManagerInterface $entityManager, $id, Request $request)
+    public function updateprod(EntityManagerInterface $entityManager, Request $request, $id)
     {
         $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
         $udprod= $this->getDoctrine()->getRepository(Products::class)->find($id);
@@ -115,7 +114,7 @@ class AdminController extends AbstractController
 
             return $this->redirectToRoute('listprods');
         }
-        return $this->render('Admin/updateprod.html.twig', [
+        return $this->render('admin/updateprod.html.twig', [
             'form' => $form->createView(),
             'cates'=> $cates,
             'prod' => $udprod]);

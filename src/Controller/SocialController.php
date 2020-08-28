@@ -28,7 +28,6 @@ class SocialController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
             $email = (new TemplatedEmail())
             ->from('revedours@createurweb.fr')
             ->to('Boxalacon@gmail.com')

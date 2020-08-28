@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Roles;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method Roles|null find($id, $lockMode = null, $lockVersion = null)
