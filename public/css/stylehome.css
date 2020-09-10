@@ -55,13 +55,13 @@ margin: auto;
 }
 html,
 body {
-  font-family: Roboto, Arial, sans-serif;
-  font-size: 1rem;
+  font: normal 16px Roboto, Arial, sans-serif;
   line-height: 1.2;
   margin: 0;
   padding: 0;
   max-width: 1280px;
   margin: auto;
+  text-rendering: optimizeLegibility;
 }
 /* Pour la NavBar */
 .actif{
@@ -265,37 +265,28 @@ a:hover{
     font-size: 1rem;
   }
   .tailfonth4 {
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
   .tailfontp {
-    font-size: 0.5rem;
+    font-size: 1rem;
+  }
+  .log-txt {
+    font-size: 1rem;
   }
   .styltext {
     margin-top: 20px;
   }
 
   @media only screen and (max-width: 380px) {
-    .header-logo {
-      font-size: 1.5rem;
-    }
-    .log-txt {
-      font-size: 1rem;
-    }
     .icons25{
       height: 15px;
       width: 15px;
     }
-    .tailfonth1 {
-      font-size: .8rem;
+    .header-logo {
+      font-size: 1.5rem;
     }
-    .tailfonth3 {
-      font-size: 0.6rem;
-    }
-    .tailfonth4 {
-      font-size: 0.4rem;
-    }
-    .tailfontp {
-      font-size: 0.4rem;
+    .log-txt {
+      font-size: 0.8rem;
     }
     .styltext {
       margin-top: 0;
