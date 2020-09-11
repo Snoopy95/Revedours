@@ -1,0 +1,50 @@
+{% extends "indexhome.html.twig" %}
+
+{% block titlebar %}
+	<section class="site-pusher">
+		<div class="site-content">
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<a href="{{path('index')}}">Home</a>
+					</li>
+					<li class="breadcrumb-item active" aria-current="page">Adresse</li>
+				</ol>
+			</nav>
+			<div class="card">
+				<img src="{{asset('images/paniervide.png')}}" class="card-img img-fluid taille rounded" alt="theme"/>
+			</div>
+		</div>
+		<div class="site-cache" id="site-cache"></div>
+	</section>
+
+	<!-- DIV du slide bouton burger -->
+</div>
+<!-- DEBUT DU CONTAINT CATALOGUE -->
+<div class="container">
+	<div class="row mb-2">
+		<div class="col-12 text-center pt-3">
+			<h3 class="tailfonth1">Commande</h3>
+			{# <p class="tailfontp">Adresse</p> #}
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class='container-sm'>
+	<div class="row justify-content-center">
+		<div class='col-sm-7'>
+			<div class='text-center'>
+				{{ user.username }}	votre panier est vide !!!
+			</div>
+			<div class="text-center mt-2">
+				Et si on allait le remplir ?
+			</div>
+			<div class='text-center mt-4'>
+				<a href="{{ path('index') }}" class="btn btn-primary btn-sm">Retour à la boutique</a>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

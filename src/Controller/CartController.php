@@ -45,6 +45,16 @@ class CartController extends AbstractController
             ['user' => $user]
         );
 
+        if (!$viewpanier) {
+            return $this->render('cart/cartvide.html.twig', [
+                'cates' => $cates,
+                'selectcate' => 0,
+                'panier' => $viewpanier,
+                'total' => $total,
+                'user' => $user
+            ]);
+        };
+
         if (!$adress) {
             $adress = [];
         };
@@ -56,7 +66,7 @@ class CartController extends AbstractController
             $addresse->setUser($user);
             $this->em->persist($addresse);
             $this->em->flush();
-            // Recuperation de l'id de l'adresse qui vient d etre creee
+            // Recuperation de l'id de l'adresse qui vient d'etre creee
             $idadress = $this->getDoctrine()->getRepository(Addresses::class)->findOneBy(
                 ['user' => $user],
                 ['id' => 'DESC']
