@@ -46,12 +46,16 @@ class CartController extends AbstractController
         );
 
         if (!$viewpanier) {
+            $lasturl = $request->headers->get('referer');
+            $url = strstr($lasturl, '/');
+
             return $this->render('cart/cartvide.html.twig', [
                 'cates' => $cates,
                 'selectcate' => 0,
                 'panier' => $viewpanier,
                 'total' => $total,
-                'user' => $user
+                'user' => $user,
+                'url' => $url
             ]);
         };
 

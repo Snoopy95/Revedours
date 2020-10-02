@@ -14,11 +14,9 @@
   --lg-header: 5em;
 }
 
-/* CLASS de DEV pour test etc etc*/
 .card-adress{
   line-height: 0.2 ;
 }
-
 .error{
   color:red;
   font-style: italic;
@@ -187,6 +185,11 @@ a:hover{
 }
 .log-txt {
   font-size: 1rem;
+}
+.mess {
+  width: 60%;
+  margin: auto;
+  margin-top : 5px;
 }
 
 /*  -----------------------------------  */

@@ -422,7 +422,6 @@ class AdminController extends AbstractController
      */
     public function cmdstatus($id, $status, EntityManagerInterface $em, Request $request, MailerInterface $mailer)
     {
-        // dd($request);
         $lasturl = $request->headers->get('referer');
         $url = strstr($lasturl, '/admin');
 
