@@ -11,7 +11,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/", name="index")
+     * @Route("/", name="home")
+     */
+    public function home()
+    {
+        return $this->redirectToRoute('index');
+    }
+    
+    /**
+     * @Route("/index", name="index")
      */
     public function index(Cart $cart)
     {
