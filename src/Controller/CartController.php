@@ -2,12 +2,11 @@
 
 namespace App\Controller;
 
+use Stripe\Stripe;
 use App\Entity\Orders;
-use App\Entity\Checkout;
 use App\Entity\Products;
 use App\Entity\Addresses;
 use App\Entity\Categories;
-use App\Form\CheckoutType;
 use App\Service\Cart\Cart;
 use App\Form\AddressesType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -151,19 +150,23 @@ class CartController extends AbstractController
     /**
      * @Route("/cart/payment/{id}", name="payment")
      */
-    public function payment($id, Request $request, MailerInterface $mailer, UserInterface $user)
+    public function payment($id, MailerInterface $mailer, UserInterface $user)
     {
         $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
         $viewpanier = $this->cart->getViewCart();
         $total = $this->cart->getTotal();
         $adres = $this->getDoctrine()->getRepository(Addresses::class)->find($id);
 
-        $checkout= new Checkout();
-        $form = $this->createForm(CheckoutType::class, $checkout);
+        Stripe::setApiKey(
+            'sk_test_51HrP9mFBU85ljtQmUMSnP1RsXsfbLB6RVSfSWx8bqbjIJQAzagwfeZQpTydRCVbaHeN6kLmYZyvz5E207xFCSVEP00ZXiqwBCu'
+        );
+        $intent= \Stripe\PaymentIntent::create([
+            'amount' => $total['EXP']*100,
+            'currency' => 'eur'
+        ]);
 
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            if ($checkout->getCvv()<900) {
+        if (isset($_POST['name']) && !empty($_POST['name'])) {
+            if (910<900) {
                 $this->addFlash("danger", "Paiement refusé !!!");
                 $this->redirectToRoute('payment', ['id' => $id]);
             } else {
@@ -172,7 +175,6 @@ class CartController extends AbstractController
                 $order->setAmount($total['EXP']);
                 $order->setDatecreat(new \DateTime());
                 $order->setUsers($user);
-                $order->setPay($checkout->getNcb());
                 $order->setStatus('1');
 
                 foreach ($viewpanier as $id) {
@@ -226,12 +228,12 @@ class CartController extends AbstractController
         }
 
         return $this->render('cart/payment.html.twig', [
-            'form' => $form->createView(),
             'cates' => $cates,
             'selectcate' => 0,
             'panier' => $viewpanier,
             'total' => $total,
-            'adres' => $adres
+            'adres' => $adres,
+            'secret' => $intent['client_secret']
         ]);
     }
 }

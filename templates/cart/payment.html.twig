@@ -98,48 +98,40 @@
 			<div class='p-3 border border-primary rounded-lg text-center'>
 				<img src="{{asset('/images/cb.png')}}" alt="CB" width="300px"/>
 				<h4 class='mt-2 text-center'>Paiement CB</h4>
-				{{ form_start(form) }}
-				<div class="row">
+
+				<form action="/charge" method="post" id="payment-form">
+				<div class="form-row">
 					<div class="col-sm-6 mb-3">
-						<label for="cc-name">Nom du detenteur</label>
-							{{form_widget(form.name)}}
-						<small class="text-muted">Nom complet inscrit sur la carte</small>
-						<div class="invalid-feedback">
-							Name on card is required
-						</div>
+						<input type="text" class="form-control" id='name'/>
 					</div>
 					<div class="col-sm-6 mb-3">
-						<label for="cc-number">Numero de la carte</label>
-							{{form_widget(form.ncb)}}
-						<div class="invalid-feedback">
-							Numero de CB requis
-						</div>
+						<div class="form-control" id="card-number"></div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-sm-3 mb-3">
-						<label for="cc-expiration">Expiration</label>
-							{{form_widget(form.date)}}
-						<div class="invalid-feedback">
-							Date expiration requise
-						</div>
+				<div class="form-row">
+					<div class="col-sm-6 mb-3">
+						<div class="form-control" id="card-expiry"></div>
 					</div>
-					<div class="col-sm-3 mb-3">
-						<label for="cc-cvv">CVV</label>
-							{{form_widget(form.cvv)}}
-						<div class="invalid-feedback">
-							Code de Securite required
-						</div>
+					<div class="col-sm-6 mb-3">
+						<div class="form-control" id="card-cvc"></div>
 					</div>
 				</div>
-				<button type='submit' class="btn btn-success btn-block">Payer</button>
-				{{ form_end(form) }}
+				<div class="form-row">
+					<div id='errors'></div>
+					<div id="card-errors" role='alert'></div>				
+				</div>
+				<button id='card-button' data-secret={{secret}}>Payer</button>
+			</form>
 			</div>
-			<div class='p-3 border border-primary rounded-lg mt-3 text-center'>
+			{# <div class='p-3 border border-primary rounded-lg mt-3 text-center'>
 				<img src="{{asset("images/paypal.jpg")}}" alt="Paypal" width="300 px"/>
 				<h4 class='mt-2 text-center'>Paiement Paypal</h4>
-			</div>
+			</div> #}
 		</div>
 	</div>
 </div>
+{% endblock %}
+
+{% block javascripts %}
+	<script src="{{asset('js/checkout.js')}}"></script>
 {% endblock %}

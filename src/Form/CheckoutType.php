@@ -6,10 +6,9 @@ use App\Entity\Checkout;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class CheckoutType extends AbstractType
 {
@@ -28,7 +27,7 @@ class CheckoutType extends AbstractType
                     'placeholder' => '1234123412341234',
                 ]
             ])
-            ->add('date', DateType::class, [
+            ->add('date', DateTimeType::class, [
             'attr' => [
                 'placeholder' => '06/20'
             ],
