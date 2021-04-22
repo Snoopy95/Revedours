@@ -165,67 +165,67 @@ class CartController extends AbstractController
             'currency' => 'eur'
         ]);
 
-        if (isset($_POST['name']) && !empty($_POST['name'])) {
-            if (910<900) {
-                $this->addFlash("danger", "Paiement refusé !!!");
-                $this->redirectToRoute('payment', ['id' => $id]);
-            } else {
-                $order = new Orders();
-                $order->setAddresses($adres);
-                $order->setAmount($total['EXP']);
-                $order->setDatecreat(new \DateTime());
-                $order->setUsers($user);
-                $order->setStatus('1');
+        // if (isset($_POST['name']) && !empty($_POST['name'])) {
+        //     if (910<900) {
+        //         $this->addFlash("danger", "Paiement refusé !!!");
+        //         $this->redirectToRoute('payment', ['id' => $id]);
+        //     } else {
+        //         $order = new Orders();
+        //         $order->setAddresses($adres);
+        //         $order->setAmount($total['EXP']);
+        //         $order->setDatecreat(new \DateTime());
+        //         $order->setUsers($user);
+        //         $order->setStatus('1');
 
-                foreach ($viewpanier as $id) {
-                    $prod = $this->getDoctrine()->getRepository(Products::class)->find($id['id']);
-                    $order->addProduct($prod);
-                };
+        //         foreach ($viewpanier as $id) {
+        //             $prod = $this->getDoctrine()->getRepository(Products::class)->find($id['id']);
+        //             $order->addProduct($prod);
+        //         };
 
-                $lastorder = $this->getDoctrine()->getRepository(Orders::class)->findOneBy(
-                    [],
-                    ['datecreat' => 'DESC']
-                );
+        //         $lastorder = $this->getDoctrine()->getRepository(Orders::class)->findOneBy(
+        //             [],
+        //             ['datecreat' => 'DESC']
+        //         );
 
-                $datenow = date('ym');
+        //         $datenow = date('ym');
 
-                if ($lastorder == null) {
-                    $numorder = ($datenow * 1000) + 1;
-                } else {
-                    $lastnum = $lastorder->getNumberOrder();
-                    if (substr($lastnum, 0, 4) == $datenow) {
-                        $orderid=intval(substr($lastnum, 4, 3))+1;
-                    } else {
-                        $orderid = 1;
-                    }
-                    $numorder = ($datenow*1000)+$orderid;
-                }
-                $order->setNumberOrder($numorder);
+        //         if ($lastorder == null) {
+        //             $numorder = ($datenow * 1000) + 1;
+        //         } else {
+        //             $lastnum = $lastorder->getNumberOrder();
+        //             if (substr($lastnum, 0, 4) == $datenow) {
+        //                 $orderid=intval(substr($lastnum, 4, 3))+1;
+        //             } else {
+        //                 $orderid = 1;
+        //             }
+        //             $numorder = ($datenow*1000)+$orderid;
+        //         }
+        //         $order->setNumberOrder($numorder);
 
-                $this->em->persist($order);
-                $this->em->flush();
+        //         $this->em->persist($order);
+        //         $this->em->flush();
 
-                $panier = $this->session->get('panier, []');
-                $panier = [];
-                $this->session->set('panier', $panier);
+        //         $panier = $this->session->get('panier, []');
+        //         $panier = [];
+        //         $this->session->set('panier', $panier);
 
-                $email = (new TemplatedEmail())
-                ->from('Revedours@createurweb.fr')
-                ->to($user->getEmail())
-                ->subject('Commande valider')
-                ->htmlTemplate('emails/commande.html.twig')
-                ->context([
-                    'name' => $user->getUsername(),
-                    'commande' => $order->getNumberOrder(),
-                    'montant' => $order->getAmount($total['EXP']),
-                    'date' => $order->getDatecreat()
-                ]);
-                $mailer->send($email);
+        //         $email = (new TemplatedEmail())
+        //         ->from('Revedours@createurweb.fr')
+        //         ->to($user->getEmail())
+        //         ->subject('Commande valider')
+        //         ->htmlTemplate('emails/commande.html.twig')
+        //         ->context([
+        //             'name' => $user->getUsername(),
+        //             'commande' => $order->getNumberOrder(),
+        //             'montant' => $order->getAmount($total['EXP']),
+        //             'date' => $order->getDatecreat()
+        //         ]);
+        //         $mailer->send($email);
                 
-                $this->addFlash("success", "Merci pour votre commande");
-                return $this->redirectToRoute('index');
-            }
-        }
+        //         $this->addFlash("success", "Merci pour votre commande");
+        //         return $this->redirectToRoute('index');
+        //     }
+        // }
 
         return $this->render('cart/payment.html.twig', [
             'cates' => $cates,

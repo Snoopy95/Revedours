@@ -98,35 +98,21 @@
 			<div class='p-3 border border-primary rounded-lg text-center'>
 				<img src="{{asset('/images/cb.png')}}" alt="CB" width="300px"/>
 				<h4 class='mt-2 text-center'>Paiement CB</h4>
-
-				<form action="/charge" method="post" id="payment-form">
-				<div class="form-row">
-					<div class="col-sm-6 mb-3">
-						<input type="text" class="form-control" id='name'/>
-					</div>
-					<div class="col-sm-6 mb-3">
-						<div class="form-control" id="card-number"></div>
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="col-sm-6 mb-3">
-						<div class="form-control" id="card-expiry"></div>
-					</div>
-					<div class="col-sm-6 mb-3">
-						<div class="form-control" id="card-cvc"></div>
-					</div>
-				</div>
-				<div class="form-row">
-					<div id='errors'></div>
-					<div id="card-errors" role='alert'></div>				
-				</div>
-				<button id='card-button' data-secret={{secret}}>Payer</button>
-			</form>
+				<!-- Display a payment form -->
+				<form id="payment-form">
+					<div id="card-element"><!--Stripe.js injects the Card Element--></div>
+					<button id="submit">
+						<div class="spinner hidden" id="spinner"></div>
+						<span id="button-text">Payer</span>
+					</button>
+					<p id="card-error" role="alert"></p>
+					<p class="result-message hidden">
+						Payment succeeded, see the result in your
+						<a href="" target="_blank">Stripe dashboard.</a>
+						Refresh the page to pay again.
+					</p>
+				</form>
 			</div>
-			{# <div class='p-3 border border-primary rounded-lg mt-3 text-center'>
-				<img src="{{asset("images/paypal.jpg")}}" alt="Paypal" width="300 px"/>
-				<h4 class='mt-2 text-center'>Paiement Paypal</h4>
-			</div> #}
 		</div>
 	</div>
 </div>
