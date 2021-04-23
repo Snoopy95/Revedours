@@ -26,13 +26,16 @@
 	<div class="site-cache" id="site-cache"></div>
 </section>
 
-<!-- DIV du slide bouton burger --></div><!-- DEBUT DU CONTAINT CATALOGUE --><div class="container">
-<div class="row mb-2">
-	<div class="col-12 text-center pt-3">
-		<h3 class="tailfonth1">Paiement de votre Commande</h3>
-		{# <p class="tailfontp">Adresse</p> #}
+<!-- DIV du slide bouton burger --></div>
+<!-- DEBUT DU CONTAINT CATALOGUE -->
+<div class="container">
+	<div class="row mb-2">
+		<div class="col-12 text-center pt-3">
+			<h3 class="tailfonth1">Paiement de votre Commande</h3>
+			{# <p class="tailfontp">Adresse</p> #}
+		</div>
 	</div>
-</div></div>
+</div>
 {% endblock %}
 
 {% block content %}
@@ -99,18 +102,13 @@
 				<img src="{{asset('/images/cb.png')}}" alt="CB" width="300px"/>
 				<h4 class='mt-2 text-center'>Paiement CB</h4>
 				<!-- Display a payment form -->
-				<form id="payment-form">
+				<form id="payment-form" data-secret={{secret}} data-adrclient={{adres.id}}>
 					<div id="card-element"><!--Stripe.js injects the Card Element--></div>
-					<button id="submit">
+					<button id="submit" >
 						<div class="spinner hidden" id="spinner"></div>
 						<span id="button-text">Payer</span>
 					</button>
 					<p id="card-error" role="alert"></p>
-					<p class="result-message hidden">
-						Payment succeeded, see the result in your
-						<a href="" target="_blank">Stripe dashboard.</a>
-						Refresh the page to pay again.
-					</p>
 				</form>
 			</div>
 		</div>

@@ -1,19 +1,13 @@
 var stripe = Stripe(
   "pk_test_51HrP9mFBU85ljtQmsGSfeR3Sb5udMysKiQnaPTes7cRRDQSEHybN6SfGiNS3FMs9gDSy5BxfQ4Qt7ll2LgVqH2bE00icgo07TW"
 );
+// var cle= document.querySelector('#submit')
+// var clientsecret= cle.dataset.secret
 
 // Disable the button until we have Stripe set up on the page
 document.querySelector("button").disabled = true;
-// fetch("/create.php", {
-//   method: "POST",
-//   headers: {
-//     "Content-Type": "application/json"
-//   },
-//   body: JSON.stringify(purchase)
-// })
 
 var elements = stripe.elements();
-
 var style = {
   base: {
     color: "#32325d",
@@ -43,8 +37,8 @@ card.on("change", function (event) {
 var form = document.getElementById("payment-form");
 form.addEventListener("submit", function (event) {
   event.preventDefault();
-  // Complete payment when the submit button is clicked
-  payWithCard(stripe, card, data.clientSecret);
+  var clientsecret= form.dataset.secret;
+  payWithCard(stripe, card, clientsecret);
 });
 
 // Calls stripe.confirmCardPayment
@@ -64,23 +58,16 @@ var payWithCard = function (stripe, card, clientSecret) {
         showError(result.error.message);
       } else {
         // The payment succeeded!
-        orderComplete(result.paymentIntent.id);
+        var idtrans = result.paymentIntent.id
+        var idadresse = document.getElementById("payment-form").dataset.adrclient;
+        var url = "../success/"+idtrans+"/"+idadresse
+        window.location = url
       }
     });
 };
 
 // Shows a success message when the payment is complete
-var orderComplete = function (paymentIntentId) {
-  loading(false);
-  document
-    .querySelector(".result-message a")
-    .setAttribute(
-      "href",
-      "https://dashboard.stripe.com/test/payments/" + paymentIntentId
-    );
-  document.querySelector(".result-message").classList.remove("hidden");
-  document.querySelector("button").disabled = true;
-};
+
 // Show the customer the error from Stripe if their card fails to charge
 var showError = function (errorMsgText) {
   loading(false);
@@ -90,6 +77,7 @@ var showError = function (errorMsgText) {
     errorMsg.textContent = "";
   }, 4000);
 };
+
 // Show a spinner on payment submission
 var loading = function (isLoading) {
   if (isLoading) {

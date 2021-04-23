@@ -150,7 +150,7 @@ class CartController extends AbstractController
     /**
      * @Route("/cart/payment/{id}", name="payment")
      */
-    public function payment($id, MailerInterface $mailer, UserInterface $user)
+    public function payment($id)
     {
         $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
         $viewpanier = $this->cart->getViewCart();
@@ -160,72 +160,10 @@ class CartController extends AbstractController
         Stripe::setApiKey(
             'sk_test_51HrP9mFBU85ljtQmUMSnP1RsXsfbLB6RVSfSWx8bqbjIJQAzagwfeZQpTydRCVbaHeN6kLmYZyvz5E207xFCSVEP00ZXiqwBCu'
         );
-        $intent= \Stripe\PaymentIntent::create([
+        $paymentIntent = \Stripe\PaymentIntent::create([
             'amount' => $total['EXP']*100,
             'currency' => 'eur'
         ]);
-
-        // if (isset($_POST['name']) && !empty($_POST['name'])) {
-        //     if (910<900) {
-        //         $this->addFlash("danger", "Paiement refusé !!!");
-        //         $this->redirectToRoute('payment', ['id' => $id]);
-        //     } else {
-        //         $order = new Orders();
-        //         $order->setAddresses($adres);
-        //         $order->setAmount($total['EXP']);
-        //         $order->setDatecreat(new \DateTime());
-        //         $order->setUsers($user);
-        //         $order->setStatus('1');
-
-        //         foreach ($viewpanier as $id) {
-        //             $prod = $this->getDoctrine()->getRepository(Products::class)->find($id['id']);
-        //             $order->addProduct($prod);
-        //         };
-
-        //         $lastorder = $this->getDoctrine()->getRepository(Orders::class)->findOneBy(
-        //             [],
-        //             ['datecreat' => 'DESC']
-        //         );
-
-        //         $datenow = date('ym');
-
-        //         if ($lastorder == null) {
-        //             $numorder = ($datenow * 1000) + 1;
-        //         } else {
-        //             $lastnum = $lastorder->getNumberOrder();
-        //             if (substr($lastnum, 0, 4) == $datenow) {
-        //                 $orderid=intval(substr($lastnum, 4, 3))+1;
-        //             } else {
-        //                 $orderid = 1;
-        //             }
-        //             $numorder = ($datenow*1000)+$orderid;
-        //         }
-        //         $order->setNumberOrder($numorder);
-
-        //         $this->em->persist($order);
-        //         $this->em->flush();
-
-        //         $panier = $this->session->get('panier, []');
-        //         $panier = [];
-        //         $this->session->set('panier', $panier);
-
-        //         $email = (new TemplatedEmail())
-        //         ->from('Revedours@createurweb.fr')
-        //         ->to($user->getEmail())
-        //         ->subject('Commande valider')
-        //         ->htmlTemplate('emails/commande.html.twig')
-        //         ->context([
-        //             'name' => $user->getUsername(),
-        //             'commande' => $order->getNumberOrder(),
-        //             'montant' => $order->getAmount($total['EXP']),
-        //             'date' => $order->getDatecreat()
-        //         ]);
-        //         $mailer->send($email);
-                
-        //         $this->addFlash("success", "Merci pour votre commande");
-        //         return $this->redirectToRoute('index');
-        //     }
-        // }
 
         return $this->render('cart/payment.html.twig', [
             'cates' => $cates,
@@ -233,7 +171,74 @@ class CartController extends AbstractController
             'panier' => $viewpanier,
             'total' => $total,
             'adres' => $adres,
-            'secret' => $intent['client_secret']
+            'secret' => $paymentIntent['client_secret']
         ]);
+    }
+
+    /**
+     * @Route("/cart/success/{idtrans}/{idadresse}", name="success")
+     */
+    public function success($idtrans, $idadresse, MailerInterface $mailer, UserInterface $user)
+    {
+        $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
+        $viewpanier = $this->cart->getViewCart();
+        $total = $this->cart->getTotal();
+        $adres = $this->getDoctrine()->getRepository(Addresses::class)->find($idadresse);
+
+        $order = new Orders();
+                $order->setAddresses($adres);
+                $order->setAmount($total['EXP']);
+                $order->setDatecreat(new \DateTime());
+                $order->setUsers($user);
+                $order->setStatus('1');
+
+        foreach ($viewpanier as $id) {
+            $prod = $this->getDoctrine()->getRepository(Products::class)->find($id['id']);
+            $order->addProduct($prod);
+        };
+
+        $lastorder = $this->getDoctrine()->getRepository(Orders::class)->findOneBy(
+            [],
+            ['datecreat' => 'DESC']
+        );
+        if ($lastorder == null) {
+            $numorder = 100;
+        } else {
+            $numorder = $lastorder->getNumberOrder()+1;
+        }
+        $order->setNumberOrder($numorder);
+
+        $this->em->persist($order);
+        $this->em->flush();
+
+        $panier = $this->session->get('panier, []');
+        $panier = [];
+            $this->session->set('panier', $panier);
+            $email = (new TemplatedEmail())
+            ->from('Revedours@createurweb.fr')
+            ->to($user->getEmail())
+            ->subject('Commande valider')
+            ->htmlTemplate('emails/commande.html.twig')
+            ->context([
+                'name' => $user->getUsername(),
+                'commande' => $order->getNumberOrder(),
+                'montant' => $order->getAmount($total['EXP']),
+                'date' => $order->getDatecreat()
+            ]);
+            $mailer->send($email);
+
+        return $this->render('cart/success', [
+            'idtrans' => $idtrans,
+            'adresse' => $adres,
+            'numfact' => $numorder,
+        ]);
+    }
+
+    /**
+     * @Route("/cart/cancel/{error}", name="cancel")
+     */
+    public function cancel($error)
+    {
+        dd($error);
     }
 }
