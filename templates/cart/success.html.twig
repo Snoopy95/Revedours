@@ -8,10 +8,7 @@
 				<li class="breadcrumb-item">
 					<a href="{{path('index')}}">Home</a>
 				</li>
-				<li class="breadcrumb-item">
-					<a href="{{path('cart')}}">Adresse</a>
-				</li>
-				<li class="breadcrumb-item active" aria-current="page">Paiement</li>
+				<li class="breadcrumb-item active" aria-current="page">Paiement success</li>
 			</ol>
 		</nav>
 		{% for message in app.flashes('danger') %}
@@ -32,7 +29,6 @@
 	<div class="row mb-2">
 		<div class="col-12 text-center pt-3">
 			<h3 class="tailfonth1">Commande valider</h3>
-			{# <p class="tailfontp">Adresse</p> #}
 		</div>
 	</div>
 </div>
@@ -41,16 +37,16 @@
 {% block content %}
 <div class='container'>
 	<div class='row'>
-	<p> Numero de Fact :</p>
+		<p>Numero de Fact</p>
 		{{numfact}}
-		<p> numero de trans</p>
+		<p>Numero de trans</p>
 		{{idtrans}}
-		<p> Nom client </p>
+		<p>Nom client</p>
 		{{adresse.lastname}}
 	</div>
 </div>
 {% endblock %}
 
 {% block javascripts %}
-	<script src="{{asset('js/checkout.js')}}"></script>
+	{# <script src="{{asset('js/checkout.js')}}"></script> #}
 {% endblock %}

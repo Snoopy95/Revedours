@@ -102,7 +102,7 @@
 				<img src="{{asset('/images/cb.png')}}" alt="CB" width="300px"/>
 				<h4 class='mt-2 text-center'>Paiement CB</h4>
 				<!-- Display a payment form -->
-				<form id="payment-form" data-secret={{secret}} data-adrclient={{adres.id}}>
+				<form id="payment-form" data-secret={{secret}} data-url="/cart/success/{{adres.id}}">
 					<div id="card-element"><!--Stripe.js injects the Card Element--></div>
 					<button id="submit" >
 						<div class="spinner hidden" id="spinner"></div>

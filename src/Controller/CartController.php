@@ -176,9 +176,9 @@ class CartController extends AbstractController
     }
 
     /**
-     * @Route("/cart/success/{idtrans}/{idadresse}", name="success")
+     * @Route("/cart/success/{idadresse}/{idtrans}", name="success")
      */
-    public function success($idtrans, $idadresse, MailerInterface $mailer, UserInterface $user)
+    public function success($idadresse, $idtrans, MailerInterface $mailer, UserInterface $user)
     {
         $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
         $viewpanier = $this->cart->getViewCart();
@@ -191,6 +191,7 @@ class CartController extends AbstractController
                 $order->setDatecreat(new \DateTime());
                 $order->setUsers($user);
                 $order->setStatus('1');
+                $order->setPay($idtrans);
 
         foreach ($viewpanier as $id) {
             $prod = $this->getDoctrine()->getRepository(Products::class)->find($id['id']);
@@ -211,9 +212,8 @@ class CartController extends AbstractController
         $this->em->persist($order);
         $this->em->flush();
 
-        $panier = $this->session->get('panier, []');
-        $panier = [];
-            $this->session->set('panier', $panier);
+        $panier = $this->session->get('panier');
+        $this->session->set('panier', $panier);
             $email = (new TemplatedEmail())
             ->from('Revedours@createurweb.fr')
             ->to($user->getEmail())
@@ -226,8 +226,14 @@ class CartController extends AbstractController
                 'date' => $order->getDatecreat()
             ]);
             $mailer->send($email);
+        $panier = [];
+        $this->session->set('panier', $panier);
 
-        return $this->render('cart/success', [
+        return $this->render('cart/success.html.twig', [
+            'cates' => $cates,
+            'selectcate' => 0,
+            'panier' => $viewpanier,
+            'total' => $total,
             'idtrans' => $idtrans,
             'adresse' => $adres,
             'numfact' => $numorder,

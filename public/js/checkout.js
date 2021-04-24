@@ -59,8 +59,7 @@ var payWithCard = function (stripe, card, clientSecret) {
       } else {
         // The payment succeeded!
         var idtrans = result.paymentIntent.id
-        var idadresse = document.getElementById("payment-form").dataset.adrclient;
-        var url = "../success/"+idtrans+"/"+idadresse
+        var url = document.getElementById("payment-form").dataset.url+"/"+idtrans;
         window.location = url
       }
     });
