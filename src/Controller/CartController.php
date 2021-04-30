@@ -210,7 +210,7 @@ class CartController extends AbstractController
         $order->setNumberOrder($numorder);
 
         $this->em->persist($order);
-        $this->em->flush();
+        // $this->em->flush();
 
         $panier = $this->session->get('panier');
         $this->session->set('panier', $panier);
@@ -225,7 +225,7 @@ class CartController extends AbstractController
                 'montant' => $order->getAmount($total['EXP']),
                 'date' => $order->getDatecreat()
             ]);
-            $mailer->send($email);
+            // $mailer->send($email);
         $panier = [];
         $this->session->set('panier', $panier);
 

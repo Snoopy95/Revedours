@@ -10,8 +10,8 @@
   --color-footer: #808080;
   --color-body: white;
   --color-bkg: white;
-
   --lg-header: 5em;
+  font-size: 16px;
 }
 
 .card-adress{
@@ -262,10 +262,10 @@ a:hover{
     background-color: rgba(0, 0, 0, 0.6);
   }
   .tailfonth1 {
-    font-size: 1rem;
+    font-size: 1.5rem;
   }
   .tailfonth3 {
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
   .tailfonth4 {
     font-size: 1rem;

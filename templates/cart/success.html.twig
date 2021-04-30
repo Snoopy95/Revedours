@@ -25,7 +25,7 @@
 
 <!-- DIV du slide bouton burger --></div>
 <!-- DEBUT DU CONTAINT CATALOGUE -->
-<div class="container">
+<div class="container m-5">
 	<div class="row mb-2">
 		<div class="col-12 text-center pt-3">
 			<h3 class="tailfonth1">Commande valider</h3>
@@ -35,14 +35,15 @@
 {% endblock %}
 
 {% block content %}
-<div class='container'>
-	<div class='row'>
-		<p>Numero de Fact</p>
-		{{numfact}}
-		<p>Numero de trans</p>
-		{{idtrans}}
-		<p>Nom client</p>
-		{{adresse.lastname}}
+<div class='container mb-5 p-4'>
+	<div class='row justify-content-center border shadow'>
+		<div class="col-6 text-center">
+			<p class="mt-5 h2"> Merci {{adresse.lastname}}, </p>
+			<p class="h4">votre commande à bien été enregistrée !</p>
+			<p class="mt-3 mb-5 color-log "> <i class="far fa-thumbs-up fa-6x"></i></p>
+			<p class="h6">Numéro de commande : <span class="badge badge-primary"> {{numfact}}</span></p>
+			<p class="h6">Transation n° : <span class="badge badge-primary"> {{idtrans}}</span></p>
+		</div>
 	</div>
 </div>
 {% endblock %}

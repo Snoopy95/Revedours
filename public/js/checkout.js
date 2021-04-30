@@ -1,8 +1,6 @@
 var stripe = Stripe(
   "pk_test_51HrP9mFBU85ljtQmsGSfeR3Sb5udMysKiQnaPTes7cRRDQSEHybN6SfGiNS3FMs9gDSy5BxfQ4Qt7ll2LgVqH2bE00icgo07TW"
 );
-// var cle= document.querySelector('#submit')
-// var clientsecret= cle.dataset.secret
 
 // Disable the button until we have Stripe set up on the page
 document.querySelector("button").disabled = true;
@@ -26,11 +24,9 @@ var style = {
 };
 
 var card = elements.create("card", { style: style });
-// Stripe injects an iframe into the DOM
 card.mount("#card-element");
 
 card.on("change", function (event) {
-  // Disable the Pay button if there are no card details in the Element
   document.querySelector("button").disabled = event.empty;
   document.querySelector("#card-error").textContent = event.error ? event.error.message : "";
 });
@@ -64,8 +60,6 @@ var payWithCard = function (stripe, card, clientSecret) {
       }
     });
 };
-
-// Shows a success message when the payment is complete
 
 // Show the customer the error from Stripe if their card fails to charge
 var showError = function (errorMsgText) {
