@@ -93,6 +93,9 @@
             "ref": "8eb1cd0962ded6a6d6e1e5a9b6d3e888f9f94ff6"
         }
     },
+    "laminas/laminas-code": {
+        "version": "3.5.1"
+    },
     "laminas/laminas-eventmanager": {
         "version": "3.2.1"
     },
