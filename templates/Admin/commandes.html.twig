@@ -28,7 +28,7 @@
 					<td><i class='fas fa-handshake fa-2x'></i></td>
 					<td>{{cmd.amount}}</td>
 					<td>
-						<a href="/admin/cmdstatus/{{cmd.id}}/2" class="btn"><i class="fas fa-dolly fa-2x"></i></a>
+						<a href="{{ path('cmdstatut', {'id': cmd.id, 'statut': '2'}) }}" class="btn"><i class="fas fa-dolly fa-2x"></i></a>
 					</td>
 				</tr>
 				{% endfor %}
@@ -54,7 +54,7 @@
 					<td>{{cmd.datecreat|date('d/m/Y')}}</td>
 					<td><i class='fas fa-dolly fa-2x'></i></td>
 					<td>{{cmd.amount}}</td>
-					<td><a href="/admin/cmdstatus/{{cmd.id}}/3" class='btn'><i class="fas fa-shipping-fast fa-2x"></i></a></td>
+					<td><a href="{{ path('cmdstatut', {'id': cmd.id, 'statut': '3'}) }}" class='btn'><i class="fas fa-shipping-fast fa-2x"></i></a></td>
 				</tr>
 				{% endfor %}
 			</tbody>

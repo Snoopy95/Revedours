@@ -2,73 +2,91 @@
 {% set navb = 2 %}
 
 {% block titre %}
-<div> Liste des Produits </div>
+	<div>
+		Liste des Produits
+	</div>
 {% endblock %}
 
 {% block content %}
-<div class="table-responsive-md"> 
-<table class="table-striped table">
-    <thead class="thead-dark">
-        <tr>
-            <td scope="col">#ID</td>
-            <td scope="col">Categorie</td>
-            <td scope="col">Nom</td>
-            <td scope="col">Prix TTC</td>
-            <td scope="col">Dispo</td>
-            <td scope="col">img</td>
-            <td scope="col">Date</td>
-            <td scope="col">Action</td>
-        </tr>
-    </thead>
-    <tbody>
-    {% for prod in allprods %}
-        <tr>
-            <td>#{{prod.id}}</td>
-            <td>{{prod.categories.cateName}} </td>
-            <td>{{prod.prodName}}</td>
-            <td>{{prod.prodPrice}} € TTC</td>
-            <td>{% if(prod.prodStock)%}
-                <img src="{{asset('images/icons-checked.png')}}" class='icon-action' alt='Dispo'/>
-                {% else %}
-                <img src="{{asset('images/icons-cancel.png')}}" class='icon-action' alt='NoDispo'/>
-                {% endif %}</td>
-            <td> <img src='{{asset('/uploads/' ~ prod.prodPicture) }}' width="50" height="50"></td>
-            <td> {{prod.prodDatecreat|date('d/m/Y')}} </td>
-            <td>
-                <a href="/admin/updateprod/{{prod.id}}" class="link">
-                    <img alt='Edit' title='Edit' src='{{asset('/images/icons-edit.png')}}' class="action-icon" />
-                </a>
-                <span>/</span>
-                <span>
-                    <a href="#" class="link" data-toggle="modal" data-target="#del{{prod.id}}">
-                        <img alt='Delete' title='Delete' src='{{asset('images/icons-trash.png')}}' class="action-icon" />
-                    </a>
-                </span>
-            </td>
-        </tr>
-        <!-- Modal Validation de suppression !!!!!!!! -->
-        <div class="modal fade" id="del{{prod.id}}" tabindex="-1" role="dialog" aria-labelledby="del" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <h6 class='modal-title'>🔑 #{{prod.id}}</h6>
-                        <h6 class='modal-body'>Etes-vous sûr de vouloir supprimer {{prod.prodName}} ❓</h6>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-success btn-sm" data-dismiss="modal"> ❌ Annuler</button>
-                        <a href="/admin/delprod/{{prod.id}}" type="button" class="btn btn-danger btn-sm"> ✔ Supprimer !!</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    {% endfor %}
-    </tbody>
-</table>
-</div>
+	<div class="table-responsive-md">
+		<table class="table-striped table">
+			<thead class="thead-dark">
+				<tr>
+					<td scope="col">#ID</td>
+					<td scope="col">Categorie</td>
+					<td scope="col">Nom</td>
+					<td scope="col">Prix TTC</td>
+					<td scope="col">Dispo</td>
+					<td scope="col">img</td>
+					<td scope="col">Date</td>
+					<td scope="col">Action</td>
+				</tr>
+			</thead>
+			<tbody>
+				{% for prod in allprods %}
+					<tr>
+						<td>#{{prod.id}}</td>
+						<td>{{prod.categories.cateName}}
+						</td>
+						<td>{{prod.prodName}}</td>
+						<td>{{prod.prodPrice}}
+							€ TTC</td>
+						<td>
+							{% if (prod.orders) %}
+								<i class="text-primary fas fa-shipping-fast fa-2x"></i>
+							{%  elseif (prod.prodStock) %}
+								<i class="text-success far fa-check-circle fa-2x"></i>
+							{% else %}
+								<i class="text-danger far fa-times-circle fa-2x"></i>
+							{% endif %}
+						</td>
+						<td>
+							<img src='{{asset('/uploads/' ~ prod.prodPicture) }}' width="50" height="50"></td>
+						<td>
+							{{prod.prodDatecreat|date('d/m/Y')}}
+						</td>
+						<td>
+							<a href="{{ path('updateprod' , {'id': prod.id}) }}" class="btn btn-outline-success">
+								<i class="fas fa-pencil-alt fa-lg"></i>
+							</a>
+							<span>
+								<button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#del{{prod.id}} {% if (prod.orders) %}disabled{% endif %}">
+									<i class="fas fa-trash-alt fa-lg"></i>
+								</button>
+							</span>
+						</td>
+					</tr>
+					<!-- Modal Validation de suppression !!!!!!!! -->
+					<div class="modal fade" id="del{{prod.id}}" tabindex="-1" role="dialog" aria-labelledby="del" aria-hidden="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content text-center">
+								<div class="modal-body">
+									<p class='modal-title'>
+                                        <i class="text-danger fas fa-exclamation-triangle fa-5x"></i>
+                                    </p>
+									<p class='modal-body font-weight-bold'>Etes-vous sûr de vouloir supprimer
+										{{prod.prodName}}
+										</p>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-success btn-sm" data-dismiss="modal">
+                                        <i class="fas fa-times"></i>
+										Annuler</button>
+									<a href="{{ path('delprod' , {'id': prod.id}) }}" type="button" class="btn btn-danger btn-sm">
+                                        <i class="fas fa-check"></i>
+										Supprimer !!</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
 {% endblock %}
 
-{% block footer %} 
-<div> Page 1 </div>
+{% block footer %}
+	<div>
+		Page 1
+	</div>
 {% endblock %}
-
-

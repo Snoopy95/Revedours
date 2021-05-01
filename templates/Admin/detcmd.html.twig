@@ -32,13 +32,13 @@
 				<p class='mb-5 mt-3'>
 					Etat de la commande
 				</p>
-				<a href="/admin/cmdstatus/{{cmd.id}}/1" class='btn {{etatV}}'>
+				<a href="{{ path('cmdstatut', {'id': cmd.id, 'statut': '1'}) }}" class='btn {{etatV}}'>
 					<i class="fas fa-handshake {{tailleV}}"></i>
 				</a>
-				<a href="/admin/cmdstatus/{{cmd.id}}/2" class='mr-5 ml-5 btn {{etatP}}'>
+				<a href="{{ path('cmdstatut', {'id': cmd.id, 'statut': '2'}) }}" class='mr-5 ml-5 btn {{etatP}}'>
 					<i class="fas fa-dolly {{tailleP}}"></i>
 				</a>
-				<a href="/admin/cmdstatus/{{cmd.id}}/3" class='btn {{etatE}}'>
+				<a href="{{ path('cmdstatut', {'id': cmd.id, 'statut': '3'}) }}" class='btn {{etatE}}'>
 					<i class="fas fa-shipping-fast {{tailleE}}"></i>
 				</a>
 			</div>
@@ -65,7 +65,7 @@
 		<table class="table table-striped col-sm-10">
 			<thead>
 				<tr>
-					<th scope="col">#ID</th>
+					<th scope="col">ID</th>
 					<th scope="col">Photo</th>
 					<th scope="col">Nom</th>
 					<th scope="col">Prix</th>
@@ -87,13 +87,12 @@
 	</div>
 	<div class='row align-items-center'>
 		<div class='col-sm-2'></div>
-		<div class='col-sm-4'>
-			<p>
-				CB :
-				{{cmd.pay}}</p>
+		<div class='col-sm-4 h5'>
+			<span>Transaction n° :</span>
+			<span class="badge badge-warning">{{cmd.pay}}</span>
 		</div>
 		<div class='col-sm-2 border border-dark rounded-lg text-right'>
-			<p>Sous-total :</p>
+			<p class="mt-3">Sous-total :</p>
 			<p>Expedition :</p>
 			<p>
 				<strong>Total :</strong>
@@ -101,7 +100,7 @@
 			<p>Dont TVA 5.5% :</p>
 		</div>
 		<div class='col-sm-2 border border-dark text-center rounded-lg'>
-			<p>{{cmd.amount -20 }}
+			<p class="mt-3">{{cmd.amount -20 }}
 				€</p>
 			<p>20 €</p>
 			<p>
@@ -111,7 +110,7 @@
 			<p>{{ ((cmd.amount*1.055) - cmd.amount)|round(2, 'floor')}}
 				€</p>
 		</div>
-		<div class='col-sm-2'></div>
+
 	</div>
 {% endblock %}
 

@@ -418,15 +418,15 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/cmdstatus/{id}/{status}", name="cmdstatus")
+     * @Route("/admin/cmdstatut/{id}/{statut}", name="cmdstatut")
      */
-    public function cmdstatus($id, $status, EntityManagerInterface $em, Request $request, MailerInterface $mailer)
+    public function cmdstatus($id, $statut, EntityManagerInterface $em, Request $request, MailerInterface $mailer)
     {
         $lasturl = $request->headers->get('referer');
         $url = strstr($lasturl, '/admin');
 
         $cmd = $this->getDoctrine()->getRepository(Orders::class)->find($id);
-        $cmd->setStatus($status);
+        $cmd->setStatus($statut);
 
         $em->flush();
 
