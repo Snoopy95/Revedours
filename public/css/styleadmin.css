@@ -20,6 +20,7 @@ body{
     vertical-align: middle;
     align-items: center;
     border-radius: 10px;
+    margin-top: 10px;
 }
 .sidenav{
     border-radius: 10px;
@@ -28,7 +29,7 @@ body{
 }
 .footer {
     background-color: grey;
-    margin-top: 5px;
+    margin-top: 15px;
     padding: 5px;
     height:50px;
     align-items: center;
@@ -53,15 +54,12 @@ body{
     width: 20px;
     margin: 0 10px 0 10px;
 }
-.table td{
-    align-items: center;
+.table td {
     vertical-align: middle;
 }
-thead td {
+.table th {
     vertical-align: middle;
-    background-color: #737373;
-    font-weight: bolder;
-}
+} 
 .icons35 {
     height: 35px;
     width: 35px;

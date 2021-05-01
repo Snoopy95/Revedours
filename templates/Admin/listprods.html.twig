@@ -9,28 +9,26 @@
 
 {% block content %}
 	<div class="table-responsive-md">
-		<table class="table-striped table">
+		<table class="table table-striped">
 			<thead class="thead-dark">
 				<tr>
-					<td scope="col">#ID</td>
-					<td scope="col">Categorie</td>
-					<td scope="col">Nom</td>
-					<td scope="col">Prix TTC</td>
-					<td scope="col">Dispo</td>
-					<td scope="col">img</td>
-					<td scope="col">Date</td>
-					<td scope="col">Action</td>
+					<th scope="col">ID</th>
+					<th scope="col">Categorie</th>
+					<th scope="col">Nom</th>
+					<th scope="col">Prix TTC</th>
+					<th scope="col">Dispo</th>
+					<th scope="col">img</th>
+					<th scope="col">Date</th>
+					<th scope="col">Action</th>
 				</tr>
 			</thead>
 			<tbody>
 				{% for prod in allprods %}
 					<tr>
-						<td>#{{prod.id}}</td>
-						<td>{{prod.categories.cateName}}
-						</td>
+						<th scope='row'>{{prod.id}}</th>
+						<td>{{prod.categories.cateName}}</td>
 						<td>{{prod.prodName}}</td>
-						<td>{{prod.prodPrice}}
-							€ TTC</td>
+						<td>{{prod.prodPrice}}€ TTC</td>
 						<td>
 							{% if (prod.orders) %}
 								<i class="text-primary fas fa-shipping-fast fa-2x"></i>
@@ -42,14 +40,12 @@
 						</td>
 						<td>
 							<img src='{{asset('/uploads/' ~ prod.prodPicture) }}' width="50" height="50"></td>
+						<td>{{prod.prodDatecreat|date('d/m/Y')}}</td>
 						<td>
-							{{prod.prodDatecreat|date('d/m/Y')}}
-						</td>
-						<td>
-							<a href="{{ path('updateprod' , {'id': prod.id}) }}" class="btn btn-outline-success">
-								<i class="fas fa-pencil-alt fa-lg"></i>
-							</a>
 							<span>
+								<a href="{{ path('updateprod' , {'id': prod.id}) }}" class="btn btn-outline-success">
+									<i class="fas fa-pencil-alt fa-lg"></i>
+								</a>
 								<button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#del{{prod.id}} {% if (prod.orders) %}disabled{% endif %}">
 									<i class="fas fa-trash-alt fa-lg"></i>
 								</button>
@@ -57,7 +53,7 @@
 						</td>
 					</tr>
 					<!-- Modal Validation de suppression !!!!!!!! -->
-					<div class="modal fade" id="del{{prod.id}}" tabindex="-1" role="dialog" aria-labelledby="del" aria-hidden="true">
+					<div class="modal fade" id="del{{prod.id}}" tabindex="-1" role="dialog" aria-hidden="true">
 						<div class="modal-dialog" role="document">
 							<div class="modal-content text-center">
 								<div class="modal-body">

@@ -9,24 +9,26 @@
 
 {% block content %}
 	<div class="table-responsive-md">
-		<h4 class='text-center'>Commande valider</h4>
-		<table class="table-striped table">
+		<h4 class='text-center mt-3'>Commande valider</h4>
+		<table class="table table-striped">
 			<thead class="thead-dark">
-				<td scope="col">Num Cmd</td>
-				<td scope="col">Nom</td>
-				<td scope="col">Date</td>
-				<td scope="col">Etat</td>
-				<td scope="col">Montant</td>
-				<td scope="col">Action</td>
+				<tr>
+					<th scope="col">N° Commande</th>
+					<th scope="col">Nom</th>
+					<th scope="col">Date</th>
+					<th scope="col">Etat</th>
+					<th scope="col">Montant</th>
+					<th scope="col">Action</th>
+				</tr>
 			</thead>
 			<tbody>
 				{% for cmd in cmdpasse %}
 				<tr>
-					<th scope='row'><a href="{{path('detcmd', {'id': cmd.id})}}" class="btn">#{{cmd.numberorder}}</a></th>
+					<th scope='row'><a href="{{path('detcmd', {'id': cmd.id})}}" type='button' class="btn btn-link">{{cmd.numberorder}}</a></th>
 					<td>{{cmd.addresses.firstname}} {{cmd.addresses.lastname}}</td>
 					<td>{{cmd.datecreat|date('d/m/Y')}}</td>
 					<td><i class='fas fa-handshake fa-2x'></i></td>
-					<td>{{cmd.amount}}</td>
+					<td>{{cmd.amount}} €</td>
 					<td>
 						<a href="{{ path('cmdstatut', {'id': cmd.id, 'statut': '2'}) }}" class="btn"><i class="fas fa-dolly fa-2x"></i></a>
 					</td>
@@ -34,47 +36,47 @@
 				{% endfor %}
 			</tbody>
 		</table>
-		<h4 class='text-center'>Commande en preparation</h4>
-		<table class="table-striped table">
+		<h4 class='text-center mt-3'>Commande en preparation</h4>
+		<table class="table table-striped">
 			<thead class="thead-dark">
 				<tr>
-					<td scope="col">Num Cmd</td>
-					<td scope="col">Nom</td>
-					<td scope="col">date</td>
-					<td scope="col">Etat</td>
-					<td scope="col">Montant</td>
-					<td scope="col">Action</td>
+					<th scope="col">N° Commande</th>
+					<th scope="col">Nom</th>
+					<th scope="col">date</th>
+					<th scope="col">Etat</th>
+					<th scope="col">Montant</th>
+					<th scope="col">Action</th>
 				</tr>
 			</thead>
 			<tbody>
 				{% for cmd in cmdencours %}
 				<tr>
-					<th scope='row'><a href="{{path('detcmd', {'id': cmd.id})}}" class="btn">#{{cmd.numberorder}}</a></th>
+					<th scope='row'><a href="{{path('detcmd', {'id': cmd.id})}}" class="btn">{{cmd.numberorder}}</a></th>
 					<td>{{cmd.addresses.firstname }} {{ cmd.addresses.lastname}}</td>
 					<td>{{cmd.datecreat|date('d/m/Y')}}</td>
 					<td><i class='fas fa-dolly fa-2x'></i></td>
-					<td>{{cmd.amount}}</td>
+					<td>{{cmd.amount}} €</td>
 					<td><a href="{{ path('cmdstatut', {'id': cmd.id, 'statut': '3'}) }}" class='btn'><i class="fas fa-shipping-fast fa-2x"></i></a></td>
 				</tr>
 				{% endfor %}
 			</tbody>
 		</table>
-		<h4 class='text-center'>Commande terminée</h4>
-		<table class="table-striped table">
+		<h4 class='text-center mt-3'>Commande terminée</h4>
+		<table class="table table-striped">
 			<thead class="thead-dark">
 				<tr>
-					<td scope="col">Num Cmd</td>
-					<td scope="col">Nom</td>
-					<td scope="col">date</td>
-					<td scope="col">Etat</td>
-					<td scope="col">Montant</td>
+					<th scope="col">N° Commande</th>
+					<th scope="col">Nom</th>
+					<th scope="col">date</th>
+					<th scope="col">Etat</th>
+					<th scope="col">Montant</th>
 				</tr>
 			</thead>
 			<tbody>
 				{% for cmd in cmdexp %}
 				<tr>
 					<th scope='row'>
-						<a href="{{path('detcmd', {'id': cmd.id})}}" class="btn">#{{cmd.numberorder}}</a>
+						<a href="{{path('detcmd', {'id': cmd.id})}}" class="btn">{{cmd.numberorder}}</a>
 					</th>
 					<td>{{cmd.addresses.firstname }}
 						{{ cmd.addresses.lastname}}</td>
@@ -82,7 +84,7 @@
 					<td>
 						<i class='fas fa-shipping-fast fa-2x'></i>
 					</td>
-					<td>{{cmd.amount}}</td>
+					<td>{{cmd.amount}} €</td>
 				</tr>
 				{% endfor %}
 			</tbody>

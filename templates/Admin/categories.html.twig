@@ -9,16 +9,16 @@
 		<table class="table table-striped">
 			<thead class="thead-dark">
 				<tr>
-					<td scope="col">#ID</td>
-					<td scope="col">Nom</td>
-					<td scope="col">Description</td>
-					<td scope="col">Image</td>
+					<th scope="col">ID</th>
+					<th scope="col">Nom</th>
+					<th scope="col">Description</th>
+					<th scope="col">Image</th>
 				</tr>
 			</thead>
 			<tbody>
 				{% for cate in cates %}
 					<tr>
-						<td>#{{cate.id}}</td>
+						<th scope="row">{{cate.id}}</th>
 						<td>{{cate.cateName}}</td>
 						<td>{{cate.cateDescrip}}</td>
 						<td><img src="{{asset('/images/' ~ cate.catePicture) }}" width="120" height="40">

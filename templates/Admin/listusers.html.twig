@@ -9,15 +9,16 @@
 
 {% block content %}
 	<div class="table-responsive-md">
-		<table class="table-striped table">
+		<h3 class="text-center mt-2">Administrateurs</h3>
+		<table class="table table-striped">
 			<thead class="thead-dark">
 				<tr>
-					<td scope="col">ID</td>
-					<td scope="col">Username</td>
-					<td scope="col">Email</td>
-					<td scope="col">Role</td>
-					<td scope="col">Action</td>
-					<td scope="col">Date</td>
+					<th scope="col">ID</th>
+					<th scope="col">Username</th>
+					<th scope="col">Email</th>
+					<th scope="col">Role</th>
+					<th scope="col">Action</th>
+					<th scope="col">Date</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -28,23 +29,23 @@
 						<td>{{listadmin.email}}</td>
 						<td>{{listadmin.roles[0]}}</td>
 						<td>
-							<a href="#" class="link" data-toggle="modal" data-target="#del{{listadmin.id}}">
+							<button type="button" class="btn text-success" data-toggle="modal" data-target="#del{{listadmin.id}}">
 								<i class="fas fa-user-cog fa-2x"></i>
-							</a>
+							</button>
 						</td>
 						<td>{{listadmin.datecreat|date('d/m/Y')}}
 						</td>
 					</tr>
 					<!-- Modal Validation de changement !!!!!!!! -->
-					<div class="modal fade" id="del{{listadmin.id}}" tabindex="-1" role="dialog" aria-labelledby="del" aria-hidden="true">
+					<div class="modal fade" id="del{{listadmin.id}}" tabindex="-1" role="dialog" aria-hidden="true">
 						<div class="modal-dialog" role="document">
 							<div class="modal-content text-center">
 								<div class="modal-body">
 									<p class='modal-title'>
 										<span>
-											<i class="fas fa-user-cog fa-3x"></i>
+											<i class="fas fa-user-cog fa-3x text-success"></i>
 											<i class="fas fa-arrow-right fa-2x ml-2 mr-2"></i>
-											<i class="fas fa-user-alt fa-3x"></i>
+											<i class="fas fa-user-alt fa-3x text-primary"></i>
 										</span>
 									</p>
 									<h6 class="mt-3">{{listadmin.username}}</h6>
@@ -52,7 +53,7 @@
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-success btn-sm" data-dismiss="modal">Non, il reste Admin</button>
-									<a href="{{ path('upuser', {'id': listadmin.id, 'role': 0}) }}" type="button" class="btn btn-danger btn-sm">Oui Il sera User !!</a>
+									<a href="{{ path('upuser', {'id': listadmin.id, 'role': 0}) }}" type="button" class="btn btn-primary btn-sm">Oui Il sera User !!</a>
 								</div>
 							</div>
 						</div>
@@ -60,15 +61,16 @@
 				{% endfor %}
 			</tbody>
 		</table>
-		<table class="table-striped table">
+		<h3 class="text-center mt-4">Utilisateurs</h3>
+		<table class="table table-striped">
 			<thead class="thead-dark">
 				<tr>
-					<td scope="col">ID</td>
-					<td scope="col">Username</td>
-					<td scope="col">Email</td>
-					<td scope="col">Role</td>
-					<td scope="col">Action</td>
-					<td scope="col">Date</td>
+					<th scope="col">ID</th>
+					<th scope="col">Username</th>
+					<th scope="col">Email</th>
+					<th scope="col">Role</th>
+					<th scope="col">Action</th>
+					<th scope="col">Date</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -79,31 +81,31 @@
 						<td>{{listuser.email}}</td>
 						<td>{{listuser.roles[0]}}</td>
 						<td>
-							<a href="#" class="link" data-toggle="modal" data-target="#del{{listuser.id}}">
+							<button type="button" class="btn text-primary" data-toggle="modal" data-target="#del{{listuser.id}}">
 								<i class="fas fa-user-alt fa-2x"></i>
-							</a>
+							</button>
 						</td>
 						<td>{{listuser.datecreat|date('d/m/Y')}}
 						</td>
 					</tr>
 					<!-- Modal Validation de changement !!!!!!!! -->
-					<div class="modal fade" id="del{{listuser.id}}" tabindex="-1" role="dialog" aria-labelledby="del" aria-hidden="true">
+					<div class="modal fade" id="del{{listuser.id}}" tabindex="-1" role="dialog" aria-hidden="true">
 						<div class="modal-dialog" role="document">
 							<div class="modal-content text-center">
 								<div class="modal-body">
 									<p class='modal-title'>
 										<span>
-											<i class="fas fa-user-alt fa-3x"></i>
+											<i class="fas fa-user-alt fa-3x text-primary"></i>
 											<i class="fas fa-arrow-right fa-2x ml-2 mr-2"></i>
-											<i class="fas fa-user-cog fa-3x"></i>
+											<i class="fas fa-user-cog fa-3x text-success"></i>
 										</span>
 									</p>
 									<h6 class='mt-3'>{{listuser.username}}</h6>
 									<h6 class='modal-body'>Etes-vous sûr de vouloir le mettre en Admin ?</h6>
 								</div>
 								<div class="modal-footer">
-									<button type="button" class="btn btn-success btn-sm" data-dismiss="modal">Non, il reste User</button>
-									<a href="{{ path('upuser', {'id': listuser.id, 'role': 1}) }}" type="button" class="btn btn-danger btn-sm">Oui Il sera Admin !!</a>
+									<button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Non, il reste User</button>
+									<a href="{{ path('upuser', {'id': listuser.id, 'role': 1}) }}" type="button" class="btn btn-success btn-sm">Oui Il sera Admin !!</a>
 								</div>
 							</div>
 						</div>
