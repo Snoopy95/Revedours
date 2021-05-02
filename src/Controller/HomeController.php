@@ -17,7 +17,14 @@ class HomeController extends AbstractController
     {
         return $this->redirectToRoute('index');
     }
-    
+    /**
+     * @Route("/offline"), name="offline")
+     */
+    public function offline()
+    {
+        return $this->render('home/offline.html.twig');
+    }
+
     /**
      * @Route("/index", name="index")
      */

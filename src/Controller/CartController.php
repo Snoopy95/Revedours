@@ -210,7 +210,7 @@ class CartController extends AbstractController
         $order->setNumberOrder($numorder);
 
         $this->em->persist($order);
-        // $this->em->flush();
+        $this->em->flush();
 
             $email = (new TemplatedEmail())
             ->from('Revedours@createurweb.fr')
@@ -232,7 +232,7 @@ class CartController extends AbstractController
             'cates' => $cates,
             'selectcate' => 0,
             'panier' => [],
-            'total' => [],
+            'total' => $total,
             'idtrans' => $idtrans,
             'adresse' => $adres,
             'numfact' => $numorder,
