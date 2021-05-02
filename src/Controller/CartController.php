@@ -212,8 +212,6 @@ class CartController extends AbstractController
         $this->em->persist($order);
         // $this->em->flush();
 
-        $panier = $this->session->get('panier');
-        $this->session->set('panier', $panier);
             $email = (new TemplatedEmail())
             ->from('Revedours@createurweb.fr')
             ->to($user->getEmail())
@@ -225,15 +223,16 @@ class CartController extends AbstractController
                 'montant' => $order->getAmount($total['EXP']),
                 'date' => $order->getDatecreat()
             ]);
-            // $mailer->send($email);
-        $panier = [];
+            $mailer->send($email);
+            
+        $panier=[];
         $this->session->set('panier', $panier);
 
         return $this->render('cart/success.html.twig', [
             'cates' => $cates,
             'selectcate' => 0,
-            'panier' => $viewpanier,
-            'total' => $total,
+            'panier' => [],
+            'total' => [],
             'idtrans' => $idtrans,
             'adresse' => $adres,
             'numfact' => $numorder,
