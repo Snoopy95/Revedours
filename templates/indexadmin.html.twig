@@ -22,7 +22,7 @@
 	<body class='content'>
 		<header class='row header'>
 			<div class='col-md-2'>
-				<a class="btn btn-success btn-sm" href='{{path('index')}}' role="button">Retour !!</a>
+				<a class="btn btn-success btn-sm" href='{{path('index')}}' role="button">Retour au site !!</a>
 			</div>
 			<div class='col-md-4'>
 				<h3 class='titre'>
@@ -58,6 +58,7 @@
 					<a {% if navb == 6 %} class='{{ok}}' {% else %} class='{{nok}}' {% endif %} href="{{path('listusers')}}">Liste clients</a>
 					<a {% if navb == 7 %} class='{{ok}}' {% else %} class='{{nok}}' {% endif %} href="{{path('commandes')}}">Gestion commandes</a>
 					<a {% if navb == 8 %} class='{{ok}}' {% else %} class='{{nok}}' {% endif %} href="{{ path('comments', {'type': 0}) }}">Gestion commantaires</a>
+					<a {% if navb == 9 %} class='{{ok}}' {% else %} class='{{nok}}' {% endif %} href="{{ path('dashboard')}}">Config</a>
 					<img src='{{asset('/images/icons-teddy-bear.png')}}' class='icons' alt='nounours'/>
 				</nav>
 			</aside>

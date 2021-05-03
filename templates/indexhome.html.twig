@@ -14,12 +14,307 @@
 		<link
 		rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
 		{# <!-- Feuille de style --> #}
+		<link
+		rel="stylesheet" href="{{asset('css/stylehome.css')}}"/>
+		{# <!-- Icon kit fontawesome--> #}
+		<link rel="stylesheet" href="{{asset('css/all.css')}}"/>
+		<script src="{{asset('js/all.js')}}"></script>
+		<script src="https://js.stripe.com/v3/"></script>
 	</head>
 
 	<body>
 		<div class="site-container">
-			<img src="{{asset('images/offline.jpg')}}" alt="en travaux">
-		</div>
+			<!-- ********** HEADER NAVBAR ********  -->
+			<header class="header">
+				<div class="header-title">
+					<a href="#" class="header__icon" id="header__icon"></a>
+					<a href="{{path('index')}}" class="header-logo h2 text-wrap a-title">Rêve d'Ours</a>
+				</div>
+				<nav class="menu">
+				<a {% if selectcate == 5 %} class="menu-item actif" {% else %} class="menu-item" {% endif %} href="{{path ('news')}}">Nouveautes</a>
+					{% for cate in cates %}
+						<a href="/products/{{cate.id}}" {% if cate.id == selectcate %} class="menu-item actif" {% else %} class="menu-item" {% endif %}>
+							{{cate.cateName}}
+						</a>
+					{% endfor %}
+				<a {% if selectcate == 6 %} class="menu-item actif" {% else %} class="menu-item" {% endif %} href="#">Galerie</a>
+				</nav>
+				<div class="login">
+					{% if app.user %}
+						{% set modal, name = '#modal-logout', app.user.username %}
+					{% else %}
+						{% set modal, name = '#modal-login', 'Mon Compte' %}
+					{% endif %}
+					<a class="color-log" data-toggle="modal" data-target="{{modal}}" href="#">
+						<i class="fas fa-user-circle fa-lg"></i>
+						<span class="log-txt">{{name}}</span>
+					</a>
+					<a class="color-log" data-toggle="modal" data-target="#modal-panier" href="#">
+						<i class="fas fa-shopping-bag fa-lg"></i>
+						<span id="badge" {% if panier|length == 0 %} class='cacher' {% else %} class='badge badge-pill badge-danger' {% endif %}>
+							{{ panier|length }}</span>
+					</a>
+				</div>
+			</header>
+			<!-- ************ FIN DU HEADER ********** -->
+			{% block titlebar %}{% endblock %}
+			{% block content %}{% endblock %}
+			{% block comments %}{% endblock %}
 
+			{# ---  FOOTER ---  #}
+			<footer class='container footer'>
+				<div class='row justify-content-around'>
+					<div class="col-md-4 col-lg-4">
+						<div class="card text-white bg-secondary mb-3 align-items-center p-3">
+							<i class="fas fa-paw fa-4x"></i>
+							{# <img clas='img-fluid' src="{{asset('/images/icons-cat-footprint.png')}}" alt="ours"/> #}
+							<div class="card-body text-center">
+								<p class="card-title">Reve d'ours</p>
+								<p class="card-text">
+									Bonjours passionné de peinture, je vous propose ici un
+									ensemble de mes toiles à vendre
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 col-lg-4">
+						<div class="card text-white bg-secondary mb-3 align-items-center p-3">
+							<i class="fas fa-truck fa-4x"></i>
+							{# <img clas='img-fluid' src="{{asset('/images/truck.png')}}" alt="truck"/> #}
+							<div class="card-body text-center">
+								<p class="card-title">Expédition</p>
+								<p class="card-text">
+									Le moyen d'expédition est choisi en fonction de la toile pour
+									garantir une livraison sans risque
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 col-lg-4">
+						<div class="card text-white bg-secondary mb-3 align-items-center p-3">
+							<i class="fas fa-lock fa-4x"></i>
+							{# <img clas='img-fluid' src="{{asset('/images/password.png')}}" alt="lock"/> #}
+							<div class="card-body text-center">
+								<p class="card-title">Paiement sécurisé</p>
+								<p class="card-text">
+									Paiement 100% sécurisé par Carte Bancaire.
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row justify-content-between">
+					<div class='col-4'>
+						{# Facebook #}
+						<a class="a-facebook"
+							href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Frevedours.createurweb.fr&amp;src=sdkpreparse"
+							target="_blank"
+							data-opensharewindow="">
+							<i class="mr-2 fab fa-facebook-square fa-2x"></i>
+						</a>
+						{# Twitter #}
+						<a class="a-twitter mr-2"
+							href="https://twitter.com/intent/tweet?url=https%3A%2F%2Frevedours.createurweb.fr%2F"
+							target='_blank'>
+							<i class="fab fa-twitter-square fa-2x"></i>
+						</a>
+						{# Pinterest #}
+						<i class="mr-2 a-pinterest fab fa-pinterest-square fa-2x"></i>
+						{# Instagram #}
+						<i class="a-instagram fab fa-instagram fa-2x"></i>
+					</div>
+					<div class='col-2'>
+						<a class='a-title' href={{path('contactme')}}><i class="align-middle far fa-envelope fa-2x"></i><small> Nous contacter </small></a>
+					</div>
+				</div>
+			</footer>
+			{# -- MODAL LOGIN --#}
+			<div class="modal fade" id="modal-login" tabindex="-1" role="dialog" aria-labelledby="loginTitle" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header justify-content-center">
+							<h5 class="modal-title mx-auto d-block" id="loginTitle">Identifiez-vous</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form action="{{path('login')}}" method="POST">
+								<div class="input-group mb-2">
+									<input type="email" placeholder="Votre Email ..." class="form-control" name="_username" required autofocus/>
+									<div class='input-group-append'>
+										<span class='btn btn-outline-secondary'>
+											<i class="fas fa-at"></i>
+										</span>
+									</div>
+								</div>
+								<div class="input-group mb-3">
+									<input type="password" placeholder="Votre Password ..." class="form-control mshow-pwd" id="loginPassword" name="_password"/>
+									<div class="input-group-append mshow">
+										<span class="btn btn-outline-secondary">
+											<i class="miconshow far fa-eye"></i>
+										</span>
+									</div>
+								</div>
+								<div class="form-group form-check">
+									<input type="checkbox" class="form-check-input" id="remember_me" name="Check_me"/>
+									<label class="form-check-label" for="remember_me">Se souvenir de moi</label>
+								</div>
+								<div class="row justify-content-center">
+									<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
+									<button type="submit" class="btn btn-primary color-btnews">
+										Se connecter
+									</button>
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer justify-content-around">
+							<div class="row">
+								<div class='col-auto'>
+									<a href="/forgetpwd" type="button" class="btn btn-link">
+										Mot de passe oublié !
+									</a>
+								</div>
+								<div class='col-auto'>
+									<a href="/newuser" type="button" class="btn btn-primary color-btnews">
+										Créez un compte !
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			{# -- MODAL LOGOUT -- #}
+			{% if app.user %}
+				<div class="modal fade" id="modal-logout" tabindex="-1" role="dialog" aria-labelledby="loginTitle" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<img src='{{asset('images/icons-color-user.png')}}' alt='photo' class='avatar'/>
+								<h4 class="modal-title mt-3 ml-3" id="loginTitle">
+									{% if app.user %}Bonjour,
+										{{app.user.username}}
+									{% endif %}
+								</h4>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<div class='row justify-content-center'>
+									<h5>Mon espace</h5>
+								</div>
+								{% if is_granted('ROLE_ADMIN') %}
+									<div class='row justify-content-around mb-4'>
+										<a class="btn btn-primary color-btnews" type="button" href="{{path('dashboard')}}">Administration</a>
+									</div>
+								{% endif %}
+								<div class='row justify-content-around'>
+									<div class='col-4'>
+										<a class="btn btn-primary color-btnews" type="button" href="#">Mes informations</a>
+									</div>
+									<div class='col-4'>
+										<a class="btn btn-primary color-btnews" type="button" href="{{path('myorders')}}">Mes commandes</a>
+									</div>
+									<div class='col-4'>
+										<a class="btn btn-primary color-btnews" type="button" href="{{path('addcomment')}}">Mettre un commentaire</a>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer justify-content-around">
+								<div class="row">
+									<div class='col-auto'>
+										<a type="button" class="btn btn-primary color-btnews" href="{{path('logout')}}">
+											Se Deconnecter !!
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endif %}
+			{# -- MODAL PANIER -- #}
+			<div class="modal fade" id="modal-panier" tabindex="-1" role="dialog" aria-labelledby="panierLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="panierLabel">Mon panier</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th scope="col">Nom</th>
+										<th class='text-right' scope="col">Prix TTC</th>
+										<th class='text-center' scope="col">Action</th>
+									</tr>
+								</thead>
+								<tbody id='panierbody'>
+									{% if panier|length == 0 %}
+										<h5 id='vide' class='text-center'>Votre panier est vide</h5>
+									{% else %}
+										<h5 id='vide' class='text-center'></h5>
+										{% for item in panier %}
+											<tr id="prod{{item.id}}">
+												<th scope="row">{{item.name}}</th>
+												<td class='text-right'>{{item.price}}
+													€</td>
+												<td class='text-center'>
+													<a href="{{ path('delcart' , {'id': item.id}) }}" class="delprod">
+														<i class="fa fa-trash-alt fa-1x"></i>
+													</a>
+												</td>
+											</tr>
+										{% endfor %}
+									{% endif %}
+								</tbody>
+								<tfoot id='panierfoot'>
+									<tr>
+										<td class='text-right'>Total TTC :</td>
+										<td id='paniertotal' class='text-right'>
+											{% if total.TTC == 0 %}
+												-- 
+											{% else %}
+												{{total.TTC}}
+											{% endif %}
+											€
+										</td>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+						<div class="modal-footer block">
+							{% if app.user == null %}
+							<div class="mb-3">Vous devez être inscrit et connecté pour valider le panier</div>
+							{% endif %}
+							<div>
+								<a type="button" class="btn btn-danger btn-sm removecart" href="{{ path('removecart')}}">
+									Vider le panier
+								</a>
+								<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">
+									Continuer mes achats
+								</button>
+								<a href='{{path('cart')}}' id="valcom" type="button" class="btn btn-primary btn-sm {% if app.user == null %} disabled {% endif %}">
+									Passer la commande
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		{# -- JavaScript -- #}
+		<script src="{{asset('js/home.js')}}"></script>
+		<script src="{{asset('js/jquery.slim.min.js')}}"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+		<script src="{{asset('js/bootstrap.min.js')}}"></script>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<script src="{{asset('js/panier.js')}}"></script>
+		{% block javascripts %}{% endblock %}
 	</body>
 </html>

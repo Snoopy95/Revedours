@@ -7,17 +7,20 @@
 {% endblock %}
 
 {% block content %}
+<div class="mt-5 ml-3">
+	<a href="{{path('commandes')}}" class="btn text-primary" type="button">
+		<i class="far fa-caret-square-left fa-3x"></i>
+	</a>
+</div>
 
 	{% if cmd.status == 1 %}
 		{% set etatV, etatP, etatE = "disabled","","" %}
 		{% set tailleV, tailleP, tailleE = "fa-4x", "fa-3x", "fa-3x" %}
 	{% endif %}
-
 	{% if cmd.status == 2 %}
 		{% set etatV, etatP, etatE = "","disabled","" %}
 		{% set tailleV, tailleP, tailleE = "fa-3x", "fa-4x", "fa-3x" %}
 	{% endif %}
-
 	{% if cmd.status == 3 %}
 		{% set etatV, etatP, etatE = "","","disabled" %}
 		{% set tailleV, tailleP, tailleE = "fa-3x", "fa-3x", "fa-4x" %}

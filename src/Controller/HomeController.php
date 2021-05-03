@@ -17,19 +17,16 @@ class HomeController extends AbstractController
     {
         return $this->redirectToRoute('index');
     }
-    /**
-     * @Route("/offline"), name="offline")
-     */
-    public function offline()
-    {
-        return $this->render('home/offline.html.twig');
-    }
 
     /**
      * @Route("/index", name="index")
      */
     public function index(Cart $cart)
     {
+        $offline=false;
+        if ($offline === true) {
+            return $this->render('offline.html.twig');
+        }
         $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
         $posts = $this->getDoctrine()->getRepository(Comments::class)->findBy(
             ['status' => 1],

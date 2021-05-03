@@ -12,30 +12,35 @@
 		<table class="table table-striped">
 			<thead class="thead-dark">
 				<tr>
-					<th scope="col">ID</th>
-					<th scope="col">Categorie</th>
 					<th scope="col">Nom</th>
+					<th scope="col">Categorie</th>
 					<th scope="col">Prix TTC</th>
-					<th scope="col">Dispo</th>
-					<th scope="col">img</th>
-					<th scope="col">Date</th>
-					<th scope="col">Action</th>
+					<th scope="col">Etat</th>
+					<th scope="col">Afficher</th>
+					<th scope="col">Miniature</th>
+					<th scope="col">Date creat.</th>
+					<th scope="col">Actions</th>
 				</tr>
 			</thead>
 			<tbody>
 				{% for prod in allprods %}
 					<tr>
-						<th scope='row'>{{prod.id}}</th>
+						<th scope='row'>{{prod.prodName}}</th>
 						<td>{{prod.categories.cateName}}</td>
-						<td>{{prod.prodName}}</td>
 						<td>{{prod.prodPrice}}€ TTC</td>
-						<td>
-							{% if (prod.orders) %}
+						<td>{% if (prod.orders) %}
 								<i class="text-primary fas fa-shipping-fast fa-2x"></i>
-							{%  elseif (prod.prodStock) %}
-								<i class="text-success far fa-check-circle fa-2x"></i>
 							{% else %}
-								<i class="text-danger far fa-times-circle fa-2x"></i>
+								<i class="text-secondary fas fa-store fa-2x"></i>
+							{% endif %}
+						</td>
+						<td>
+							{% if (prod.prodStock) %}
+								<i class="text-success far fa-eye fa-2x"></i>
+								{# <i class="text-success far fa-check-circle fa-2x"></i> #}
+							{% else %}
+							<i class="text-danger far fa-eye-slash fa-2x"></i>
+								{# <i class="text-danger far fa-times-circle fa-2x"></i> #}
 							{% endif %}
 						</td>
 						<td>

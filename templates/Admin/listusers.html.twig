@@ -13,7 +13,6 @@
 		<table class="table table-striped">
 			<thead class="thead-dark">
 				<tr>
-					<th scope="col">ID</th>
 					<th scope="col">Username</th>
 					<th scope="col">Email</th>
 					<th scope="col">Role</th>
@@ -24,8 +23,7 @@
 			<tbody>
 				{% for listadmin in listadmins %}
 					<tr>
-						<th scope='row'>{{listadmin.id}}</th>
-						<td>{{listadmin.username}}</td>
+						<th scope='row'>{{listadmin.username}}</th>
 						<td>{{listadmin.email}}</td>
 						<td>{{listadmin.roles[0]}}</td>
 						<td>
@@ -65,7 +63,6 @@
 		<table class="table table-striped">
 			<thead class="thead-dark">
 				<tr>
-					<th scope="col">ID</th>
 					<th scope="col">Username</th>
 					<th scope="col">Email</th>
 					<th scope="col">Role</th>
@@ -76,8 +73,7 @@
 			<tbody>
 				{% for listuser in listusers %}
 					<tr>
-						<th scope='row'>{{listuser.id}}</th>
-						<td>{{listuser.username}}</td>
+						<th scope='row'>{{listuser.username}}</th>
 						<td>{{listuser.email}}</td>
 						<td>{{listuser.roles[0]}}</td>
 						<td>
