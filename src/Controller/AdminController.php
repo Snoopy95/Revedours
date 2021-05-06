@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Entity\Roles;
+use App\Entity\Config;
 use App\Entity\Orders;
 use App\Entity\Comments;
 use App\Entity\Products;
@@ -12,9 +13,10 @@ use App\Entity\Categories;
 use App\Form\UpdateProdType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 class AdminController extends AbstractController
 {
@@ -23,12 +25,13 @@ class AdminController extends AbstractController
      */
     public function dashboard()
     {
+        $config =  $this->getDoctrine()->getRepository(Config::class)->findAll();
+        
         $listusers = $this->getDoctrine()->getRepository(User::class)->findAll();
-        $listroles = $this->getDoctrine()->getRepository(Roles::class)->findAll();
         $listprods = $this->getDoctrine()->getRepository(Products::class)->findAll();
         $listcates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
         $listposts = $this->getDoctrine()->getRepository(Comments::class)->findAll();
-
+        
         $nbusers = count($listusers);
         $nbprods = count($listprods);
         $nbcates = count($listcates);
@@ -49,15 +52,42 @@ class AdminController extends AbstractController
                 $prodsbycates[$key]= $count;
             }
         }
-
+        foreach ($config as $value) {
+            if ($value->getConfigname() == 'online') {
+                $online = $value->getValeur();
+            }
+        }
+        
         return $this->render('admin/dashboard.html.twig', [
             'nbprods' => $nbprods,
             'prodsbycates' => $prodsbycates,
             'listusers' => $listusers,
             'listprods' => $listprods,
             'nbusers' => $nbusers,
-            'nbposts' => $nbposts
+            'nbposts' => $nbposts,
+            'offline' => $online
         ]);
+    }
+
+    /**
+     * @Route("/admin/online", name="online")
+     */
+    public function online(EntityManagerInterface $em): Response
+    {
+        $config = $this->getDoctrine()->getRepository(Config::class)->findOneBy(
+            ["configname" => "online"]
+        );
+        if ($config) {
+            $online = $config->getValeur();
+            if ($online === '1') {
+                $config->setValeur('0');
+            } else {
+                $config->setValeur('1');
+            }
+            $em->flush();
+            return new Response('changement fait', 200);
+        }
+        return new Response('config non trouve', 400);
     }
 
     /**

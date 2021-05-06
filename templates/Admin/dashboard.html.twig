@@ -2,19 +2,46 @@
 {% set navb = 1 %}
 
 {% block titre %}
-Dashboard
+	Dashboard
 {% endblock %}
 
-{% block content %} 
-<div> voir le panneau de controle </div>
-<div> il y a {{nbusers}} inscrit sur le site et {{nbposts}} commentaires </div>
-<div>Il y a actuellement {{nbprods}} produits dans la boutiques</div>
-{% for key, prodsbycate in prodsbycates %}
-<div> Dans la categorie {{key}} Il y a actuellement {{prodsbycate}} produit </div>
-{% endfor %}
-
+{% block content %}
+	<div class="">
+		<div>
+			il y a
+			{{nbusers}}
+			inscrit sur le site et
+			{{nbposts}}
+			commentaires
+		</div>
+		<div>Il y a actuellement
+			{{nbprods}}
+			produits dans la boutiques
+        </div>
+		{% for key, prodsbycate in prodsbycates %}
+			<div>
+				Dans la categorie
+				{{key}}
+				Il y a actuellement
+				{{prodsbycate}}
+				produit
+			</div>
+		{% endfor %}
+        <div class="form-group mt-5">
+            <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="online" {% if offline %} checked {% endif %}>
+                <label class="custom-control-label" for="online">Mettre en ligne</label>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
-{% block footer %} 
-<div> Pour faire les pieds </div>
- {% endblock %}
+{% block footer %}
+	<div>
+		Pour faire les pieds
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{asset('js/config.js')}}"></script>
+{% endblock %}

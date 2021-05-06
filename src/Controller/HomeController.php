@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
-use App\Service\Cart\Cart;
+use App\Entity\Config;
 use App\Entity\Comments;
 use App\Entity\Categories;
+use App\Service\Cart\Cart;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -19,32 +20,47 @@ class HomeController extends AbstractController
     }
 
     /**
+    * @Route("/adlog1204", name="adlog1204")
+    */
+    public function adlog1204()
+    {
+        return $this->render('home/logadmin.html.twig');
+    }
+
+    /**
      * @Route("/index", name="index")
      */
     public function index(Cart $cart)
     {
-        $offline=false;
-        if ($offline === true) {
+        $config = $this->getDoctrine()->getRepository(Config::class)->findOneBy(
+            ['configname' => 'online'],
+            []
+        );
+
+        $online = $config->getValeur();
+
+        if ($online) {
+            $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
+            $posts = $this->getDoctrine()->getRepository(Comments::class)->findBy(
+                ['status' => 1],
+                ['datecreat' => 'DESC'],
+                4,
+                0
+            );
+        
+            $viewpanier = $cart->getViewCart();
+            $total = $cart->getTotal();
+
+            return $this->render('home/home.html.twig', [
+                'cates'=> $cates,
+                'posts' => $posts,
+                'selectcate'=> 0,
+                'panier' => $viewpanier,
+                'total' => $total
+            ]);
+        } else {
             return $this->render('offline.html.twig');
         }
-        $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
-        $posts = $this->getDoctrine()->getRepository(Comments::class)->findBy(
-            ['status' => 1],
-            ['datecreat' => 'DESC'],
-            4,
-            0
-        );
-        
-        $viewpanier = $cart->getViewCart();
-        $total = $cart->getTotal();
-
-        return $this->render('home/home.html.twig', [
-            'cates'=> $cates,
-            'posts' => $posts,
-            'selectcate'=> 0,
-            'panier' => $viewpanier,
-            'total' => $total
-        ]);
     }
 
     /**

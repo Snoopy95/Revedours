@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1.0"/>
+		<meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+
+		<title>Rêve d'ours</title>
+		{# <!-- Favicon --> #}
+		<link rel="shortcut icon" type="image/x-icon" href="{{asset('images/favicon.ico')}}"/>
+		{# <!-- Bootstrap CSS --> #}
+		<link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+		{# <!-- Feuille de style --> #}
+		<link rel="stylesheet" href="{{asset('css/stylehome.css')}}"/>
+		{# <!-- Icon kit fontawesome--> #}
+		<link rel="stylesheet" href="{{asset('css/all.css')}}"/>
+		<script src="{{asset('js/all.js')}}"></script>
+		<script src="https://js.stripe.com/v3/"></script>
+	</head>
+
+	<body>
+		<div class="container logcard shadow">
+			<div class="card-content">
+				<form action="{{path('login')}}" method="POST">
+					<div class="input-group mb-2">
+						<input type="email" placeholder="Votre Email ..." class="form-control" name="_username" required autofocus/>
+						<div class='input-group-append'>
+							<span class='btn btn-outline-secondary'>
+								<i class="fas fa-at"></i>
+							</span>
+						</div>
+					</div>
+					<div class="input-group mb-3">
+						<input type="password" placeholder="Votre Password ..." class="form-control mshow-pwd" id="loginPassword" name="_password"/>
+						<div class="input-group-append mshow">
+							<span class="btn btn-outline-secondary">
+								<i class="miconshow far fa-eye"></i>
+							</span>
+						</div>
+					</div>
+					<div class="form-group form-check">
+						<input type="checkbox" class="form-check-input" id="remember_me" name="Check_me"/>
+						<label class="form-check-label" for="remember_me">Se souvenir de moi</label>
+					</div>
+					<div class="row justify-content-center">
+						<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
+						<input type="hidden" name="_target_path" value="{{ path('dashboard') }}"/>
+						<button type="submit" class="btn btn-primary color-btnews">
+							Se connecter
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<script src="{{asset('js/home.js')}}"></script>
+		<script src="{{asset('js/jquery.slim.min.js')}}"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+		<script src="{{asset('js/bootstrap.min.js')}}"></script>
+	</body>
+</html>
