@@ -47,7 +47,6 @@ class HomeController extends AbstractController
                 4,
                 0
             );
-        
             $viewpanier = $cart->getViewCart();
             $total = $cart->getTotal();
 

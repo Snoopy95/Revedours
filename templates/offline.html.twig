@@ -8,18 +8,19 @@
 
 		<title>Rêve d'ours</title>
 		{# <!-- Favicon --> #}
-		<link
-		rel="shortcut icon" type="image/x-icon" href="{{asset('images/favicon.ico')}}"/>
+		<link rel="shortcut icon" type="image/x-icon" href="{{asset('images/favicon.ico')}}"/>
 		{# <!-- Bootstrap CSS --> #}
-		<link
-		rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+		<link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
 		{# <!-- Feuille de style --> #}
+		<link rel="stylesheet" href="{{asset('css/stylehome.css')}}"/>
+		{# <!-- Icon kit fontawesome--> #}
+		<link rel="stylesheet" href="{{asset('css/all.css')}}"/>
 	</head>
 
 	<body>
-		<div class="site-container mt-5">
-			<img src="{{asset('images/offline.jpg')}}" alt="en travaux">
+		<div class="offline shadow-lg rounded-lg">
+			<h2 class="text-center mt-3">Nous revenons très vite</h2>
+			<img class="img-fluid rounded-lg p-3" src="{{asset('images/offline.jpg')}}" alt="en travaux">
 		</div>
-
 	</body>
 </html>

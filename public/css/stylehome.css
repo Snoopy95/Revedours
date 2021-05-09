@@ -543,7 +543,16 @@ a:hover{
   border: 4mm ridge rgba(170, 50, 220, .6);
   background-color: #c0c0c0;
 }
-
 .card-content{
   padding : 20px;
+}
+
+.offline{
+  position: absolute;
+  width: 100%;
+  max-width: 1400px;
+  top:50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
