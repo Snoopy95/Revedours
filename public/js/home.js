@@ -11,16 +11,19 @@ document.querySelector("#site-cache").addEventListener("click", evt => {
 });
 
 // --------- Show password ---------
-document.querySelector('.mshow').addEventListener("click", evt => {
-  evt.preventDefault();
-  mshowpwd = document.querySelector(".mshow-pwd")
-  // console.log('je click', showpwd.type)
-  mshowpwd.type =='password' ? mshowpwd.type = 'text' : mshowpwd.type= 'password';
-  miconshow= document.querySelector('.miconshow')
-  // console.log(iconshow.classList)
-  miconshow.classList.toggle("fa-eye")
-  miconshow.classList.toggle("fa-eye-slash")
-});
+const pwdshow = document.querySelector('.mshow')
+if (pwdshow) {
+  pwdshow.addEventListener("click", evt => {
+    evt.preventDefault();
+    mshowpwd = document.querySelector(".mshow-pwd")
+    // console.log('je click', showpwd.type)
+    mshowpwd.type == 'password' ? mshowpwd.type = 'text' : mshowpwd.type = 'password';
+    miconshow = document.querySelector('.miconshow')
+    // console.log(iconshow.classList)
+    miconshow.classList.toggle("fa-eye")
+    miconshow.classList.toggle("fa-eye-slash")
+  });
+}
 
 setTimeout(() => {
   $(".alert").alert("close");

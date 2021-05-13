@@ -1,5 +1,6 @@
+const pwd = document.querySelector('.show')
 // --------- Show password ---------
-document.querySelector('.show').addEventListener("click", evt => {
+    pwd.addEventListener("click", evt => {
     evt.preventDefault();
     showpwd = document.querySelector(".show-pwd")
     console.log('je click', showpwd.type)
@@ -9,8 +10,10 @@ document.querySelector('.show').addEventListener("click", evt => {
     iconshow.classList.toggle("fa-eye")
     iconshow.classList.toggle("fa-eye-slash")
   });
+
+  const pwdconf = document.querySelector('.showconf')
   // --------- Show confirmation password ---------
-  document.querySelector('.showconf').addEventListener("click", evt => {
+    pwdconf.addEventListener("click", evt => {
     evt.preventDefault();
     showconfpwd = document.querySelector(".showconf-pwd")
     // console.log('je click', showconfpwd.type)
