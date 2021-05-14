@@ -33,11 +33,8 @@
 							<td><input class="form-control" type="text" name='name' placeholder="{{cate.cateName}}"></td>
 							<td><input class="form-control" type="text" name="descrip" placeholder="{{cate.cateDescrip}}"></td>
 							<td>
-								<div class="input-group mb-3">
-									<div class="custom-file">
-										<input class="custom-file-input" name="file" type="file" accept="image/*" onchange="nameFileChange(this.files, 'file'+{{cate.id}})">
-										<label class="custom-file-label" id="file{{cate.id}}" for="file">Choisir une image</label>
-									</div>
+								<div class="input-group">
+									<input class="form-control" name="file" type="file" accept="image/*" onchange="nameFileChange(this.files, 'file'+{{cate.id}})">
 								</div>
 							</td>
 						</form>

@@ -27,10 +27,10 @@
 				produit
 			</div>
 		{% endfor %}
-        <div class="form-group mt-5">
-            <div class="custom-control custom-switch">
-                <input type="checkbox" class="custom-control-input" id="online" {% if offline %} checked {% endif %}>
-                <label class="custom-control-label" for="online">Mettre en ligne</label>
+        <div class="mt-5">
+            <div class="form-check form-switch">
+                <input type="checkbox" class="form-check-input" id="online" {% if offline %} checked {% endif %}>
+                <label class="form-check-label" for="online">Mettre en ligne</label>
             </div>
         </div>
     </div>

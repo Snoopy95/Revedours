@@ -5,61 +5,53 @@
 
 {% block content %}
 	{{ form_start(form) }}
-		<div class="form-group align-items-center">
-			<div class="form-row">
-				<div class="form-group col-md-8">
-					<div class="dropzone" id="myDropzone" action="{{path('upload')}}">
-						<input type='hidden' name="picture" id="imag" readonly="true"> 
-					</div>
-				</div>
+		<form class="row">
+			<div class="col-md-8 mt-2">
+				<div class="dropzone" id="myDropzone" action="{{path('upload')}}">
+					<input type='hidden' name="picture" id="imag" readonly="true" class='form-control'> 
+				</div>	
 			</div>
 			{{ form_errors(form) }}
-			<div class="form-row">
-				<div class="form-group col-md-5">
+			<div class="row mt-3">
+				<div class="col-md-5">
 					{{form_widget(form.prod_name)}}
 				</div>
-				<div class="form-group col-md-3">
+				<div class="col-md-3">
 					<div class="input-group">
 						{{form_widget(form.prod_price)}}
-						<div class="input-group-append">
-							{# <span class="input-group-text">€</span> #}
-							{# <span class="input-group-text">TTC</span> #}
-						</div>
 					</div>
 				</div>
 			</div>
-			<div class="form-row">
-				<div class="form-group col-md-8">
+			<div class="row mt-2">
+				<div class="col-md-8">
 					{{form_widget(form.prod_descrip)}}
 				</div>
 			</div>
-			<div class="form-row">
-				<div class="form-group col-md-3">
-					<div class="form-check form-check-inline">
+			<div class="row mt-2">
+				<div class="col-md-3">
+					<div class="form-control">
 						{{form_widget(form.prod_stock)}}
 					</div>
 				</div>
-				<div class="form-group col-md-5">
+				<div class="col-md-5">
 					<div class="input-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text">Categorie</span>
-						</div>
+						<span class="input-group-text">Categorie</span>
 						{{form_widget(form.categories)}}
 					</div>
 				</div>
 			</div>
-			<div class="form-row">
-				<div class="form-group col-md-8">
+			<div class="row mt-2">
+				<div class="col-md-8">
 					{{form_widget(form.prod_info)}}
 				</div>
 			</div>
-			<div class="form-row">
-				<div class="form-group col-md-5 mx-auto">
-					<button class="btn btn-success" type="submit">VALIDER ✔</button>
-					<a href="{{path('listprods')}}" class="btn btn-danger" type="button">ANNULER ❌</a>
+			<div class="row mt-3">
+				<div class="col-md-5 mx-lg-auto">
+					<button class="btn btn-success" type="submit">VALIDER</button>
+					<a href="{{path('listprods')}}" class="btn btn-danger" type="button">ANNULER</a>
 				</div>
 			</div>
-		</div>
+		</form>
 	{{ form_end(form) }}
 {% endblock %}
 

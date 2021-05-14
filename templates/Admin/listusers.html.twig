@@ -27,8 +27,8 @@
 						<td>{{listadmin.email}}</td>
 						<td>{{listadmin.roles[0]}}</td>
 						<td>
-							<button type="button" class="btn text-success" data-toggle="modal" data-target="#del{{listadmin.id}}">
-								<i class="fas fa-user-cog fa-2x"></i>
+							<button type="button" class="btn text-success" data-bs-toggle="modal" data-bs-target="#del{{listadmin.id}}">
+								<i class="fas fa-user-cog fa-lg"></i>
 							</button>
 						</td>
 						<td>{{listadmin.datecreat|date('d/m/Y')}}
@@ -77,8 +77,8 @@
 						<td>{{listuser.email}}</td>
 						<td>{{listuser.roles[0]}}</td>
 						<td>
-							<button type="button" class="btn text-primary" data-toggle="modal" data-target="#del{{listuser.id}}">
-								<i class="fas fa-user-alt fa-2x"></i>
+							<button type="button" class="btn text-primary" data-bs-toggle="modal" data-bs-target="#del{{listuser.id}}">
+								<i class="fas fa-user-alt fa-lg"></i>
 							</button>
 						</td>
 						<td>{{listuser.datecreat|date('d/m/Y')}}
@@ -100,7 +100,7 @@
 									<h6 class='modal-body'>Etes-vous sûr de vouloir le mettre en Admin ?</h6>
 								</div>
 								<div class="modal-footer">
-									<button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Non, il reste User</button>
+									<button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal">Non, il reste User</button>
 									<a href="{{ path('upuser', {'id': listuser.id, 'role': 1}) }}" type="button" class="btn btn-success btn-sm">Oui Il sera Admin !!</a>
 								</div>
 							</div>

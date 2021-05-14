@@ -15,8 +15,8 @@
 		<link rel="stylesheet" href="{{asset('css/dropzone.css')}}"/>
 		<script src="{{asset('js/dropzone.js')}}"></script>
 		{# <!-- Icon kit fontawesome--> #}
-		<link rel="stylesheet" href="{{asset('css/all.css')}}"/>
-		<script src="{{asset('js/all.js')}}"></script>
+		<link rel="stylesheet" href="{{asset('css/all.min.css')}}"/>
+		<script src="{{asset('js/all.min.js')}}"></script>
 		<script src="{{asset('js/admin.js')}}"></script>
 	</head>
 	<body class='content'>
@@ -78,8 +78,7 @@
 			</div>
 		</footer>
 		{# Scritp Javascript #}
-		<script src="{{asset('js/jquery.slim.min.js')}}"></script>
-		<script src="https://unpkg.com/@popperjs/core@2"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 		<script src="{{asset('js/bootstrap.min.js')}}"></script>
 		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 		{% block javascripts %}{% endblock %}

@@ -10,8 +10,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class AddProdType extends AbstractType
 {
@@ -20,18 +20,18 @@ class AddProdType extends AbstractType
         $builder
             ->add('prod_name', TextType::class, [
                 'attr' => [
-                    'placeholder' => 'Nom'
+                    'placeholder' => 'Nom',
                 ]
             ])
             ->add('prod_price', MoneyType::class, [
                 'currency' => 'EUR',
                 'attr' => [
-                    'placeholder' => 'Prix TTC'
+                    'placeholder' => 'Prix TTC',
                 ]
             ])
             ->add('prod_descrip', TextType::class, [
                 'attr' => [
-                    'placeholder' => 'Info'
+                    'placeholder' => 'Info',
                 ]
             ])
             ->add('prod_info', CKEditorType::class, [
@@ -42,16 +42,19 @@ class AddProdType extends AbstractType
             ])
             ->add('prod_stock', ChoiceType::class, [
                 'choices' => [
-                    'Dispo' => true,
-                    'Non Dispo' => false
+                    'Afficher' => true,
+                    'Cacher' => false
                 ],
                 'multiple' => false,
                 'expanded' => true,
                 'attr' => [
-                    'class' => 'input-group-text'
+                    'class' => 'input-group',
                 ]
             ])
             ->add('categories', EntityType::class, [
+                'attr' => [
+                    'class' => 'form-select'
+                ],
                 'class' => Categories::class,
                 'choice_label' => 'cate_name',
             ]);

@@ -14,15 +14,15 @@
 </div>
 
 	{% if cmd.status == 1 %}
-		{% set etatV, etatP, etatE = "disabled","","" %}
+		{% set etatV, etatP, etatE = "disabled btn-outline-primary","btn-outline-dark","btn-outline-dark" %}
 		{% set tailleV, tailleP, tailleE = "fa-4x", "fa-3x", "fa-3x" %}
 	{% endif %}
 	{% if cmd.status == 2 %}
-		{% set etatV, etatP, etatE = "","disabled","" %}
+		{% set etatV, etatP, etatE = "btn-outline-success","disabled btn-outline-primary","btn-outline-dark" %}
 		{% set tailleV, tailleP, tailleE = "fa-3x", "fa-4x", "fa-3x" %}
 	{% endif %}
 	{% if cmd.status == 3 %}
-		{% set etatV, etatP, etatE = "","","disabled" %}
+		{% set etatV, etatP, etatE = "btn-outline-success","btn-outline-success","disabled btn-outline-primary" %}
 		{% set tailleV, tailleP, tailleE = "fa-3x", "fa-3x", "fa-4x" %}
 	{% endif %}
 
@@ -47,7 +47,7 @@
 			</div>
 		</div>
 		<div class='col-sm-6 text-left'>
-			<div class="card text-white bg-light text-dark mb-3" style="max-width: 25rem;">
+			<div class="card bg-light text-dark mb-3" style="max-width: 25rem;">
 				<h4 class="card-header text-center">Adresse</h4>
 				<div class="card-body">
 					<h5 class="card-title">{{cmd.addresses.firstname}}
@@ -68,7 +68,6 @@
 		<table class="table table-striped col-sm-10">
 			<thead class="thead-light">
 				<tr>
-					<th scope="col">ID</th>
 					<th scope="col">Photo</th>
 					<th scope="col">Nom</th>
 					<th scope="col">Prix</th>
@@ -77,8 +76,7 @@
 			<tbody>
 				{% for product in cmd.products %}
 					<tr>
-						<th scope="row">{{product.id}}</th>
-						<td><img src='{{asset('/uploads/' ~ product.prodPicture) }}' width="50" height="50"></td>
+						<th scope="row"><img src='{{asset('/uploads/' ~ product.prodPicture) }}' width="50" height="50"></th>
 						<td>{{product.prodName}}</td>
 						<td>{{product.prodPrice}}€</td>
 					</tr>
@@ -91,9 +89,9 @@
 		<div class='col-sm-2'></div>
 		<div class='col-sm-4 h5'>
 			<span>Transaction n° :</span>
-			<span class="badge badge-warning">{{cmd.pay}}</span>
+			<span class="badge bg-success">{{cmd.pay}}</span>
 		</div>
-		<div class='col-sm-2 border border-dark rounded-lg text-right'>
+		<div class='col-sm-2 border border-dark rounded-lg'>
 			<p class="mt-3">Sous-total :</p>
 			<p>Expedition :</p>
 			<p>

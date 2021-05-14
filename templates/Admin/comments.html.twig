@@ -40,18 +40,16 @@
 					</p>
 				</div>
 				<div class="card-footer">
-					<a href="{{ path('publier', {'id': comment.id, 'status': 1}) }}" class="link">
-						<img alt='publier' title='Publier' src='{{asset('/images/icons-checked.png')}}' class="action-icon"/>
+					<a href="{{ path('publier', {'id': comment.id, 'status': 1}) }}" class="btn btn-link" role='button' title="Publier">
+						<i class="far fa-check-circle fa-lg text-success"></i>
 					</a>
 					{% if comment.status == 2 %}
-						<span>/</span>
-						<a href="{{ path('publier', {'id': comment.id, 'status': 3}) }}" class="link">
-							<img alt='supprimer' title='Supprimer' src='{{asset('images/icons-trash.png')}}' class="action-icon"/>
+						<a href="{{ path('publier', {'id': comment.id, 'status': 3}) }}" class="btn btn-link" role='button' title="Supprimer">
+							<i class="far fa-trash-alt fa-lg text-danger"></i>
 						</a>
 					{% else %}
-						<span>/</span>
-						<a href="{{ path('publier', {'id': comment.id, 'status': 2}) }}" class="link">
-							<img alt='nepaspublier' title='Ne pas Publier' src='{{asset('images/icons-cancel.png')}}' class="action-icon"/>
+						<a href="{{ path('publier', {'id': comment.id, 'status': 2}) }}" class="btn btn-link" title="Ne pas publier">
+							<i class="far fa-times-circle fa-lg text-dark"></i>
 						</a>
 					{% endif %}
 				</div>

@@ -27,10 +27,10 @@
 					<th scope='row'><a href="{{path('detcmd', {'id': cmd.id})}}" type='button' class="btn btn-link">{{cmd.numberorder}}</a></th>
 					<td>{{cmd.addresses.firstname}} {{cmd.addresses.lastname}}</td>
 					<td>{{cmd.datecreat|date('d/m/Y')}}</td>
-					<td><i class='fas fa-handshake fa-2x'></i></td>
+					<td><i class='fas fa-handshake fa-lg text-primary'></i></td>
 					<td>{{cmd.amount}} €</td>
 					<td>
-						<a href="{{ path('cmdstatut', {'id': cmd.id, 'statut': '2'}) }}" class="btn"><i class="fas fa-dolly fa-2x"></i></a>
+						<a href="{{ path('cmdstatut', {'id': cmd.id, 'statut': '2'}) }}" class="btn btn-outline-dark"><i class="fas fa-dolly fa-lg"></i></a>
 					</td>
 				</tr>
 				{% endfor %}
@@ -42,7 +42,7 @@
 				<tr>
 					<th scope="col">N° Commande</th>
 					<th scope="col">Nom</th>
-					<th scope="col">date</th>
+					<th scope="col">Date</th>
 					<th scope="col">Etat</th>
 					<th scope="col">Montant</th>
 					<th scope="col">Action</th>
@@ -51,12 +51,12 @@
 			<tbody>
 				{% for cmd in cmdencours %}
 				<tr>
-					<th scope='row'><a href="{{path('detcmd', {'id': cmd.id})}}" class="btn">{{cmd.numberorder}}</a></th>
+					<th scope='row'><a href="{{path('detcmd', {'id': cmd.id})}}" type='button' class="btn btn-link">{{cmd.numberorder}}</a></th>
 					<td>{{cmd.addresses.firstname }} {{ cmd.addresses.lastname}}</td>
 					<td>{{cmd.datecreat|date('d/m/Y')}}</td>
-					<td><i class='fas fa-dolly fa-2x'></i></td>
+					<td><i class='fas fa-dolly fa-lg text-primary'></i></td>
 					<td>{{cmd.amount}} €</td>
-					<td><a href="{{ path('cmdstatut', {'id': cmd.id, 'statut': '3'}) }}" class='btn'><i class="fas fa-shipping-fast fa-2x"></i></a></td>
+					<td><a href="{{ path('cmdstatut', {'id': cmd.id, 'statut': '3'}) }}" class='btn btn-outline-dark'><i class="fas fa-shipping-fast fa-lg"></i></a></td>
 				</tr>
 				{% endfor %}
 			</tbody>
@@ -75,15 +75,10 @@
 			<tbody>
 				{% for cmd in cmdexp %}
 				<tr>
-					<th scope='row'>
-						<a href="{{path('detcmd', {'id': cmd.id})}}" class="btn">{{cmd.numberorder}}</a>
-					</th>
-					<td>{{cmd.addresses.firstname }}
-						{{ cmd.addresses.lastname}}</td>
+					<th scope='row'><a href="{{path('detcmd', {'id': cmd.id})}}" type='buton' class="btn btn-link">{{cmd.numberorder}}</a></th>
+					<td>{{cmd.addresses.firstname }} {{ cmd.addresses.lastname}}</td>
 					<td>{{cmd.datecreat|date('d/m/Y')}}</td>
-					<td>
-						<i class='fas fa-shipping-fast fa-2x'></i>
-					</td>
+					<td><i class='fas fa-shipping-fast fa-lg text-success'></i></td>
 					<td>{{cmd.amount}} €</td>
 				</tr>
 				{% endfor %}

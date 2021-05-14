@@ -31,16 +31,19 @@ class UpdateProdType extends AbstractType
             ])
             ->add('prod_stock', ChoiceType::class, [
                 'choices' => [
-                    'Dispo' => true,
-                    'Non Dispo' => false
+                    'Afficher' => true,
+                    'Cacher' => false
                 ],
                 'multiple' => false,
                 'expanded' => true,
                 'attr' => [
-                    'class' => 'input-group-text'
+                    'class' => 'input-group'
                 ]
             ])
             ->add('categories', EntityType::class, [
+                'attr' => [
+                    'class' => 'form-select'
+                ],
                 'class' => Categories::class,
                 'choice_label' => 'cate_name',
             ]);

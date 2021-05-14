@@ -53,26 +53,22 @@
 	{{ form_errors(form.password) }}
 	<div class="input-group mb-3">
 		{{form_widget(form.password)}}
-		<div class="input-group-append show">
+		<div class="input-group-append btnpwd" data-btn="newpwd">
 			<span class="btn btn-outline-secondary">
-				<i class="iconshow far fa-eye"></i>
+				<i class="iconpwd far fa-eye"></i>
 			</span>
 		</div>
 	</div>
 	{{ form_errors(form.confirm_password) }}
 	<div class="input-group mb-3">
 		{{form_widget(form.confirm_password)}}
-		<div class="input-group-append showconf">
+		<div class="input-group-append btnpwd" data-btn="confpwd">
 			<span class="btn btn-outline-secondary">
-				<i class="iconshowconf far fa-eye"></i>
+				<i class="iconpwd far fa-eye"></i>
 			</span>
 		</div>
 	</div>
 	<button type="submit" class="btn btn-success mx-auto d-block">Valider</button>
 </div>
 {{form_end(form)}}
-{% endblock %}
-
-{% block javascripts %}
-<script src="{{asset('js/password.js')}}"></script>
 {% endblock %}

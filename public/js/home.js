@@ -11,20 +11,43 @@ document.querySelector("#site-cache").addEventListener("click", evt => {
 });
 
 // --------- Show password ---------
-const pwdshow = document.querySelector('.mshow')
-if (pwdshow) {
-  pwdshow.addEventListener("click", evt => {
-    evt.preventDefault();
-    mshowpwd = document.querySelector(".mshow-pwd")
-    // console.log('je click', showpwd.type)
-    mshowpwd.type == 'password' ? mshowpwd.type = 'text' : mshowpwd.type = 'password';
-    miconshow = document.querySelector('.miconshow')
-    // console.log(iconshow.classList)
-    miconshow.classList.toggle("fa-eye")
-    miconshow.classList.toggle("fa-eye-slash")
-  });
+document.querySelectorAll(".btnpwd").forEach(function (selected) {
+  selected.addEventListener("click", showpwd)
+})
+function showpwd() {
+  inputpwd = document.querySelector("."+this.dataset.btn)
+  inputpwd.type == 'password' ? inputpwd.type = 'text' : inputpwd.type = 'password';
+  iconpwd = this.querySelector('.iconpwd')
+  iconpwd.classList.toggle("fa-eye")
+  iconpwd.classList.toggle("fa-eye-slash")
 }
 
+// ---------- time affichage message ------
 setTimeout(() => {
-  $(".alert").alert("close");
+  var alertList = document.querySelectorAll('.alert')
+  alertList.forEach(function (alert) {
+    new bootstrap.Alert(alert)
+  })
 }, 5000);
+
+// -----------  Slide commentaire ----------
+const slider = document.querySelectorAll("#slider");
+function slideritems() {
+  for (i = 0; i < slider.length; i++) {
+    if (slider[i].classList == "view") {
+      k = i;
+      slider[k].classList.toggle("view");
+      slider[k].classList.toggle("noview");
+      k++;
+      if (k > slider.length - 1) {
+        k = 0;
+      }
+      slider[k].classList.toggle("noview");
+      slider[k].classList.toggle("view");
+      break;
+    }
+  }
+}
+if (slider) {
+  setInterval(() => slideritems(), 8000);
+}

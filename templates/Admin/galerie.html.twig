@@ -28,7 +28,7 @@
 					</div>
 					<div class="card-footer">
 						{% if file.del %}
-							<a href="#" class="link" data-toggle="modal" data-target="#del{{file.numb}}">
+							<a href="#" class="link" data-bs-toggle="modal" data-bs-target="#del{{file.numb}}">
 								<img alt='Delete' title='Delete' src='{{asset('images/icons-trash.png')}}' class="action-icon"/>
 							</a>
 							<!-- Modal Validation de suppression !!!!!!!! -->
@@ -37,13 +37,13 @@
 									<div class="modal-content">
 										<div class="modal-body">
 											<h6 class='modal-title'>{{file.name}}</h6>
-											<h6 class='modal-body'>Etes-vous sûr de vouloir la supprimer ❓</h6>
+											<h6 class='modal-body'>Etes-vous sûr de vouloir la supprimer ?</h6>
 										</div>
 										<div class="modal-footer">
-											<button type="button" class="btn btn-success btn-sm" data-dismiss="modal">
-												❌ Annuler</button>
+											<button type="button" class="btn btn-success btn-sm" data-bs-dismiss="modal">
+												Annuler</button>
 											<a href="/admin/delimage/{{file.name}}" type="button" class="btn btn-danger btn-sm">
-												✔ Supprimer !!</a>
+												Supprimer !!</a>
 										</div>
 									</div>
 								</div>

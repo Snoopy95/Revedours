@@ -35,21 +35,20 @@ function panier(event) {
   axios
     .get(url)
     .then(function (response) {
-      // console.log(response.data);
       const prodpanier = response.data.panier;
       const total = response.data.total.TTC;
 
       // ----  AFFICHAGE DU BADGE ---------
-      badge = document.querySelector("#badge");
+      const badge = document.querySelector("#badge");
       badge.textContent = prodpanier.length;
+      const vider = document.querySelector("#vide");
+
       if (prodpanier.length >= 1) {
-        badge.className = "badge badge-pill badge-danger";
-        document.querySelector("#vide").className = "text-center cacher";
-      
+        badge.classList.remove("cacher")
+        vider.classList.add("cacher")
       } else {
-        badge.className = "cacher";
-        vider = document.querySelector("#vide");
-        vider.className = "text-center vu";
+        badge.classList.add("cacher");
+        vider.classList.remove("cacher");
         vider.textContent = "Votre panier est vide";
       }
 
@@ -64,7 +63,6 @@ function panier(event) {
       creatpanier(prodpanier);
     })
     .catch(function (error) {
-      // console.log(error);
       if (error.response.status === 405) {
         alert("Ce produit est déjà dans votre panier");
       } else {

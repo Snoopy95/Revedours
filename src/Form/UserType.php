@@ -27,13 +27,13 @@ class UserType extends AbstractType
             ])
             ->add('password', PasswordType::class, [
                 'attr' => [
-                    'class' => 'show-pwd',
+                    'class' => 'newpwd',
                     'placeholder' => 'Votre mot de passe'
                 ]
             ])
             ->add('confirm_password', PasswordType::class, [
                 'attr' => [
-                    'class' => 'showconf-pwd',
+                    'class' => 'confpwd',
                     'placeholder' => 'Confirmez votre mot de passe'
                 ]
             ]);
