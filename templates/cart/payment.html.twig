@@ -98,7 +98,45 @@
 			</div>
 		</div>
 		<div class='col-sm-6'>
-			<div class='p-3 border border-primary rounded-lg text-center'>
+			<div class="accordion" id="moyendepaiement">
+				<div class="accordion-item">
+					<h2 class="accordion-header" id="headingStripe">
+					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#stripe" aria-expanded="true" aria-controls="stripe">
+						<div class="w-100">
+							<img src="{{asset('/images/cb.png')}}" alt="CB" class="img-fluid w-25"/>
+							Paiement par CB
+						</div>
+					</button>
+					</h2>
+					<div id="stripe" class="accordion-collapse collapse" aria-labelledby="headingStripe" data-bs-parent="#moyendepaiement">
+					<div class="accordion-body">
+						<form id="payment-stripe">
+							<div id="card-element" class="mt-3"><!--Stripe.js injects the Card Element--></div>
+								<button id="submit" class="submitstripe btn btn-sm btn-success mt-4 mb-3" >
+								<div class="spinner hidden" id="spinner"></div>
+								<span id='button-text'>Payer</span> 
+							</button>
+							<p id="card-error" class="text-danger" role="alert"></p>
+						</form>
+					</div>
+					</div>
+				</div>
+				<div class="accordion-item">
+					<h2 class="accordion-header" id="headingPaypal">
+					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#paypal" aria-expanded="false" aria-controls="paypal">
+						<div class="w-100">
+							<img src="{{asset('/images/paypal.png')}}" alt="CB" class="img-fluid w-25"/>
+							Paiement via Paypal
+						</div>
+					</button>
+					</h2>
+					<div id="paypal" class="accordion-collapse collapse" aria-labelledby="headingPaypal" data-bs-parent="#moyendepaiement">
+					<div class="accordion-body">
+						Non disponible pour le moment.
+					</div>
+				</div>
+			</div>
+			{# <div class='p-3 border border-primary rounded-lg text-center'>
 				<img src="{{asset('/images/cb.png')}}" alt="CB" width="300px"/>
 				<h4 class='mt-2 text-center'>Paiement CB</h4>
 				<!-- Display a payment form -->
@@ -110,7 +148,7 @@
 					</button>
 					<p id="card-error" role="alert"></p>
 				</form>
-			</div>
+			</div> #}
 		</div>
 	</div>
 </div>

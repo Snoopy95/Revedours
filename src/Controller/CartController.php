@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Stripe\Stripe;
+use App\Entity\User;
 use App\Entity\Orders;
 use App\Entity\Products;
 use App\Entity\Addresses;
@@ -13,6 +14,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -150,46 +152,70 @@ class CartController extends AbstractController
     /**
      * @Route("/cart/payment/{id}", name="payment")
      */
-    public function payment($id)
+    public function payment($id, UserInterface $user)
     {
         $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
         $viewpanier = $this->cart->getViewCart();
         $total = $this->cart->getTotal();
         $adres = $this->getDoctrine()->getRepository(Addresses::class)->find($id);
 
-        Stripe::setApiKey(
-            'sk_test_51HrP9mFBU85ljtQmUMSnP1RsXsfbLB6RVSfSWx8bqbjIJQAzagwfeZQpTydRCVbaHeN6kLmYZyvz5E207xFCSVEP00ZXiqwBCu'
-        );
-        $paymentIntent = \Stripe\PaymentIntent::create([
-            'amount' => $total['EXP']*100,
-            'currency' => 'eur'
-        ]);
+        $preordre=[];
+        $preordre['adresse'] = $id;
+        $preordre['user'] = $user->getId();
+        $this->session->set('preordre', $preordre);
 
         return $this->render('cart/payment.html.twig', [
             'cates' => $cates,
             'selectcate' => 0,
             'panier' => $viewpanier,
             'total' => $total,
-            'adres' => $adres,
-            'secret' => $paymentIntent['client_secret']
+            'adres' => $adres
         ]);
     }
 
     /**
-     * @Route("/cart/success/{idadresse}/{idtrans}", name="success")
+     * @Route("/cart/intention", name="intention")
      */
-    public function success($idadresse, $idtrans, MailerInterface $mailer, UserInterface $user)
+    public function intention(): Response
+    {
+        $viewpanier = $this->cart->getViewCart();
+        $total = $this->cart->getTotal();
+        $preordre = $this->session->get('preordre');
+
+        Stripe::setApiKey('sk_test_51HrP9mFBU85ljtQmUMSnP1RsXsfbLB6RVSfSWx8bqbjIJQAzagwfeZQpTydRCVbaHeN6kLmYZyvz5E207xFCSVEP00ZXiqwBCu');
+        
+        $paymentIntent = \Stripe\PaymentIntent::create([
+            'amount' => $total['EXP']*100,
+            'currency' => 'eur',
+        ]);
+
+        $clientSecret = $paymentIntent->client_secret;
+
+        return new Response($clientSecret, 200);
+    }
+
+    /**
+     * @Route("/cart/success/{idtrans}", name="success")
+     */
+    public function success($idtrans, MailerInterface $mailer)
     {
         $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
         $viewpanier = $this->cart->getViewCart();
         $total = $this->cart->getTotal();
-        $adres = $this->getDoctrine()->getRepository(Addresses::class)->find($idadresse);
+        $preordre = $this->session->get('preordre');
+
+        if (empty($preordre)) {
+            return $this->redirectToRoute('index');
+        }
+
+        $adresse = $this->getDoctrine()->getRepository(Addresses::class)->find($preordre['adresse']);
+        $use = $this->getDoctrine()->getRepository(User::class)->find($preordre['user']);
 
         $order = new Orders();
-                $order->setAddresses($adres);
+                $order->setAddresses($adresse);
                 $order->setAmount($total['EXP']);
                 $order->setDatecreat(new \DateTime());
-                $order->setUsers($user);
+                $order->setUsers($use);
                 $order->setStatus('1');
                 $order->setPay($idtrans);
 
@@ -214,11 +240,11 @@ class CartController extends AbstractController
 
             $email = (new TemplatedEmail())
             ->from('Revedours@createurweb.fr')
-            ->to($user->getEmail())
+            ->to($use->getEmail())
             ->subject('Commande valider')
             ->htmlTemplate('emails/commande.html.twig')
             ->context([
-                'name' => $user->getUsername(),
+                'name' => $use->getUsername(),
                 'commande' => $order->getNumberOrder(),
                 'montant' => $order->getAmount($total['EXP']),
                 'date' => $order->getDatecreat()
@@ -227,6 +253,8 @@ class CartController extends AbstractController
             
         $panier=[];
         $this->session->set('panier', $panier);
+        $preordre=[];
+        $this->session->set('preordre', $preordre);
 
         return $this->render('cart/success.html.twig', [
             'cates' => $cates,
@@ -234,7 +262,7 @@ class CartController extends AbstractController
             'panier' => [],
             'total' => $total,
             'idtrans' => $idtrans,
-            'adresse' => $adres,
+            'adresse' => $adresse,
             'numfact' => $numorder,
         ]);
     }

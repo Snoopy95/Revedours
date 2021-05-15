@@ -14,21 +14,16 @@
 					<li class="breadcrumb-item active" aria-current="page">Ma commande</li>
 				</ol>
 			</nav>
-			{# <div class="card">
-				<img src="{{asset('images/vos-commentaires.png')}}" class="card-img img-fluid taille rounded" alt="theme"/>
-			</div> #}
 		</div>
 		<div class="site-cache" id="site-cache"></div>
 	</section><!-- DIV du slide bouton burger --></div><!-- DEBUT DU CONTAINT CATALOGUE --><div class="container">
 	<div class="row mb-2">
 		<div class="col-12 text-center pt-3">
-			<h3 class="tailfonth1">Commandes N° {{myorder.numberorder}}</h3>
+			<h3 class="tailfonth1">Commandes N°
+				{{myorder.numberorder}}</h3>
 		</div>
 	</div>
-</div>
-{% endblock %}
-
-{% block content %}
+</div>{% endblock %}{% block content %}
 
 <div class='row align-items-center'>
 	<div class='col-sm-6 text-center'>
@@ -39,23 +34,27 @@
 			<p class='mb-5 mt-3'>
 				Status de la commande
 			</p>
-				{% if myorder.status == 1 %}
+			{% if myorder.status == 1 %}
 				<i class="fas fa-handshake fa-3x align-middle"></i>
-				<span class='ml-2'> Commande valider</span>
-				{% elseif myorder.status == 2 %}
+				<span class='ml-2'>
+					Commande valider</span>
+			{% elseif myorder.status == 2 %}
 				<i class="fas fa-dolly fa-3x align-middle"></i>
-				<span class='ml-2'> Commande en preparation</span>
-				{% elseif myorder.status == 3 %}
+				<span class='ml-2'>
+					Commande en preparation</span>
+			{% elseif myorder.status == 3 %}
 				<i class="fas fa-shipping-fast fa-3x align-middle"></i>
-				<span class='ml-2'> Commande expediée</span>
-				{% else %}
+				<span class='ml-2'>
+					Commande expediée</span>
+			{% else %}
 				<i class="fas fa-dizzy fa-3x align-middle"></i>
-				<span class='ml-2'> Erreur sur votre commande</span>
-				{% endif %}
+				<span class='ml-2'>
+					Erreur sur votre commande</span>
+			{% endif %}
 		</div>
 	</div>
 	<div class='col-sm-6 text-left'>
-		<div class="card text-white bg-light text-dark mb-3" style="max-width: 25rem;">
+		<div class="card bg-light mb-3" style="max-width: 25rem;">
 			<h4 class="card-header text-center">Adresse</h4>
 			<div class="card-body">
 				<h5 class="card-title">{{myorder.addresses.firstname}}
@@ -88,7 +87,8 @@
 					<th class='align-middle' scope="row">{{product.id}}</th>
 					<td><img src='{{asset('/uploads/' ~ product.prodPicture) }}' width="50" height="50"></td>
 					<td class='align-middle'>{{product.prodName}}</td>
-					<td class='align-middle'>{{product.prodPrice}} €</td>
+					<td class='align-middle'>{{product.prodPrice}}
+						€</td>
 				</tr>
 			{% endfor %}
 		</tbody>
@@ -98,9 +98,8 @@
 <div class='row align-items-center'>
 	<div class='col-sm-2'></div>
 	<div class='col-sm-4'>
-		<p>
-			CB :
-			{{myorder.pay}}</p>
+		<p>Numéro de transaction :</p>
+		<p>{{myorder.pay}}</p>
 	</div>
 	<div class='col-sm-2 border border-dark rounded-lg text-right'>
 		<p>Sous-total :</p>
@@ -128,6 +127,4 @@
 	<div class="col-2 text-center">
 		<a href="{{path('myorders')}}" type="bottom" class="btn btn-primary btn-block">Retour</a>
 	</div>
-</div>
-
-{% endblock %}
+</div>{% endblock %}
