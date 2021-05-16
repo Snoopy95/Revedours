@@ -259,9 +259,9 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/galerie", name="galerie")
+     * @Route("/admin/galerieupload", name="galerieupload")
      */
-    public function galerie()
+    public function galerieupload()
     {
         $listprods = $this->getDoctrine();
         $prods = $listprods->getRepository(Products::class)->findAll();
@@ -296,7 +296,7 @@ class AdminController extends AbstractController
         }
         closedir($handle);
 
-        return $this->render('admin/galerie.html.twig', [
+        return $this->render('admin/galerieupload.html.twig', [
             'files' => $files,
         ]);
     }
@@ -313,7 +313,7 @@ class AdminController extends AbstractController
         closedir($handle);
         $this->addFlash('info', 'Image supprimer');
 
-        return $this->redirectToRoute('galerie');
+        return $this->redirectToRoute('galerieupload');
     }
 
     /**
@@ -460,15 +460,15 @@ class AdminController extends AbstractController
 
         $em->flush();
 
-        // $email = (new Email())
-        //     ->from('Revedours@gmail.com')
-        //     ->to($cmd->getUsers()->getEmail())
-        //     ->subject('Commande expediée')
-        //     ->html('<h3>Votre commande à ete remis au transporteur</h3>
-        //                 <p> Votre commande a bien ete valider et sera traite dans les plus bref delais.</p>
-        //                 <p> Vous recevrez un mail lors de l\'envoie de votre commande</p>
-        //                 <p>Cordialemant l\'equipe Reve D\'Ours</p> ');
-        // $mailer->send($email);
+        $email = (new Email())
+            ->from('Revedours@gmail.com')
+            ->to($cmd->getUsers()->getEmail())
+            ->subject('Commande expediée')
+            ->html('<h3>Votre commande à ete remis au transporteur</h3>
+                        <p> Votre commande a bien ete valider et sera traite dans les plus bref delais.</p>
+                        <p> Vous recevrez un mail lors de l\'envoie de votre commande</p>
+                        <p>Cordialemant l\'equipe Reve D\'Ours</p> ');
+        //$mailer->send($email);
 
         return $this->redirect($url);
     }
