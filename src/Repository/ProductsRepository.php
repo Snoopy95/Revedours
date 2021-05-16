@@ -13,6 +13,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Products[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  * @method Products[]    findByCate($id)
  * @method Products[]    findNews($nb day)
+ * @method Products[]    findsold()
  */
 class ProductsRepository extends ServiceEntityRepository
 {
@@ -46,6 +47,19 @@ class ProductsRepository extends ServiceEntityRepository
             ->orderBy('p.prod_datecreat', 'DESC')
             ->getQuery()
             ->getResult();
+    }
+
+    // /**
+    //  * @return Products[] Returns an array of Products by order
+    //  */
+    public function findsold()
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.prod_stock = 1', 'p.Orders IS NOT NULL')
+            ->orderBy('p.prod_datecreat', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
     }
 
     // /**

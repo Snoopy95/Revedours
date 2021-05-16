@@ -34,7 +34,7 @@
 							{{cate.cateName}}
 						</a>
 					{% endfor %}
-				<a {% if selectcate == 6 %} class="menu-item actif" {% else %} class="menu-item" {% endif %} href="#">Galerie</a>
+				<a {% if selectcate == 6 %} class="menu-item actif" {% else %} class="menu-item" {% endif %} href="{{path ('galerie')}}">Galerie</a>
 				</nav>
 				<div class="login">
 					{% if app.user %}
@@ -156,7 +156,7 @@
 								</div>
 								<div class="row justify-content-center">
 									<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
-									<button type="submit" class="btn btn-primary color-btnews">
+									<button type="submit" class="btn btn-primary color-btnews w-25">
 										Se connecter
 									</button>
 								</div>
@@ -219,7 +219,7 @@
 							<div class="modal-footer justify-content-around">
 								<div class="row">
 									<div class='col-auto'>
-										<a type="button" class="btn btn-primary color-btnews" href="{{path('logout')}}">
+										<a type="button" class="btn btn-primary color-btnews w-25" href="{{path('logout')}}">
 											Se Deconnecter !!
 										</a>
 									</div>

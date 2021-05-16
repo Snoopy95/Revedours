@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Config;
 use App\Entity\Comments;
 use App\Entity\Categories;
+use App\Entity\Products;
 use App\Service\Cart\Cart;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -81,6 +82,25 @@ class HomeController extends AbstractController
             'posts' => $posts,
             'panier' => $viewpanier,
             'total' => $total
+        ]);
+    }
+
+    /**
+     * @Route("/galerie", name="galerie")
+     */
+    public function galerie(Cart $cart)
+    {
+        $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
+        $viewpanier = $cart->getViewCart();
+        $total = $cart->getTotal();
+        $toiles= $this->getDoctrine()->getRepository(Products::class)->findsold();
+
+        return $this->render('home/galerie.html.twig', [
+            'cates' => $cates,
+            'selectcate'=> 6,
+            'panier' => $viewpanier,
+            'total' => $total,
+            'toiles' => $toiles
         ]);
     }
 }

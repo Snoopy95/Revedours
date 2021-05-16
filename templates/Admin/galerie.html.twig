@@ -28,9 +28,9 @@
 					</div>
 					<div class="card-footer">
 						{% if file.del %}
-							<a href="#" class="link" data-bs-toggle="modal" data-bs-target="#del{{file.numb}}">
-								<img alt='Delete' title='Delete' src='{{asset('images/icons-trash.png')}}' class="action-icon"/>
-							</a>
+							<button class="btn btn-link text-danger" data-bs-toggle="modal" data-bs-target="#del{{file.numb}}">
+								<i class="far fa-trash-alt"></i>
+							</button>
 							<!-- Modal Validation de suppression !!!!!!!! -->
 							<div class="modal fade" id="del{{file.numb}}" tabindex="-1" role="dialog" aria-labelledby="del" aria-hidden="true">
 								<div class="modal-dialog" role="document">
@@ -49,9 +49,9 @@
 								</div>
 							</div>
 						{% else %}
-							<h5 class='bg-success'>
+							<p class='bg-success'>
 								Image utiliser
-							</h5>
+							</p>
 						{% endif %}
 					</div>
 				</div>

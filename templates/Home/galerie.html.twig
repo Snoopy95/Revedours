@@ -1,0 +1,52 @@
+{% extends "indexhome.html.twig" %}
+
+{% block titlebar %}
+	<section class="site-pusher">
+		<div class="site-content">
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<a href="{{path('index')}}">Home</a>
+					</li>
+					<li class="breadcrumb-item active" aria-current="page">Galerie</li>
+				</ol>
+			</nav>
+			<div
+				class="card">{# <img src="{{asset('images/vos-commentaires.png')}}" class="card-img img-fluid taille rounded" alt="theme"/> #}
+			</div>
+		</div>
+		<div class="site-cache" id="site-cache"></div>
+	</section>
+
+	<!-- DIV du slide bouton burger -->
+</div>
+<!-- DEBUT DU CONTAINT CATALOGUE -->
+<div class="container">
+	<div class="row mb-2">
+		<div class="col-12 text-center pt-3">
+			<p class="tailfontp">Elles ont trouvé preneur</p>
+			<p class="tailfontp">
+				Mais on peut toujours les contempler ici</p>
+		</div>
+	</div>
+</div>{% endblock %}{% block content %}
+<div class='container'>
+	<div class='row'>
+		{% for toile in toiles %}
+			<div class="card mb-3" style="max-width: 540px;">
+				<div class="row g-0">
+					<div class="col-md-4">
+						<img src="..." alt="...">
+					</div>
+					<div class="col-md-8">
+						<div class="card-body">
+							<h5 class="card-title">Card title</h5>
+							<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+							<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+</div>{% endblock %}
