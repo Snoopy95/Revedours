@@ -556,3 +556,15 @@ a:hover{
   transform: translate(-50%,-50%);
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
+
+#big-img {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top : 100px;
+  width: 1000px;
+  height : 1000px;
+  z-index: 2;
+  border: 4mm ridge rgba(170, 50, 220, .6);
+  background-color: white;
+}
