@@ -39,7 +39,6 @@ class CartController extends AbstractController
      */
     public function cart(UserInterface $user, Request $request)
     {
-        $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
         $viewpanier = $this->cart->getViewCart();
         $total = $this->cart->getTotal();
         $adress = $this->getDoctrine()->getRepository(Addresses::class)->findBy(
@@ -51,7 +50,6 @@ class CartController extends AbstractController
             $url = strstr($lasturl, '/');
 
             return $this->render('cart/cartvide.html.twig', [
-                'cates' => $cates,
                 'selectcate' => 0,
                 'panier' => $viewpanier,
                 'total' => $total,
@@ -81,7 +79,6 @@ class CartController extends AbstractController
         }
 
         return $this->render('cart/cart.html.twig', [
-            'cates' => $cates,
             'selectcate' => 0,
             'panier' => $viewpanier,
             'total' => $total,
@@ -154,7 +151,6 @@ class CartController extends AbstractController
      */
     public function payment($id, UserInterface $user)
     {
-        $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
         $viewpanier = $this->cart->getViewCart();
         $total = $this->cart->getTotal();
         $adres = $this->getDoctrine()->getRepository(Addresses::class)->find($id);
@@ -165,7 +161,6 @@ class CartController extends AbstractController
         $this->session->set('preordre', $preordre);
 
         return $this->render('cart/payment.html.twig', [
-            'cates' => $cates,
             'selectcate' => 0,
             'panier' => $viewpanier,
             'total' => $total,
@@ -199,7 +194,6 @@ class CartController extends AbstractController
      */
     public function success($idtrans, MailerInterface $mailer)
     {
-        $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
         $viewpanier = $this->cart->getViewCart();
         $total = $this->cart->getTotal();
         $preordre = $this->session->get('preordre');
@@ -257,7 +251,6 @@ class CartController extends AbstractController
         $this->session->set('preordre', $preordre);
 
         return $this->render('cart/success.html.twig', [
-            'cates' => $cates,
             'selectcate' => 0,
             'panier' => [],
             'total' => $total,

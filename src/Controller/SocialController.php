@@ -19,7 +19,6 @@ class SocialController extends AbstractController
      */
     public function contactme(MailerInterface $mailer, Request $request, Cart $cart)
     {
-        $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
         $viewpanier = $cart->getViewCart();
         $total = $cart->getTotal();
 
@@ -48,7 +47,6 @@ class SocialController extends AbstractController
 
         return $this->render('social/Contactme.html.twig', [
                 'form' => $form->createView(),
-                'cates' => $cates,
                 'selectcate' => 0,
                 'panier' => $viewpanier,
                 'total' => $total

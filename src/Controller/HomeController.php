@@ -41,7 +41,6 @@ class HomeController extends AbstractController
         $online = $config->getValeur();
 
         if ($online) {
-            $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
             $posts = $this->getDoctrine()->getRepository(Comments::class)->findBy(
                 ['status' => 1],
                 ['datecreat' => 'DESC'],
@@ -52,7 +51,6 @@ class HomeController extends AbstractController
             $total = $cart->getTotal();
 
             return $this->render('home/home.html.twig', [
-                'cates'=> $cates,
                 'posts' => $posts,
                 'selectcate'=> 0,
                 'panier' => $viewpanier,
@@ -68,7 +66,6 @@ class HomeController extends AbstractController
      */
     public function posts(Cart $cart)
     {
-        $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
         $posts = $this->getDoctrine()->getRepository(Comments::class)->findBy(
             ['status' => 1],
             ['datecreat' => 'DESC']
@@ -77,7 +74,6 @@ class HomeController extends AbstractController
         $total = $cart->getTotal();
 
         return $this->render('home/allcomments.html.twig', [
-            'cates'=> $cates,
             'selectcate'=> 0,
             'posts' => $posts,
             'panier' => $viewpanier,
@@ -90,13 +86,11 @@ class HomeController extends AbstractController
      */
     public function galerie(Cart $cart)
     {
-        $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
         $viewpanier = $cart->getViewCart();
         $total = $cart->getTotal();
         $toiles= $this->getDoctrine()->getRepository(Products::class)->findsold();
 
         return $this->render('home/galerie.html.twig', [
-            'cates' => $cates,
             'selectcate'=> 6,
             'panier' => $viewpanier,
             'total' => $total,

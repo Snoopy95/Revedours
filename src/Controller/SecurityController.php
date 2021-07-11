@@ -37,9 +37,6 @@ class SecurityController extends AbstractController
      */
     public function newuser(Request $request, UserPasswordEncoderInterface $encoder)
     {
-        $listcate = $this->getDoctrine();
-        $cates = $listcate->getRepository(Categories::class)->findAll();
-
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
 
@@ -64,7 +61,6 @@ class SecurityController extends AbstractController
 
         return $this->render('security/newuser.html.twig', [
             'form' => $form->createView(),
-            'cates' => $cates,
             'selectcate' => 0,
             'panier' => $viewpanier,
             'total' => $total
@@ -93,8 +89,6 @@ class SecurityController extends AbstractController
      */
     public function mdpoublie(Request $request, TokenGeneratorInterface $tokenGenerator, MailerInterface $mailer)
     {
-        $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
-
         $useremail= new Forgetpwd();
         $form = $this->createForm(ForgetPwdType::class, $useremail);
 
@@ -133,7 +127,6 @@ class SecurityController extends AbstractController
         $total = $this->cart->getTotal();
 
         return $this->render('security/forgetpwd.html.twig', [
-            'cates'=> $cates,
             'selectcate' => 0,
             'panier' => $viewpanier,
             'total' => $total,
@@ -145,8 +138,6 @@ class SecurityController extends AbstractController
      */
     public function resetpwd($token, Request $request, UserPasswordEncoderInterface $encoder)
     {
-        $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
-
         $user= $this->getDoctrine()->getRepository(User::class)->findOneBy(
             ['resetpwd' => $token]
         );
@@ -174,7 +165,6 @@ class SecurityController extends AbstractController
         $total = $this->cart->getTotal();
         
         return $this->render('security/resetpwd.html.twig', [
-            'cates' => $cates,
             'selectcate' => 0,
             'panier' => $viewpanier,
             'total' => $total,

@@ -20,7 +20,6 @@ class MyaccountController extends AbstractController
      */
     public function myorders(Cart $cart, UserInterface $user)
     {
-        $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
         $myorders = $this->getDoctrine()->getRepository(Orders::class)->findBy(
             ['Users' => $user->getId()],
             ['datecreat' => 'DESC'],
@@ -29,7 +28,6 @@ class MyaccountController extends AbstractController
         $total = $cart->getTotal();
 
         return $this->render('myaccount/myorders.html.twig', [
-            'cates' => $cates,
             'selectcate' => 0,
             'myorders' =>$myorders,
             'panier' => $viewpanier,
@@ -42,13 +40,11 @@ class MyaccountController extends AbstractController
      */
     public function myorder($id, Cart $cart, UserInterface $user)
     {
-        $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
         $myorder = $this->getDoctrine()->getRepository(Orders::class)->find($id);
         $viewpanier = $cart->getViewCart();
         $total = $cart->getTotal();
 
         return $this->render('myaccount/myorder.html.twig', [
-            'cates' => $cates,
             'selectcate' => 0,
             'myorder' => $myorder,
             'panier' => $viewpanier,
