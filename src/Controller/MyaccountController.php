@@ -57,8 +57,6 @@ class MyaccountController extends AbstractController
      */
     public function addcomment(Request $request, EntityManagerInterface $entityManager, Cart $cart, UserInterface $user)
     {
-        $cates = $this->getDoctrine()->getRepository(Categories::class)->findAll();
-        
         $addcomment = new Comments();
         $form = $this->createForm(AddCommentType::class, $addcomment);
         $form->handleRequest($request);
@@ -78,7 +76,6 @@ class MyaccountController extends AbstractController
         $total = $cart->getTotal();
 
         return $this->render('myaccount/addcomment.html.twig', [
-            'cates' => $cates,
             'form' => $form->createView(),
             'selectcate'=> 0,
             'panier' => $viewpanier,
