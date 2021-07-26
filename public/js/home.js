@@ -26,7 +26,7 @@ function showpwd() {
 setTimeout(() => {
   var alertList = document.querySelectorAll('.alert')
   alertList.forEach(function (alert) {
-    new bootstrap.Alert(alert)
+    new bootstrap.Alert(alert).close()
   })
 }, 5000);
 

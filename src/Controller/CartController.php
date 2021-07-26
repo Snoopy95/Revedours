@@ -7,7 +7,6 @@ use App\Entity\User;
 use App\Entity\Orders;
 use App\Entity\Products;
 use App\Entity\Addresses;
-use App\Entity\Categories;
 use App\Service\Cart\Cart;
 use App\Form\AddressesType;
 use Doctrine\ORM\EntityManagerInterface;
