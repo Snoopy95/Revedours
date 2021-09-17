@@ -5,7 +5,6 @@ namespace App\Twig;
 use App\Entity\Categories;
 use App\Service\Cart\Cart;
 use Doctrine\ORM\EntityManagerInterface;
-use Psr\Cache\CacheItemInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CatesExtension extends AbstractController
@@ -19,7 +18,7 @@ class CatesExtension extends AbstractController
         $this->cart = $cart;
     }
 
-    public function getCates(CacheItemInterface $cache):array
+    public function getCates():array
     {
         return $this->em->getRepository(Categories::class)->findAll();
     }

@@ -1,21 +1,27 @@
 // ----- Burger Button  push body --------------
-document.querySelector("#header__icon").addEventListener("click", evt => {
-  evt.preventDefault();
-  document.querySelector("body").classList.toggle("with--sidebar");
-});
+const header_icon = document.querySelector("#header__icon")
+if (header_icon) {
+  header_icon.addEventListener("click", evt => {
+    evt.preventDefault();
+    document.querySelector("body").classList.toggle("with--sidebar");
+  });
+}
 
 //  -------  return body --------------------------
-document.querySelector("#site-cache").addEventListener("click", evt => {
-  evt.preventDefault();
-  document.querySelector("body").classList.remove("with--sidebar");
-});
+const site_cache = document.querySelector("#site-cache")
+if (site_cache) {
+  site_cache.addEventListener("click", evt => {
+    evt.preventDefault();
+    document.querySelector("body").classList.remove("with--sidebar");
+  });
+}
 
 // --------- Show password ---------
 document.querySelectorAll(".btnpwd").forEach(function (selected) {
   selected.addEventListener("click", showpwd)
 })
 function showpwd() {
-  inputpwd = document.querySelector("."+this.dataset.btn)
+  inputpwd = document.querySelector("." + this.dataset.btn)
   inputpwd.type == 'password' ? inputpwd.type = 'text' : inputpwd.type = 'password';
   iconpwd = this.querySelector('.iconpwd')
   iconpwd.classList.toggle("fa-eye")
