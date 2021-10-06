@@ -562,9 +562,17 @@ a:hover{
   left: 50%;
   transform: translateX(-50%);
   top : 100px;
-  width: 1000px;
-  height : 1000px;
+  width: 80%;
+  height : 80%;
+  padding: 15px;
   z-index: 2;
-  border: 4mm ridge rgba(170, 50, 220, .6);
+  border: thick double rgba(170, 50, 220, .6);
+  border-radius: 15px;
   background-color: white;
+}
+
+#galery {
+  background-color: #4fc3f7;
+  width: 100%;
+  height: 100%;
 }
