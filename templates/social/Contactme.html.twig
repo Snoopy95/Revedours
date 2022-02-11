@@ -34,28 +34,24 @@
 
 {% block content %}
 <div class='container'>
-{{ form_start(form) }}
-<div class="form-row mt-3 justify-content-center">
-	<div class="form-group col-md-6">
-		{{form_widget(form.name)}}
+	{{ form_start(form) }}
+	<div class="row mt-3 justify-content-center">
+		<div class="col-md-8">
+			{{form_widget(form.name)}}
+		</div>
+		<div class="col-md-8 mt-2">
+			{{form_widget(form.mail)}}
+		</div>
+		<div class="col-md-8 mt-2">
+			{{form_widget(form.objet)}}
+		</div>
+		<div class="col-md-8 mt-2">
+			{{form_widget(form.message)}}
+		</div>
+		<div class="col-8 mt-3">
+			<button type="submit" class="btn btn-success">Valider</button>
+		</div>
 	</div>
-</div>
-<div class="form-row justify-content-center">
-	<div class="form-group col-md-6">
-		{{form_widget(form.mail)}}
-	</div>
-</div>
-<div class="form-row justify-content-center">
-	<div class="form-group col-md-6">
-		{{form_widget(form.objet)}}
-	</div>
-</div>
-<div class="form-row justify-content-center">
-	<div class="form-group col-md-6">
-		{{form_widget(form.message)}}
-	</div>
-</div>
-<button type="submit" class="btn btn-success mx-auto d-block">Valider</button>
-{{ form_end(form)}}
+	{{ form_end(form)}}
 </div>
 {% endblock %}

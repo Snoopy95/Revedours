@@ -14,9 +14,8 @@
 		{# <!-- Feuille de style --> #}
 		<link rel="stylesheet" href="{{asset('css/stylehome.css')}}"/>
 		{# <!-- Icon kit fontawesome--> #}
-		<link rel="stylesheet" href="{{asset('css/all.css')}}"/>
-		<script src="{{asset('js/all.js')}}"></script>
-		<script src="https://js.stripe.com/v3/"></script>
+		<link rel="stylesheet" href="{{asset('css/all.min.css')}}"/>
+		<script src="{{asset('js/all.min.js')}}"></script>
 	</head>
 
 	<body>
@@ -32,10 +31,10 @@
 						</div>
 					</div>
 					<div class="input-group mb-3">
-						<input type="password" placeholder="Votre Password ..." class="form-control mshow-pwd" id="loginPassword" name="_password"/>
-						<div class="input-group-append mshow">
+						<input type="password" placeholder="Votre Password ..." class="form-control pwd" id="loginPassword" name="_password"/>
+						<div class="input-group-append btnpwd" data-btn="pwd">
 							<span class="btn btn-outline-secondary">
-								<i class="miconshow far fa-eye"></i>
+								<i class="iconpwd far fa-eye"></i>
 							</span>
 						</div>
 					</div>
@@ -54,8 +53,7 @@
 			</div>
 		</div>
 		<script src="{{asset('js/home.js')}}"></script>
-		<script src="{{asset('js/jquery.slim.min.js')}}"></script>
-		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 		<script src="{{asset('js/bootstrap.min.js')}}"></script>
 	</body>
 </html>

@@ -133,6 +133,7 @@ class SecurityController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+    
     /**
      * @Route("/resetpwd/{token}", name="resetpwd")
      */
