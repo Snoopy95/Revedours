@@ -12,8 +12,8 @@
 				</ol>
 			</nav>
 			{# <div class="card">
-							<img src="{{asset('images/.png')}}" class="card-img img-fluid taille rounded" alt="theme"/>
-						</div> #}
+										<img src="{{asset('images/.png')}}" class="card-img img-fluid taille rounded" alt="theme"/>
+									</div> #}
 		</div>
 		<div class="site-cache" id="site-cache"></div>
 	</section>
@@ -28,10 +28,7 @@
 			{# <p class="tailfontp">Adresse</p> #}
 		</div>
 	</div>
-</div>
-{% endblock %}
-
-{% block content %}
+</div>{% endblock %}{% block content %}
 <div class='container-sm'>
 	<div class="row justify-content-center">
 		<div class="col-sm-5">
@@ -77,76 +74,74 @@
 			<p class='text-center'>
 				{{ user.username }}
 				{% if adress == null %}
-				<p class="text-center">
-				Veuillez entre l'adresse pour le livraison
-			</P>
+					<p class="text-center">
+						Veuillez entre l'adresse pour le livraison
+					</P>
 				{% else %}
-			<P class="text-center">
-				Veuillez Choisir une adresse de livraison ou en saisir une nouvelle
-			</p>
-			<div class="row justify-content-center">
-				{% for adres in adress %}
-				<div class="card text-center mr-1 mb-1" style="width: 13rem;">
-					<div class="card-body">
-							<h5 class="card-title">{{adres.lastname}}
-								{{adres.firstname}}</h5>
-							<div class="card-text card-adress">
-								<p>{{adres.address}}</p>
-								<p>{{adres.address1}}</p>
-								<p>{{adres.cp}} {{adres.city}}</p>
-								{% if adres.phone %}
-								<p><i class="fas fa-phone-alt"></i> {{adres.phone}}</p>
-								{% endif %}
+					<P class="text-center">
+						Veuillez Choisir une adresse de livraison ou en saisir une nouvelle
+					</p>
+					<div class="row justify-content-center">
+						{% for adres in adress %}
+							<div class="card text-center mr-1 mb-1" style="width: 13rem;">
+								<div class="card-body">
+									<h5 class="card-title">{{adres.lastname}}
+										{{adres.firstname}}</h5>
+									<div class="card-text card-adress">
+										<p>{{adres.address}}</p>
+										<p>{{adres.address1}}</p>
+										<p>{{adres.cp}}
+											{{adres.city}}</p>
+										{% if adres.phone %}
+											<p>
+												<i class="fas fa-phone-alt"></i>
+												{{adres.phone}}</p>
+										{% endif %}
+									</div>
+									<a href="{{ path('payment', {'id': adres.id}) }}" class="btn btn-primary btn-sm">Choisir cette adresse</a>
+								</div>
 							</div>
-						<a href="{{ path('payment', {'id': adres.id}) }}" class="btn btn-primary btn-sm">Choisir cette adresse</a>
+						{% endfor %}
 					</div>
+				{% endif %}
+				<div class='border border-success rounded-lg p-2'>
+					{{form_start(form)}}
+					{# ligne nom prenom #}
+					<div class="row g-3 mt-1">
+						<div class="col-md-6">
+							{{form_widget(form.lastname)}}
+						</div>
+						<div class="col-md-6">
+							{{form_widget(form.firstname)}}
+						</div>
+						{# ligne adresse 1 et 2 #}
+						<div class="col-md-12">
+							{{form_widget(form.address)}}
+							{{form_widget(form.address1)}}
+						</div>
+						{# ligne CP et ville #}
+						<div class="col-md-4">
+							{{form_widget(form.cp)}}
+						</div>
+						<div class="col-md-8">
+							{{form_widget(form.city)}}
+						</div>
+						{# ligne telephone #}
+						<div class="col-md-5">
+							<div class="input-group">
+								<div class="input-group-text">
+									<i class="fas fa-phone-alt"></i>
+								</div>
+								{{form_widget(form.phone)}}
+							</div>
+						</div>
+					</div>
+					<div class="text-center">
+						<button type="submit" class="btn btn-success btn-block">Valider</button>
+					</div>
+					{{form_end(form)}}
 				</div>
-				{% endfor %}
-			</div>
-			{% endif %}
-		<div class='border border-success rounded-lg p-2'>
-		{{form_start(form)}}
-		{# ligne nom prenom #}
-		<div class="form-row mt-3">
-			<div class="form-group col-md-6">
-				{{form_widget(form.lastname)}}
-			</div>
-			<div class="form-group col-md-6">
-				{{form_widget(form.firstname)}}
-			</div>
-		</div>
-		{# ligne adresse 1 et 2 #}
-		<div class="form-row">
-			<div class="form-group col-md-12">
-				{{form_widget(form.address)}}
-				{{form_widget(form.address1)}}
-			</div>
-		</div>
-		{# ligne CP et ville #}
-		<div class="form-row">
-			<div class="form-group col-md-4">
-				{{form_widget(form.cp)}}
-			</div>
-			<div class="form-group col-md-8">
-				{{form_widget(form.city)}}
-			</div>
-		</div>
-		{# ligne telephone #}
-		<div class="form-row">
-			<div class="input-group col-md-6">
-				<div class="input-group-prepend">
-					<span class="input-group-text">
-						<i class="fas fa-phone-alt"></i>
-					</span>
-				</div>
-				<div>
-					{{form_widget(form.phone)}}
-				</div>
-			</div>
-		</div>
-		<button type="submit" class="btn btn-success mt-3 btn-block">Valider</button>
-		{{form_end(form)}}
+			</p>
 		</div>
 	</div>
-</div>
 {% endblock %}
