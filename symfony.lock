@@ -1,4 +1,7 @@
 {
+    "composer/package-versions-deprecated": {
+        "version": "1.11.99.4"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -31,11 +34,13 @@
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "master",
-            "version": "2.4",
-            "ref": "06a5dfe6c1b12da89276b72ed281be757d24c8a0"
+            "version": "2.3",
+            "ref": "52eabf77a390fe5a12a589d74d8f2a31f60ad013"
         },
         "files": [
             "config/packages/doctrine.yaml",
+            "config/packages/prod/doctrine.yaml",
+            "config/packages/test/doctrine.yaml",
             "src/Entity/.gitignore",
             "src/Repository/.gitignore"
         ]
@@ -109,12 +114,6 @@
     },
     "nikic/php-parser": {
         "version": "v4.3.0"
-    },
-    "ocramius/package-versions": {
-        "version": "1.5.1"
-    },
-    "php": {
-        "version": "7.3.18"
     },
     "psr/cache": {
         "version": "1.0.1"
@@ -409,9 +408,6 @@
             "./templates/base.html.twig"
         ]
     },
-    "symfony/twig-pack": {
-        "version": "v1.0.0"
-    },
     "symfony/validator": {
         "version": "4.3",
         "recipe": {
@@ -453,8 +449,5 @@
     },
     "twig/twig": {
         "version": "v3.0.3"
-    },
-    "zendframework/zend-code": {
-        "version": "3.4.1"
     }
 }
